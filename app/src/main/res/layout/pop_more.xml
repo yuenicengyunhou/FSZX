@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/pop_invite"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/searchBarSize"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:text="@string/invite"
+        android:textColor="@color/colorTextB"
+        android:textSize="@dimen/textSize" />
+
+    <View style="@style/fullViewStyle" />
+    <TextView
+        android:id="@+id/pop_handsup"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/searchBarSize"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:text="@string/handsup"
+        android:textColor="@color/colorTextB"
+        android:textSize="@dimen/textSize" />
+
+    <View style="@style/fullViewStyle" />
+
+    <TextView
+        android:id="@+id/pop_chat"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/searchBarSize"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:text="@string/chat"
+        android:textColor="@color/colorTextB"
+        android:textSize="@dimen/textSize" />
+
+    <View style="@style/fullViewStyle" />
+    <TextView
+        android:id="@+id/pop_pushOff"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/searchBarSize"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:text="@string/push"
+        android:textColor="@color/colorTextB"
+        android:textSize="@dimen/textSize" />
+
+    <View style="@style/fullViewStyle" />
+
+    <TextView
+        android:id="@+id/pop_king"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/searchBarSize"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:text="@string/getModerator"
+        android:textColor="@color/colorTextB"
+        android:textSize="@dimen/textSize" />
+
+    <View style="@style/fullViewStyle" />
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/pop_cutoff"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/searchBarSize"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:text="@string/cutoffAudio"
+        android:textColor="@color/colorTextLeave"
+        android:textSize="@dimen/textSize" />
+
+    <View
+        style="@style/fullViewStyle"
+        android:layout_height="@dimen/marginM" />
+
+    <TextView
+        android:id="@+id/pop_dismiss"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/searchBarSize"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:text="@string/dismiss"
+        android:textColor="@color/colorTextB"
+        android:textSize="@dimen/textSize" />
+
+
+    <View style="@style/fullViewStyle" />
+
+</LinearLayout>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_dismiss"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/marginPrimary"
+        android:layout_marginTop="@dimen/marginPrimary"
+        android:layout_marginRight="@dimen/marginPrimary"
+        android:layout_marginBottom="@dimen/marginPrimary"
+        android:drawableEnd="@drawable/close"
+        android:drawableRight="@drawable/close"
+        android:gravity="center"
+        android:text="@string/tips"
+        android:textColor="@color/colorTextB"
+        android:textSize="@dimen/textSize" />
+
+    <View style="@style/fullViewStyle" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <TextView
+            android:id="@+id/tv_tips"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="@dimen/padding"
+            android:padding="@dimen/marginPrimary"
+            android:textColor="@color/colorTextB"
+            android:textSize="@dimen/textSize" />
+    </ScrollView>
+
+
+</LinearLayout>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/memberLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".ui.activity.MemberActivity">
+
+    <TextView
+        android:id="@+id/member_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/searchBarSize"
+        android:layout_marginLeft="@dimen/marginPrimary"
+        android:layout_marginRight="@dimen/marginPrimary"
+        android:drawableRight="@drawable/close"
+        android:gravity="center"
+        android:text="@string/member"
+        android:textColor="@color/colorTextB"
+        android:textSize="@dimen/textSize18" />
+
+    <View
+        style="@style/fullViewStyle"
+        android:layout_height="1dp" />
+
+    <EditText
+        android:id="@+id/edit_member"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/marginPrimary"
+        android:layout_marginTop="@dimen/marginPrimary"
+        android:layout_marginRight="@dimen/marginPrimary"
+        android:layout_marginBottom="@dimen/marginPrimary"
+        android:background="@drawable/rec_grey"
+        android:drawableStart="@mipmap/icon_search"
+        android:drawableLeft="@mipmap/icon_search"
+        android:drawablePadding="@dimen/marginM"
+        android:lines="1"
+        android:padding="@dimen/padding"
+        android:textColor="@color/colorTextB"
+        android:textSize="@dimen/textSize" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_member"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/white" />
+
+    <Button
+        android:id="@+id/member_mute"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_xLarge"
+        android:layout_marginRight="@dimen/margin_xLarge"
+        android:layout_marginBottom="@dimen/marginPrimary"
+        android:background="@drawable/selector_button"
+        android:text="@string/muteAll"
+        android:textColor="@color/white" />
+
+</LinearLayout>

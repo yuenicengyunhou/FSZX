@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:focusable="true"
+    android:clickable="true"
+    android:id="@+id/relative_item"
+    android:background="?attr/selectableItemBackground"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_xingming"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/marginPrimary"
+        android:layout_marginLeft="@dimen/marginPrimary"
+        android:layout_marginTop="@dimen/marginPrimary"
+        android:gravity="center_vertical"
+        android:textColor="@color/colorTextB"
+        android:textSize="@dimen/textSize" />
+
+    <TextView
+        android:id="@+id/tv_name2"
+        android:layout_width="wrap_content"
+        android:gravity="end"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginPrimary"
+        android:layout_marginEnd="@dimen/marginPrimary"
+        android:layout_marginRight="@dimen/marginPrimary"
+        android:layout_toLeftOf="@id/iv_arrow2"
+        android:textColor="@color/grey666"
+        android:textSize="@dimen/textSize"
+        android:layout_toStartOf="@id/iv_arrow2" />
+
+    <ImageView
+        android:id="@+id/iv_arrow2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginRight="@dimen/marginPrimary"
+        android:src="@mipmap/arrow_right" />
+
+    <View
+        android:id="@+id/view2"
+        style="@style/fullViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/tv_xingming"
+        android:layout_marginTop="@dimen/marginPrimary" />
+</RelativeLayout>

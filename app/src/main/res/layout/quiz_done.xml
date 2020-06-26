@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginTop="@dimen/marginM"
+    android:background="@drawable/bg_white_corner"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_summary"
+        android:layout_width="wrap_content"
+        android:layout_height="140dp"
+        android:layout_centerHorizontal="true"
+        android:scaleType="fitXY"
+        android:src="@mipmap/bg_summry"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/tv_is"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:text="@string/correctNumIs"
+        android:textColor="@color/colorTextSummery"
+        android:textSize="@dimen/textSize" />
+
+    <TextView
+        android:id="@+id/tv_correctNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_is"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/marginM"
+        android:textColor="@color/colorTextSummery"
+        android:textSize="@dimen/textSizeL"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_summary"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/marginxxL">
+
+        <TextView
+            android:id="@+id/tv_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding"
+            android:textColor="@color/colorTextB"
+            android:textSize="@dimen/textSize18" />
+
+        <TextView
+            android:id="@+id/tv_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin40"
+            android:layout_toRightOf="@id/tv_rate"
+            android:padding="@dimen/padding"
+            android:textColor="@color/colorTextB"
+            android:textSize="@dimen/textSize18"
+            android:layout_marginStart="@dimen/margin40"
+            android:layout_toEndOf="@id/tv_rate" />
+
+        <TextView
+            android:id="@+id/tv_wrongCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_rate"
+            android:layout_marginTop="@dimen/marginPrimary"
+            android:padding="@dimen/padding"
+            android:textColor="@color/colorTextB"
+            android:textSize="@dimen/textSize18" />
+
+        <TextView
+            android:id="@+id/tv_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_rate"
+            android:layout_marginLeft="@dimen/margin40"
+            android:layout_marginTop="@dimen/marginPrimary"
+            android:layout_toRightOf="@id/tv_rate"
+            android:padding="@dimen/padding"
+            android:textColor="@color/colorTextB"
+            android:textSize="@dimen/textSize18"
+            android:layout_marginStart="@dimen/margin40"
+            android:layout_toEndOf="@id/tv_rate" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/relativeLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/searchBarSize"
+        android:layout_marginBottom="@dimen/marginM">
+
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin20"
+            android:background="@mipmap/btn_back"
+            android:text="@string/back"
+            android:textColor="@color/colorTextB"
+            android:textSize="@dimen/textSize"
+            android:layout_marginEnd="@dimen/margin20"
+            tools:ignore="ButtonStyle" />
+
+        <Button
+            android:id="@+id/btn_oneMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/btn_onemore"
+            android:text="@string/practiceAgain"
+            android:textColor="@color/white"
+            tools:ignore="ButtonStyle"
+            android:textSize="@dimen/textSize" />
+    </LinearLayout>
+
+</RelativeLayout>

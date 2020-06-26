@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@drawable/bg_card"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/textSizeL"
+        android:text="@string/newVersion"
+        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/marginPrimary"
+        android:layout_marginLeft="@dimen/marginM"
+        android:layout_marginStart="@dimen/marginM" />
+    <ProgressBar
+        android:id="@+id/update_progress"
+        android:layout_width="match_parent"
+        android:visibility="invisible"
+        android:layout_height="wrap_content"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_marginLeft="@dimen/marginPrimary"
+        android:layout_marginTop="@dimen/marginM"
+        android:layout_marginRight="@dimen/marginPrimary"
+        />
+    <TextView
+        android:id="@+id/update_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginBottom="@dimen/marginPrimary"
+        android:layout_marginRight="@dimen/marginPrimary"
+        android:textSize="@dimen/textSize"
+        android:textColor="@color/colorPrimary"
+        android:text="@string/update"
+        android:layout_marginTop="@dimen/marginM"
+        android:layout_marginEnd="@dimen/marginPrimary" />
+
+</LinearLayout>

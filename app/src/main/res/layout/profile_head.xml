@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:focusable="true"
+    android:clickable="true"
+    android:id="@+id/relative_head"
+    android:background="?attr/selectableItemBackground"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_touxiang"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/marginPrimary"
+        android:layout_marginLeft="@dimen/marginPrimary"
+        android:layout_marginTop="@dimen/margin_xLarge"
+        android:text="头像"
+        android:textColor="@color/colorTextB"
+        android:textSize="@dimen/textSize" />
+
+    <TextView
+        android:id="@+id/tv_head"
+        android:layout_width="@dimen/searchBarSize"
+        android:layout_height="@dimen/searchBarSize"
+        android:layout_marginTop="@dimen/marginPrimary"
+        android:maxLines="2"
+        android:layout_marginEnd="@dimen/marginM"
+        android:layout_marginRight="@dimen/marginM"
+        android:layout_toStartOf="@id/iv_arrow"
+        android:layout_toLeftOf="@id/iv_arrow"
+        android:background="@mipmap/headbg"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textSizeS" />
+
+    <ImageView
+        android:id="@+id/iv_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/marginxxL"
+        android:layout_marginEnd="@dimen/marginPrimary"
+        android:layout_marginRight="@dimen/marginPrimary"
+        android:src="@mipmap/arrow_right" />
+
+    <View
+        android:id="@+id/view1"
+        style="@style/fullViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/tv_head"
+        android:layout_marginTop="@dimen/paddingL" />
+</RelativeLayout>

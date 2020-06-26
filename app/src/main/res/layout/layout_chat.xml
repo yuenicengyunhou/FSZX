@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/chatLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".ui.activity.MemberActivity">
+
+    <TextView
+        android:id="@+id/chat_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/searchBarSize"
+        android:layout_marginLeft="@dimen/marginPrimary"
+        android:layout_marginRight="@dimen/marginPrimary"
+        android:drawableRight="@drawable/close"
+        android:gravity="center"
+        android:text="@string/chat"
+        android:textColor="@color/colorTextB"
+        android:textSize="@dimen/textSize18"
+        android:drawableEnd="@drawable/close" />
+
+    <View
+        style="@style/fullViewStyle"
+        android:layout_height="1dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_chat"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/marginM"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#fafafa" />
+
+    <include
+        layout="@layout/message_bar" />
+
+</LinearLayout>

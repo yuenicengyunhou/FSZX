@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/searchBarSize"
+    android:background="#f9f9f9"
+    android:orientation="horizontal">
+
+    <!--<TextView
+        android:id="@+id/spinner_num"
+        style="@style/spinnerStyle"
+        android:layout_width="wrap_content"
+        android:layout_marginStart="@dimen/marginM"
+        android:layout_marginLeft="@dimen/marginM"
+        android:layout_height="@dimen/searchWidgetSize"
+        android:visibility="gone"
+        android:text="界次" />-->
+    <Spinner
+        android:id="@+id/spinner_number"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/searchWidgetSize"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/marginM"
+        android:layout_marginLeft="@dimen/marginM"
+        android:background="@drawable/rec_grey"
+        android:paddingEnd="@dimen/padding"
+        android:paddingRight="@dimen/padding"
+        android:spinnerMode="dropdown" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/searchWidgetSize"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="-8dp"
+        android:layout_marginLeft="-8dp"
+        android:background="@drawable/rec_grey"
+        android:src="@mipmap/arrow_down" />
+
+    <Spinner
+        android:id="@+id/spinner_type"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/searchWidgetSize"
+        android:layout_gravity="center_vertical"
+        android:paddingStart="@dimen/padding"
+        android:paddingLeft="@dimen/padding"
+        android:background="@drawable/rec_grey"
+        android:paddingEnd="@dimen/padding"
+        android:paddingRight="@dimen/padding"
+        android:spinnerMode="dropdown" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/searchWidgetSize"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="-8dp"
+        android:layout_marginLeft="-8dp"
+        android:background="@drawable/rec_grey"
+        android:src="@mipmap/arrow_down" />
+
+    <EditText
+        android:id="@+id/edit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/searchWidgetSize"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="@dimen/marginM"
+        android:drawableLeft="@mipmap/icon_search"
+        android:drawablePadding="@dimen/padding"
+        android:layout_marginRight="@dimen/marginM"
+        android:background="@drawable/rec_grey"
+        android:hint="@string/hint"
+        android:lines="1"
+        android:paddingLeft="@dimen/marginM"
+        android:paddingRight="@dimen/marginM"
+        android:textSize="@dimen/textSizeS"
+        android:drawableStart="@mipmap/icon_search" />
+
+</LinearLayout>

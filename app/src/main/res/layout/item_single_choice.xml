@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/singleTv"
+    android:button="@null"
+    android:layout_width="match_parent"
+    android:layout_height="?android:attr/listPreferredItemHeightSmall"
+    android:gravity="center_vertical"
+    android:background="@drawable/selector_single_choice"
+    android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+    android:paddingLeft="?android:attr/listPreferredItemPaddingLeft"
+    android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
+    android:paddingRight="?android:attr/listPreferredItemPaddingRight"
+    android:singleLine="true"
+    android:ellipsize="end"
+    android:textAppearance="?android:attr/textAppearanceListItemSmall" />

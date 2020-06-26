@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/item_partici"
+    android:layout_height="@dimen/addressSize">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/marginM"
+        android:src="@mipmap/head2" />
+
+    <TextView
+        android:id="@+id/tv_name_member"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/marginM"
+        android:textColor="@color/colorTextB"
+        android:textSize="@dimen/textSize" />
+
+    <TextView
+        android:id="@+id/tv_role_member"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/paddingS"
+        android:layout_marginRight="@dimen/marginM"
+        android:layout_weight="1"
+        android:gravity="left"
+        android:textColor="@color/colorTextInvalid"
+        android:textSize="@dimen/textSize" />
+
+    <TextView
+        android:id="@+id/member_boss"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="@dimen/marginPrimary"
+        android:layout_marginRight="@dimen/marginPrimary"
+        android:background="@drawable/selector_boss"
+        android:button="@null" />
+
+    <TextView
+        android:id="@+id/member_mic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/selector_member_mic"
+        android:button="@null" />
+
+    <TextView
+        android:id="@+id/member_cam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/margin_xLarge"
+        android:layout_marginRight="@dimen/marginPrimary"
+        android:background="@drawable/selector_cam_member"
+        android:button="@null" />
+
+
+</LinearLayout>

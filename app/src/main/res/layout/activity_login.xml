@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.activity.LoginActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:background="@mipmap/login_bg1">
+
+        <ImageView
+            android:id="@+id/login_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@id/iv_fullName"
+            android:src="@mipmap/login_icon" />
+
+        <ImageView
+            android:id="@+id/iv_fullName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/login_appname"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/marginPrimary"
+            android:layout_marginBottom="@dimen/margin40" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:background="@mipmap/login_bg2">
+
+        <ImageView
+            android:id="@+id/login_iv_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/login_edit_user"
+            android:layout_alignLeft="@id/login_edit_user"
+          android:layout_marginTop="@dimen/marginPrimary"
+            android:src="@mipmap/login_arrow" />
+
+        <EditText
+            android:id="@+id/login_edit_user"
+            style="@style/style_login_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/login_iv_arrow"
+            android:layout_marginTop="@dimen/marginPrimary"
+            android:drawableStart="@mipmap/login_head"
+            android:drawableLeft="@mipmap/login_head"
+            android:hint="@string/account" />
+
+        <EditText
+            android:id="@+id/login_edit_psw"
+            style="@style/style_login_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/login_edit_user"
+            android:inputType="textPassword"
+            android:layout_marginTop="@dimen/marginPrimary"
+            android:drawableStart="@mipmap/login_pw"
+            android:drawableLeft="@mipmap/login_pw"
+            android:hint="@string/passWord" />
+
+        <Button
+            android:id="@+id/login_btn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin40"
+            android:layout_below="@id/login_edit_psw"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="@dimen/margin40"
+            android:layout_marginTop="@dimen/marginPrimary"
+            android:layout_marginEnd="@dimen/margin40"
+            android:background="@drawable/button_login"
+            android:text="@string/login"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/textSizeS" />
+
+        <CheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/login_btn"
+            android:layout_alignStart="@id/login_btn"
+            android:layout_alignLeft="@id/login_btn"
+            android:button="@drawable/checkbox_login"
+            android:paddingStart="@dimen/padding"
+            android:paddingRight="@dimen/padding"
+            android:paddingTop="@dimen/marginM"
+            android:paddingBottom="@dimen/marginM"
+            android:paddingEnd="@dimen/padding"
+            android:layout_marginTop="@dimen/padding"
+            android:text="@string/autoLogin"
+            android:textColor="@color/colorAutoLogin"
+            android:paddingLeft="@dimen/padding" />
+    </RelativeLayout>
+
+
+</LinearLayout>

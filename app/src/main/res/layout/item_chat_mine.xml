@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/marginM"
+    android:paddingRight="@dimen/marginM">
+
+    <TextView
+        android:layout_gravity="end"
+        android:id="@+id/mine_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorTextBpale"
+        android:textSize="10sp"
+        tools:ignore="SmallSp" />
+
+    <TextView
+        android:id="@+id/mine_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="@dimen/padding"
+        android:layout_marginLeft="@dimen/margin40"
+        android:layout_marginBottom="@dimen/marginPrimary"
+        android:background="@drawable/bg_chat_mine"
+        android:padding="@dimen/padding"
+        android:textColor="@color/colorTextB"
+        android:textSize="@dimen/textSizeM"
+        android:layout_marginStart="@dimen/margin40" />
+
+</LinearLayout>

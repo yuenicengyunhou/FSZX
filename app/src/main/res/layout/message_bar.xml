@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/msgLayout"
+    android:layout_marginBottom="@dimen/marginPrimary"
+    android:layout_height="wrap_content">
+
+    <EditText
+        android:id="@+id/chat_edit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/marginM"
+        android:layout_marginRight="@dimen/marginM"
+        android:layout_weight="1"
+        android:background="@drawable/rec_grey"
+        android:padding="@dimen/padding"
+        android:textColor="@color/colorTextB"
+        android:textSize="@dimen/textSizeM" />
+
+    <TextView
+        android:id="@+id/chat_send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_button"
+        android:padding="@dimen/padding"
+        android:layout_marginRight="@dimen/marginM"
+        android:text="发送"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textSizeM" />
+
+</LinearLayout>

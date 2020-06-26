@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ededed"
+    android:orientation="vertical"
+    tools:context=".ui.activity.ModifyActivity">
+
+    <include layout="@layout/toolbar_button" />
+
+    <EditText
+        android:paddingLeft="@dimen/marginM"
+        android:paddingRight="@dimen/marginM"
+        android:id="@+id/edit_modify"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/searchBarSize"
+        android:lines="1"
+        android:background="@drawable/edit_profile"
+        android:textSize="@dimen/textSize" />
+
+</LinearLayout>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBgGrey"
+    tools:context=".ui.activity.QuickmeetingActivity">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <TextView
+        android:id="@+id/tv_enableCam"
+        style="@style/textMeetingSetting"
+        android:layout_below="@id/toolbar"
+        android:layout_toStartOf="@id/switch_cam"
+        android:layout_toLeftOf="@id/switch_cam"
+        android:text="@string/enableCam" />
+
+    <Switch
+        android:id="@+id/switch_cam"
+        style="@style/switchMeetingSetting"
+        android:layout_below="@id/toolbar"
+        android:checked="true" />
+
+    <View
+        android:id="@+id/view3"
+        style="@style/fullViewStyle"
+        android:layout_below="@id/tv_enableCam" />
+
+    <TextView
+        android:id="@+id/tv_enableMic"
+        style="@style/textMeetingSetting"
+        android:layout_below="@id/view3"
+        android:layout_toLeftOf="@id/switch_mic"
+        android:text="@string/usePersonalNum"
+        android:layout_toStartOf="@id/switch_mic" />
+
+    <Switch
+        android:id="@+id/switch_mic"
+        style="@style/switchMeetingSetting"
+        android:layout_below="@id/view3" />
+
+    <View
+        android:id="@+id/view4"
+        style="@style/fullViewStyle"
+        android:layout_below="@id/tv_enableMic" />
+
+    <TextView
+        android:id="@+id/btn_joinMt"
+        style="@style/textStartMeeting"
+        android:layout_below="@id/view4"
+        android:text="@string/enterMeeting" />
+</RelativeLayout>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ui.activity.AddressBookActivity">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <include
+        android:id="@+id/search_bar"
+        layout="@layout/search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/searchBarSize"
+        android:layout_below="@id/toolbar" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:layout_below="@id/search_bar"
+        android:background="@color/colorGrey" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/nameSwipe"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/divider">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <ExpandableListView
+        android:id="@+id/groupList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/divider"
+        android:divider="@color/colorGrey"
+        android:dividerHeight="0.1dp"
+        android:groupIndicator="@null"
+        android:visibility="gone" />
+
+
+    <TextView
+        android:id="@+id/tv_capital"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/letter_toast_bg"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:visibility="gone" />
+
+    <com.itsv.FSZHZX.utils.SideBar
+        android:id="@+id/sideBar"
+        android:layout_width="@dimen/sideBarWidth"
+        android:layout_height="match_parent"
+        android:layout_below="@id/divider"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/paddingL"
+        android:layout_marginBottom="@dimen/margin_xLarge"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_nodata"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:drawableTop="@mipmap/ic_noperson"
+        android:gravity="center"
+        android:text="@string/nodata"
+        android:textColor="@color/colorTextInvalid"
+        android:textSize="@dimen/textSizeS"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/dialog"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/letter_toast_bg"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:visibility="gone" />
+
+</RelativeLayout>

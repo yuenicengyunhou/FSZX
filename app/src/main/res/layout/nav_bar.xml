@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="@color/colorRoomToolbar">
+
+    <!--    <ImageView
+            android:id="@+id/iv_headphone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/marginPrimary"
+            android:src="@drawable/selector_reverse" />-->
+
+    <ImageView
+        android:id="@+id/iv_reverse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/cb_broad"
+        android:layout_marginLeft="@dimen/marginPrimary"
+        android:src="@drawable/selector_reverse"
+        android:layout_toEndOf="@id/cb_broad"
+        android:layout_marginStart="@dimen/marginPrimary"
+        tools:ignore="ContentDescription" />
+
+    <CheckBox
+        android:id="@+id/cb_broad"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="@dimen/marginPrimary"
+        android:layout_centerVertical="true"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_broad"
+        android:button="@null"
+        android:layout_marginStart="@dimen/marginPrimary" />
+
+
+    <TextView
+        android:id="@+id/tv_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/textSizeS" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_time"
+        android:textSize="@dimen/textSizeS"
+        android:layout_centerHorizontal="true"
+        android:textColor="#86898b"
+        android:layout_below="@id/tv_id"
+        />
+
+    <TextView
+        android:id="@+id/tv_leave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:padding="@dimen/padding"
+        android:text="@string/leaveRoom"
+        android:textColor="@color/colorTextLeave"
+        android:textSize="@dimen/textSize" />
+</RelativeLayout>

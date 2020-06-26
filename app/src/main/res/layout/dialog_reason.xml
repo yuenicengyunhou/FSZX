@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/dialog_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginM"
+        android:gravity="center_horizontal"
+        android:drawableRight="@drawable/close"
+        android:layout_marginRight="@dimen/marginPrimary"
+        android:padding="@dimen/padding"
+        android:layout_marginLeft="@dimen/marginPrimary"
+        android:textColor="@color/colorTextDark"
+        android:textSize="@dimen/textSize18"
+        android:drawableEnd="@drawable/close" />
+
+<!--    <View-->
+<!--        style="@style/fullViewStyle"-->
+<!--        android:layout_height="1dp"-->
+<!--        android:layout_marginLeft="@dimen/marginM"-->
+<!--        android:layout_marginTop="@dimen/marginM"-->
+<!--        android:layout_marginRight="@dimen/marginM" />-->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_marginTop="@dimen/marginM"
+        android:layout_height="0dp">
+        <EditText
+            android:id="@+id/dialog_edit"
+            android:layout_width="match_parent"
+            android:gravity="start"
+            android:lineSpacingExtra="@dimen/padding"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/marginPrimary"
+            android:layout_marginRight="@dimen/marginPrimary"
+            android:background="@drawable/rec_grey_pale"
+            android:minHeight="150dp"
+            android:padding="@dimen/padding"
+            android:textColor="@color/colorTextB"
+            android:textSize="@dimen/textSize" />
+
+    </ScrollView>
+    <TextView
+        android:id="@+id/dialog_confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/marginPrimary"
+        android:layout_marginBottom="@dimen/marginM"
+        android:background="@drawable/button_confirm"
+        android:paddingLeft="@dimen/marginPrimary"
+        android:paddingTop="@dimen/paddingL"
+        android:paddingRight="@dimen/marginPrimary"
+        android:paddingBottom="@dimen/paddingL"
+        android:text="确定"
+        android:textColor="@color/white" />
+
+
+</LinearLayout>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_gravity="center_horizontal"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_card"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/dialog_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/marginPrimary"
+        android:layout_marginTop="@dimen/marginM"
+        android:layout_marginRight="@dimen/marginPrimary"
+        android:drawableRight="@drawable/close"
+        android:gravity="center_horizontal"
+        android:padding="@dimen/padding"
+        android:text="选择附件"
+        android:textColor="@color/colorTextDark"
+        android:textSize="@dimen/textSize18" />
+
+    <View
+        style="@style/fullViewStyle"
+        android:layout_height="1dp"
+        android:layout_marginLeft="@dimen/marginM"
+        android:layout_marginTop="@dimen/marginM"
+        android:layout_marginRight="@dimen/marginM" />
+
+    <ListView
+        android:id="@+id/dialog_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginLeft="@dimen/marginM"
+        android:layout_marginRight="@dimen/marginM"
+        android:choiceMode="singleChoice" />
+
+    <TextView
+        android:id="@+id/dialog_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_marginTop="@dimen/marginPrimary"
+        android:layout_marginBottom="@dimen/marginPrimary"
+        android:background="@drawable/selector_confirm"
+        android:gravity="center"
+        android:layout_marginLeft="@dimen/margin_xLarge"
+        android:layout_marginRight="@dimen/margin_xLarge"
+        android:paddingTop="@dimen/paddingL"
+        android:paddingBottom="@dimen/paddingL"
+        android:text="打开"
+        android:textColor="@color/white" />
+
+</LinearLayout>

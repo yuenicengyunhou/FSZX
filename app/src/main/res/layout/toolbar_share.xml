@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/toolbar_share"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="@color/colorPrimary">
+
+    <ImageView
+        android:id="@+id/iv_back"
+        android:src="@mipmap/back_white"
+        style="@style/toolbar_back_style" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="150dp"
+        android:focusable="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="@dimen/marginPrimary"
+        android:layout_marginRight="@dimen/marginPrimary"
+        android:ellipsize="end"
+        android:lines="1"
+        android:gravity="center_horizontal"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textSize" />
+
+    <ImageView
+        android:id="@+id/iv_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:background="?attr/selectableItemBackground"
+        android:layout_marginEnd="@dimen/marginPrimary"
+        android:layout_marginRight="@dimen/marginPrimary"
+        android:padding="@dimen/marginM"
+        android:src="@mipmap/share_white" />
+
+
+</androidx.appcompat.widget.Toolbar>

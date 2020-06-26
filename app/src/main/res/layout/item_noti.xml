@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/marginM"
+    android:layout_marginTop="@dimen/paddingL"
+    android:layout_marginBottom="@dimen/paddingS"
+    android:layout_marginRight="@dimen/marginM"
+    android:background="@color/white"
+    app:cardCornerRadius="@dimen/paddingL">
+
+    <RelativeLayout
+        android:id="@+id/itemLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/item_noti_sign"
+            android:layout_width="@dimen/padding"
+            android:layout_height="15dp"
+            android:layout_marginLeft="@dimen/marginPrimary"
+            android:layout_marginTop="@dimen/margin20"
+            android:background="@color/colorPrimary"
+            android:layout_marginStart="@dimen/marginPrimary" />
+
+        <TextView
+            android:id="@+id/item_noti_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding"
+            android:layout_marginTop="@dimen/marginPrimary"
+            android:layout_marginRight="@dimen/marginM"
+            android:layout_toLeftOf="@id/item_noti_type"
+            android:layout_toRightOf="@id/item_noti_sign"
+            android:ellipsize="end"
+            android:gravity="start"
+            android:singleLine="true"
+            android:textColor="@color/colorTextB"
+            android:textSize="@dimen/textSize"
+            android:layout_marginStart="@dimen/padding"
+            android:layout_marginEnd="@dimen/marginM"
+            android:layout_toStartOf="@id/item_noti_type"
+            android:layout_toEndOf="@id/item_noti_sign" />
+
+        <TextView
+            android:id="@+id/item_noti_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/item_noti_title"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/margin_xLarge"
+            android:textSize="@dimen/textSizeM"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/margin_xLarge" />
+
+        <TextView
+            android:id="@+id/item_noti_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_noti_title"
+            android:layout_alignStart="@id/item_noti_title"
+            android:layout_alignLeft="@id/item_noti_title"
+            android:layout_marginTop="@dimen/marginM"
+            android:layout_marginRight="@dimen/marginPrimary"
+            android:layout_toRightOf="@id/item_noti_sign"
+            android:textColor="@color/colorTextBpale"
+            android:textSize="@dimen/textSizeM"
+            android:layout_marginEnd="@dimen/marginPrimary"
+            android:layout_toEndOf="@id/item_noti_sign" />
+        <TextView
+            android:id="@+id/item_noti_endTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_noti_time"
+            android:layout_alignStart="@id/item_noti_title"
+            android:layout_alignLeft="@id/item_noti_title"
+            android:layout_marginTop="@dimen/marginM"
+            android:layout_marginRight="@dimen/marginPrimary"
+            android:layout_toRightOf="@id/item_noti_sign"
+            android:textColor="@color/colorTextBpale"
+            android:textSize="@dimen/textSizeM"
+            android:layout_marginEnd="@dimen/marginPrimary"
+            android:layout_toEndOf="@id/item_noti_sign" />
+
+        <TextView
+            android:id="@+id/item_noti_count"
+            style="@style/item_noti_textStyle"
+            android:layout_below="@id/item_noti_endTime"
+            android:layout_marginEnd="@dimen/paddingL"
+            android:layout_marginRight="@dimen/paddingL"
+            android:layout_toEndOf="@id/item_noti_sign"
+            android:layout_toRightOf="@id/item_noti_sign" />
+
+        <ImageView
+            android:id="@+id/item_noti_spread"
+            android:layout_width="12dp"
+            android:layout_height="6dp"
+            android:layout_below="@id/item_noti_endTime"
+            android:layout_marginTop="@dimen/marginPrimary"
+            android:layout_toEndOf="@id/item_noti_count"
+            android:layout_toRightOf="@id/item_noti_count"
+            tools:ignore="ContentDescription" />
+
+        <View
+            android:id="@+id/fakeView"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_below="@id/item_noti_endTime"
+            android:layout_marginTop="@dimen/marginM"
+            android:layout_toRightOf="@id/item_noti_count"
+            android:background="@android:color/transparent"
+            android:layout_toEndOf="@id/item_noti_count" />
+
+        <TextView
+            android:id="@+id/item_noti_paticipant"
+            style="@style/item_noti_textStyle"
+            android:layout_below="@id/item_noti_count"
+            android:layout_toEndOf="@id/item_noti_sign"
+            android:layout_toRightOf="@id/item_noti_sign"
+            android:textColor="@color/colorTextPatic"
+            android:textSize="@dimen/textSizeS"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/item_noti_topic"
+            style="@style/item_noti_textStyle"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/padding"
+         android:paddingTop="@dimen/padding"
+            android:paddingBottom="@dimen/padding"
+            android:layout_below="@id/item_noti_paticipant"
+            android:layout_toEndOf="@id/item_noti_sign"
+            android:layout_toRightOf="@id/item_noti_sign"
+            android:ellipsize="end"
+            android:background="?attr/selectableItemBackground"
+            android:lineSpacingExtra="@dimen/paddingS"
+            android:maxLines="3" />
+
+        <TextView
+            android:id="@+id/item_noti_att"
+            style="@style/item_noti_textStyle"
+            android:layout_below="@id/item_noti_topic"
+            android:layout_marginTop="@dimen/padding"
+            android:layout_marginRight="@dimen/paddingL"
+            android:layout_marginEnd="@dimen/paddingL"
+            android:layout_toEndOf="@id/item_noti_sign"
+            android:layout_toRightOf="@id/item_noti_sign"
+            android:paddingTop="@dimen/padding"
+            android:paddingBottom="@dimen/padding"
+            android:text="@string/attachIs" />
+
+        <TextView
+            android:id="@+id/item_noti_attach"
+            android:layout_width="match_parent"
+            android:layout_marginRight="@dimen/marginPrimary"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_noti_topic"
+            android:layout_alignTop="@id/item_noti_att"
+            android:layout_toEndOf="@id/item_noti_att"
+            android:layout_toRightOf="@id/item_noti_att"
+            android:background="@drawable/bg_attach"
+            android:drawableStart="@mipmap/pdf"
+            android:drawableLeft="@mipmap/pdf"
+            android:drawablePadding="@dimen/padding"
+            android:ellipsize="middle"
+            android:padding="@dimen/padding"
+            android:singleLine="true"
+            android:textColor="@color/colorTextBpale"
+            android:textSize="@dimen/textSizeM"
+            android:layout_marginEnd="@dimen/marginPrimary" />
+
+       <!-- <TextView
+            android:id="@+id/item_noti_viewPdf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/item_noti_att"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="@dimen/marginM"
+            android:layout_marginEnd="@dimen/marginM"
+            android:layout_marginRight="@dimen/marginM"
+            android:background="?attr/selectableItemBackground"
+            android:focusable="true"
+            android:padding="@dimen/padding"
+            android:text="@string/viewAttach"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/textSizeM" />-->
+
+        <!--    <ImageView-->
+        <!--        android:layout_width="wrap_content"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:id="@+id/item_noti_eye"-->
+        <!--        android:src="@drawable/ic_eye"-->
+        <!--        android:layout_toRightOf="@id/item_noti_attach"-->
+        <!--        android:layout_below="@id/item_noti_topic"-->
+        <!--        android:layout_marginTop="@dimen/paddingL"-->
+        <!--        />-->
+<!--        <TextView
+            android:id="@+id/item_noti_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_noti_attach"
+            android:layout_alignStart="@id/item_noti_title"
+            android:layout_marginTop="@dimen/marginM"
+            android:padding="@dimen/paddingS"
+            android:textColor="@color/colorTextBpale"
+            android:textSize="@dimen/textSizeM"
+            android:layout_alignLeft="@id/item_noti_title" />-->
+
+        <TextView
+            android:id="@+id/item_noti_sure"
+            style="@style/item_noti_button"
+            android:layout_toStartOf="@id/item_noti_no"
+            android:layout_toLeftOf="@id/item_noti_no"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/item_noti_no"
+            style="@style/item_noti_button"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true" />
+
+    </RelativeLayout>
+
+
+    <!--<View
+        style="@style/fullViewStyle"
+        android:layout_below="@id/item_noti_no"
+        android:layout_marginLeft="@dimen/marginPrimary"
+        android:layout_marginRight="@dimen/marginPrimary" />
+    &lt;!&ndash;     android:drawableRight="@drawable/ic_eye"&ndash;&gt;-->
+
+</androidx.cardview.widget.CardView>

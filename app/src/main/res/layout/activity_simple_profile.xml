@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".ui.activity.SimpleProfileActivity">
+
+    <include layout="@layout/toolbar" />
+
+    <LinearLayout
+        android:id="@+id/toProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/margin_xLarge">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/headImage"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:riv_corner_radius="30dp"
+            android:layout_marginStart="@dimen/margin_xLarge"
+            android:layout_marginLeft="@dimen/margin_xLarge"
+            android:layout_marginTop="@dimen/marginPrimary"
+            />
+        <!--   <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+
+           </LinearLayout>-->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_xLarge"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/simple_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/marginM"
+                android:src="@mipmap/headbg"
+                android:text="姓名"
+                android:textColor="@color/colorTextB"
+                android:textSize="@dimen/textSize" />
+
+            <TextView
+                android:id="@+id/simple_position"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/marginM"
+                android:layout_marginTop="@dimen/padding"
+                android:src="@mipmap/headbg"
+                android:text="职务"
+                android:textColor="@color/colorTextChoice"
+                android:textSize="@dimen/textSizeM" />
+        </LinearLayout>
+
+        <!-- <TextView
+             android:id="@+id/simple_quiz"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="@dimen/margin_xLarge"
+             android:layout_marginRight="@dimen/marginPrimary"
+             android:drawableTop="@mipmap/woyaodati"
+             android:text="我要答题"
+             android:textColor="@color/colorTextB"
+             android:textSize="@dimen/textSizeS"
+
+             />-->
+    </LinearLayout>
+
+    <View style="@style/fullViewStyle" />
+
+    <TextView
+        android:id="@+id/simple_rate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/marginPrimary"
+        android:textColor="#7a4b00"
+        android:textSize="@dimen/textSize" />
+
+    <View
+        style="@style/fullViewStyle"
+        android:layout_marginTop="@dimen/marginPrimary" />
+
+    <TextView
+        android:id="@+id/simple_modify"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/searchBarSize"
+        android:background="?attr/selectableItemBackground"
+        android:drawableEnd="@mipmap/arrow_right"
+        android:drawableRight="@mipmap/arrow_right"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/margin_xLarge"
+        android:paddingRight="@dimen/margin_xLarge"
+        android:text="更改登录密码"
+        android:textColor="@color/colorTextB"
+        android:textSize="@dimen/textSize" />
+
+    <View style="@style/fullViewStyle" />
+
+    <!--<TextView
+
+        android:id="@+id/simple_handbook"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/searchBarSize"
+        android:background="?attr/selectableItemBackground"
+        android:drawableEnd="@mipmap/arrow_right"
+        android:drawableRight="@mipmap/arrow_right"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/marginPrimary"
+        android:paddingRight="@dimen/marginPrimary"
+        android:text="使用手册"
+        android:textColor="@color/colorTextB"
+        android:textSize="@dimen/textSize" />-->
+
+    <!--  <View style="@style/fullViewStyle" />-->
+
+    <Button
+        android:id="@+id/simple_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_xLarge"
+        android:layout_marginTop="@dimen/margin_xLarge"
+        android:layout_marginRight="@dimen/margin_xLarge"
+        android:text="退出登录"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textSize" />
+
+
+</LinearLayout>

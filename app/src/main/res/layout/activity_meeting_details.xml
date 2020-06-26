@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.activity.MeetingDetailsActivity">
+
+    <include layout="@layout/toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/item_noti_sign"
+                android:layout_width="@dimen/paddingS"
+                android:layout_height="@dimen/marginPrimary"
+                android:layout_marginLeft="@dimen/marginM"
+                android:layout_marginTop="@dimen/marginPrimary"
+                android:scaleType="fitXY"
+                android:src="@mipmap/green" />
+
+            <TextView
+                android:id="@+id/item_noti_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/marginM"
+                android:layout_marginTop="@dimen/marginPrimary"
+                android:layout_marginRight="@dimen/marginPrimary"
+                android:layout_toRightOf="@id/item_noti_sign"
+                android:textColor="@color/colorTextB"
+                android:textSize="@dimen/textSize18" />
+
+            <!--<TextView
+                android:id="@+id/item_noti_no"
+                style="@style/item_noti_button"
+                android:layout_below="@id/item_noti_title"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:clickable="false" />-->
+
+            <TextView
+                android:id="@+id/item_noti_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/item_noti_title"
+                android:layout_marginLeft="@dimen/marginM"
+                android:layout_marginRight="@dimen/marginPrimary"
+                android:layout_toRightOf="@id/item_noti_sign"
+                android:textColor="@color/colorTextBpale"
+                android:textSize="@dimen/textSize" />
+
+            <TextView
+                android:id="@+id/item_noti_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/item_noti_time"
+                android:layout_marginLeft="@dimen/marginM"
+                android:layout_marginTop="@dimen/marginM"
+                android:layout_marginRight="@dimen/marginPrimary"
+                android:layout_toRightOf="@id/item_noti_sign"
+                android:textColor="@color/colorTextBpale"
+                android:textSize="@dimen/textSize" />
+
+
+            <TextView
+                android:id="@+id/item_noti_paticipant"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/item_noti_count"
+                android:layout_marginLeft="@dimen/marginM"
+                android:layout_marginTop="@dimen/paddingL"
+                android:layout_marginRight="@dimen/marginM"
+                android:layout_toRightOf="@id/item_noti_sign"
+                android:textColor="@color/colorTextPatic"
+                android:textSize="@dimen/textSize" />
+
+            <TextView
+                android:id="@+id/item_noti_topic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/item_noti_paticipant"
+                android:layout_marginLeft="@dimen/marginM"
+                android:layout_marginTop="@dimen/marginM"
+                android:layout_marginRight="@dimen/marginPrimary"
+                android:layout_toRightOf="@id/item_noti_sign"
+                android:lineSpacingExtra="@dimen/padding"
+                android:textColor="@color/colorTextBpale"
+                android:textSize="@dimen/textSize" />
+
+            <TextView
+                android:id="@+id/item_noti_att"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/item_noti_topic"
+                android:layout_marginLeft="@dimen/marginM"
+                android:layout_marginTop="@dimen/marginM"
+                android:layout_toRightOf="@id/item_noti_sign"
+                android:text="附件："
+                android:textColor="@color/colorTextBpale"
+                android:textSize="@dimen/textSizeM" />
+
+            <TextView
+                android:id="@+id/item_noti_attach"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/item_noti_topic"
+                android:layout_marginLeft="@dimen/marginM"
+                android:layout_marginTop="@dimen/marginM"
+                android:layout_marginBottom="@dimen/marginPrimary"
+                android:layout_toRightOf="@id/item_noti_att"
+                android:background="@drawable/bg_attach"
+                android:drawablePadding="@dimen/padding"
+                android:paddingLeft="@dimen/padding"
+                android:paddingRight="@dimen/padding"
+                android:textColor="@color/colorTextBpale"
+                android:textSize="@dimen/textSizeM" />
+        </RelativeLayout>
+    </ScrollView>
+
+</LinearLayout>

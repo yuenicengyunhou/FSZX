@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorGreyFeizhu"
+    tools:context=".ui.activity.MtNotifyActivity">
+
+    <include layout="@layout/toolbar_add"
+        android:id="@+id/toolbar_add"
+        />
+
+    <include layout="@layout/layout_meeting_search"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/searchBarSize"
+        android:layout_marginLeft="@dimen/marginM"
+        android:layout_marginRight="@dimen/marginM"
+        android:layout_below="@id/toolbar_add"
+        android:id="@+id/mt_search"
+        />
+
+ <!--   <View style="@style/fullViewStyle"
+        android:layout_marginLeft="@dimen/marginPrimary"
+        android:layout_marginRight="@dimen/marginPrimary"
+        />-->
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/noti_swipe"
+        android:layout_below="@id/mt_search"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/noti_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <TextView
+        android:id="@+id/tv_nodata"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:drawableTop="@mipmap/ic_noperson"
+        android:gravity="center"
+        android:text="@string/nodata"
+        android:visibility="gone"
+        android:textColor="@color/colorTextInvalid"
+        android:textSize="@dimen/textSizeS" />
+
+    <include layout="@layout/loading_progress"
+        android:visibility="gone"
+        android:id="@+id/loadingProgress"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+<!--    <ProgressBar-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="50dp"-->
+<!--        style="@style/Widget.AppCompat.ProgressBar.Horizontal"-->
+<!--        android:background="@color/white"-->
+<!--        />-->
+
+</RelativeLayout>

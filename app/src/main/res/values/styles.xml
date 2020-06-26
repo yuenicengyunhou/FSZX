@@ -1,0 +1,157 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="dialogStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowCloseOnTouchOutside">false</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="style_login_edit">
+        <item name="android:layout_marginLeft">@dimen/margin40</item>
+        <item name="android:layout_marginRight">@dimen/margin40</item>
+        <item name="android:background">@mipmap/login_edit</item>
+        <item name="android:drawablePadding">@dimen/padding</item>
+        <item name="android:lines">1</item>
+        <item name="android:textColor">@color/colorTextB</item>
+        <item name="android:textSize">@dimen/textSizeS</item>
+        <item name="android:paddingLeft">@dimen/paddingL</item>
+        <item name="android:paddingRight">@dimen/paddingL</item>
+        <item name="android:inputType">text</item>
+    </style>
+
+    <style name="spinnerStyle">
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:paddingLeft">@dimen/marginM</item>
+        <item name="android:paddingRight">@dimen/marginM</item>
+        <item name="android:drawableRight">@mipmap/arrow_down</item>
+        <item name="android:drawablePadding">@dimen/marginM</item>
+        <item name="android:background">@drawable/rec_grey</item>
+        <item name="android:textColor">@color/colorTextB</item>
+        <item name="android:layout_marginRight">@dimen/marginPrimary</item>
+        <item name="android:layout_marginEnd">@dimen/marginPrimary</item>
+        <item name="android:gravity">center</item>
+        <item name="android:drawableEnd">@mipmap/arrow_down</item>
+    </style>
+
+    <style name="fullViewStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.8dp</item>
+        <item name="android:background">@color/colorGrey</item>
+    </style>
+
+    <style name="text_details_style">
+        <item name="android:textColor">@color/colorTextB</item>
+        <item name="android:layout_marginLeft">@dimen/margin_xLarge</item>
+        <item name="android:drawablePadding">@dimen/marginM</item>
+        <item name="android:layout_marginTop">@dimen/marginPrimary</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:lines">2</item>
+        <item name="android:drawableLeft">@mipmap/home</item>
+        <item name="android:drawableStart">@mipmap/home</item>
+    </style>
+
+    <style name="activityInOut" parent="AppTheme">
+    <item name="android:windowAnimationStyle">@style/activityAnim</item>
+    </style>
+    <style name="activityInOutReverse" parent="AppTheme">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/close_out</item>
+        <item name="android:activityCloseEnterAnimation">@anim/close_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out</item>
+    </style>
+
+    <style name="activityAnim">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/close_out</item>
+        <item name="android:activityCloseEnterAnimation">@anim/close_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out</item>
+    </style>
+
+    <style name="mypopwindow_anim_style">
+        <item name="android:windowEnterAnimation">@anim/popshow_anim</item>
+        <!-- 指定显示的动画xml -->
+        <item name="android:windowExitAnimation">@anim/pophidden_anim</item>
+        <!-- 指定消失的动画xml -->
+    </style>
+
+    <style name="textMeetingSetting">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/searchBarSize</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">@dimen/marginM</item>
+        <item name="android:paddingRight">@dimen/marginM</item>
+        <item name="android:textColor">@color/colorTextB</item>
+        <item name="android:textSize">@dimen/textSize</item>
+    </style>
+
+    <style name="switchMeetingSetting">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/searchBarSize</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingRight">@dimen/marginM</item>
+    </style>
+
+    <style name="textStartMeeting">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/searchBarSize</item>
+        <item name="android:layout_marginLeft">@dimen/marginxxL</item>
+        <item name="android:layout_marginTop">@dimen/margin_xLarge</item>
+        <item name="android:layout_marginRight">@dimen/marginxxL</item>
+        <item name="android:background">@drawable/selector_button</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/textSize</item>
+    </style>
+
+    <style name="item_noti_button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_below">@id/item_noti_attach</item>
+        <item name="android:layout_marginTop">@dimen/marginM</item>
+        <item name="android:layout_marginRight">@dimen/margin_xLarge</item>
+        <item name="android:layout_marginBottom">@dimen/marginPrimary</item>
+        <item name="android:paddingLeft">@dimen/paddingL</item>
+        <item name="android:paddingTop">@dimen/paddingS</item>
+        <item name="android:paddingRight">@dimen/paddingL</item>
+        <item name="android:paddingBottom">@dimen/paddingS</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/textSizeM</item>
+    </style>
+
+    <style name="toolbar_back_style">
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="item_noti_textStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignLeft">@id/item_noti_title</item>
+        <item name="android:layout_alignStart">@id/item_noti_title</item>
+        <item name="android:layout_marginTop">@dimen/marginM</item>
+        <item name="android:layout_marginRight">@dimen/marginPrimary</item>
+        <item name="android:textColor">@color/colorTextBpale</item>
+        <item name="android:textSize">@dimen/textSizeM</item>
+        <item name="android:layout_marginEnd">@dimen/marginPrimary</item>
+    </style>
+</resources>

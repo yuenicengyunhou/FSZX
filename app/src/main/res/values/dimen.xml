@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="marginPrimary">16dp</dimen>
+    <dimen name="marginxxL">30dp</dimen>
+    <dimen name="marginM">10dp</dimen>
+    <dimen name="textSizeL">25sp</dimen>
+    <dimen name="textSize18">18sp</dimen>
+    <dimen name="textSize">16sp</dimen>
+    <dimen name="textSizeM">14sp</dimen>
+    <dimen name="textSizeS">12sp</dimen>
+    <dimen name="margin40">40dp</dimen>
+    <dimen name="margin45">45dp</dimen>
+    <dimen name="padding">5dp</dimen>
+    <dimen name="paddingS">3dp</dimen>
+    <dimen name="paddingL">8dp</dimen>
+    <dimen name="corner">3dp</dimen>
+    <dimen name="searchBarSize">50dp</dimen>
+    <dimen name="searchWidgetSize">36dp</dimen>
+    <dimen name="margin_xLarge">26dp</dimen>
+    <dimen name="addressSize">68dp</dimen>
+    <dimen name="margin20">20dp</dimen>
+    <dimen name="letterHeight">40dp</dimen>
+    <dimen name="headSize">40dp</dimen>
+    <dimen name="sideBarWidth">30dp</dimen>
+</resources>

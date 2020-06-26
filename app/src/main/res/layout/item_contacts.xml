@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/tv_letter"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/letterHeight"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/marginPrimary"
+        android:paddingEnd="@dimen/marginPrimary"
+        android:textColor="@color/colorTextDark"
+        android:textStyle="bold"
+        android:textSize="@dimen/textSize" />
+
+    <RelativeLayout
+        android:id="@+id/relative"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/addressSize"
+        android:layout_below="@id/tv_letter">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/img"
+            android:layout_width="@dimen/headSize"
+            android:layout_height="@dimen/headSize"
+            app:riv_corner_radius="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/marginM"
+            android:layout_marginLeft="@dimen/marginM"
+            android:layout_marginEnd="@dimen/marginM"
+            android:layout_marginRight="@dimen/marginM"
+            />
+
+        <TextView
+            android:id="@+id/item_tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/img"
+            android:layout_toRightOf="@id/img"
+            android:textColor="@color/colorTextDark"
+            android:textSize="@dimen/textSize" />
+
+        <View
+            style="@style/fullViewStyle"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="@dimen/padding"
+            android:layout_marginLeft="@dimen/padding"
+            android:layout_marginEnd="@dimen/sideBarWidth"
+            android:layout_marginRight="@dimen/sideBarWidth"
+            android:layout_toEndOf="@id/img"
+            android:layout_toRightOf="@id/img" />
+    </RelativeLayout>
+
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/tv_name"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="@dimen/searchBarSize"-->
+    <!--        android:layout_below="@id/tv_letter"-->
+    <!--        android:background="?attr/selectableItemBackground"-->
+    <!--        android:clickable="true"-->
+    <!--        android:focusable="true"-->
+    <!--        android:gravity="center_vertical"-->
+    <!--        android:paddingStart="@dimen/marginPrimary"-->
+    <!--        android:paddingEnd="@dimen/marginPrimary"-->
+    <!--        android:textColor="@color/colorTextB"-->
+    <!--        android:textSize="@dimen/textSize" />-->
+
+
+</RelativeLayout>
