@@ -9,18 +9,20 @@
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/iv_head"
         android:layout_width="30dp"
+        android:layout_marginRight="@dimen/marginM"
+        android:layout_marginEnd="@dimen/marginM"
         android:layout_height="30dp"
         app:riv_corner_radius="15dp" />
 
 
-    <TextView
+ <!--   <TextView
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:padding="@dimen/paddingL"
         android:textColor="@color/white"
-        android:textSize="@dimen/textSizeS" />
+        android:textSize="@dimen/textSizeS" />-->
 
     <TextView
         android:id="@+id/tv_title"

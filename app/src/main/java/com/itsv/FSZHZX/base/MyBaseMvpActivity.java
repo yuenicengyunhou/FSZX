@@ -30,6 +30,7 @@ import com.hannesdorfmann.mosby.mvp.MvpActivity;
 import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 import com.hannesdorfmann.mosby.mvp.MvpView;
 import com.itsv.FSZHZX.R;
+import com.itsv.FSZHZX.ui.activity.HomeActivity;
 import com.itsv.FSZHZX.ui.activity.LoginActivity;
 import com.itsv.FSZHZX.utils.DesignUtils;
 import com.itsv.FSZHZX.utils.ToastUtils;
@@ -68,7 +69,7 @@ public abstract class MyBaseMvpActivity<V extends MvpView, P extends MvpPresente
         setContentView(getLayoutID());
         bind = ButterKnife.bind(this);
         initViewsAndEnvents();
-        if (!(this instanceof LoginActivity)) {
+        if (!(this instanceof LoginActivity||this instanceof HomeActivity)) {
             ImageView ivBack = findViewById(R.id.iv_back);
             ivBack.setOnClickListener(view -> finish());
         }
@@ -170,7 +171,7 @@ public abstract class MyBaseMvpActivity<V extends MvpView, P extends MvpPresente
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (this instanceof LoginActivity) {
+        if (this instanceof LoginActivity||this instanceof HomeActivity) {
             if (event.getKeyCode() == KeyEvent.KEYCODE_BACK
                     && event.getAction() == KeyEvent.ACTION_DOWN) {
                 long secondTime = System.currentTimeMillis();

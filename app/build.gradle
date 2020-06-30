@@ -8,13 +8,18 @@ android {
         applicationId "com.itsv.FSZHZX"
         minSdkVersion 16
         targetSdkVersion 29
-        versionCode 5    //6
-        versionName "1.0.4"   //1.0.5
+        versionCode 8    //6
+        versionName "1.0.7"   //1.0.5
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         ndk {
-            abiFilters("arm64-v8a", "armeabi-v7a", "x86", "x86_64")
+            abiFilters("arm64-v8a", "armeabi-v7a", "x86", "x86_64","armeabi")
         }
+        manifestPlaceholders = [
+                JPUSH_PKGNAME : "com.itsv.FSZHZX",
+                JPUSH_APPKEY : "4c28609ada78b0fa171853b6", //JPush 上注册的包名对应的 Appkey.
+                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+        ]
     }
     // Butterknife requires Java 8.
     compileOptions {
@@ -73,7 +78,9 @@ dependencies {
     implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
     implementation 'org.sufficientlysecure:html-textview:3.9'
-    compile('com.github.hotchemi:permissionsdispatcher:3.1.0') { exclude module: 'support-v13' }
+    implementation('com.github.hotchemi:permissionsdispatcher:3.1.0') { exclude module: 'support-v13' }
     annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:3.1.0'
     implementation 'org.greenrobot:eventbus:3.1.1'
+    implementation 'cn.jiguang.sdk:jpush:3.6.6'  // 此处以JPush 3.6.6 版本为例。
+    implementation 'cn.jiguang.sdk:jcore:2.3.8'  // 此处以JCore 2.3.8 版本为例。
 }

@@ -2,14 +2,11 @@ package com.itsv.FSZHZX.ui.activity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -61,7 +58,7 @@ public class LoginActivity extends MyBaseMvpActivity<LoginActivity, LoginPresent
                 edit.apply();
                 checkBox.setChecked(false);
             } else {
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                loginTo();
             }
         } else {
             checkPermisson();
@@ -104,6 +101,7 @@ public class LoginActivity extends MyBaseMvpActivity<LoginActivity, LoginPresent
         SharedPreferences.Editor edit = fszx.edit();
         edit.putBoolean("autoLog", checkBox.isChecked());
         edit.putString("token", token);
+        edit.putString("imei", Constant.IMEI);
         edit.apply();
     }
 
@@ -117,13 +115,12 @@ public class LoginActivity extends MyBaseMvpActivity<LoginActivity, LoginPresent
 
     @Override
     public void loginTo() {
-        toActivity(MainActivity.class);
+        toActivity(HomeActivity.class);
     }
 
     @NeedsPermission(Manifest.permission.READ_PHONE_STATE)
     void allowed() {
         Constant.IMEI = getIMEI();
-        Log.e("WQ", "imei=---" + Constant.IMEI);
     }
 
     @Override

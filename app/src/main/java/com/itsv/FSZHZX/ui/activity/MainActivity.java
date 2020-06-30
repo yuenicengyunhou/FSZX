@@ -25,7 +25,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,10 +47,8 @@ import com.itsv.FSZHZX.utils.FileUtils;
 import com.itsv.FSZHZX.utils.ToastUtils;
 import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadListener;
-import com.liulishuo.filedownloader.FileDownloadSampleListener;
 import com.liulishuo.filedownloader.FileDownloader;
 import com.makeramen.roundedimageview.RoundedImageView;
-import com.manis.core.interfaces.ManisApiInterface;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -79,8 +76,6 @@ public class MainActivity extends BaseWebActivity {
 
     @BindView(R.id.toolbar_home)
     Toolbar toolbar;
-    @BindView(R.id.tv_name)
-    TextView tvName;
     @BindView(R.id.iv_head)
     RoundedImageView ivHead;
     @BindDrawable(R.mipmap.head)
@@ -90,7 +85,7 @@ public class MainActivity extends BaseWebActivity {
     private String positionName = "";
     private String weekCorrectRate = "";
     private String avatarUrl;
-//    private UIHandler handler = new UIHandler(this);
+    private UIHandler handler = new UIHandler(this);
     private String finalApkPath;
     private String mSinglePath;
     private BaseDownloadTask singleTask;
@@ -98,23 +93,23 @@ public class MainActivity extends BaseWebActivity {
     private ProgressBar progressBar;
     private TextView tvUpdate;
 
-//    @SuppressLint("HandlerLeak")
-//    private class UIHandler extends Handler {
-//        private WeakReference<MainActivity> mActivity;
-//
-//        public UIHandler(MainActivity activity) {
-//            mActivity = new WeakReference<>(activity);
-//        }
-//
-//        @Override
-//        public void handleMessage(Message msg) {
-//            MainActivity activity = mActivity.get();
-//            if (activity == null) return;
-//            if (msg.what == 0) {
-//                showUpdateDialog(new File(finalApkPath));
-//            }
-//        }
-//    }
+    @SuppressLint("HandlerLeak")
+    private class UIHandler extends Handler {
+        private WeakReference<MainActivity> mActivity;
+
+        public UIHandler(MainActivity activity) {
+            mActivity = new WeakReference<>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            MainActivity activity = mActivity.get();
+            if (activity == null) return;
+            if (msg.what == 0) {
+                showUpdateDialog(new File(finalApkPath));
+            }
+        }
+    }
 
     @Override
     protected void beforeWebInit() {
@@ -137,63 +132,63 @@ public class MainActivity extends BaseWebActivity {
     }
 
 
-//    public void start_single(String dirPath, String url, String fileName) {
-//        if (dirPath.equals("")) {
-//            Toast.makeText(this, "更新应用路径错误", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//        mSinglePath = dirPath
-//                + File.separator + fileName;
-//        //.setTag()
-//        singleTask = FileDownloader.getImpl().create(url)
-//                .setPath(mSinglePath, false)
-//                .setCallbackProgressTimes(300)
-//                .setMinIntervalUpdateSpeed(400)
-//                //.setTag()
-//                .setListener(new FileDownloadListener() {
-//                    @Override
-//                    protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-//                        Log.e("feifei", "pending:-----" + ",soFarBytes:" + soFarBytes + ",totalBytes:" + totalBytes);
-//
-//                    }
-//
-//                    @Override
-//                    protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-//                        Log.e("feifei", "progress" + task.getId() + ",soFarBytes:" + soFarBytes + ",totalBytes:" + singleTask.getSmallFileTotalBytes());
-//                    }
-//
-//                    @Override
-//                    protected void blockComplete(BaseDownloadTask task) {
-//                        Log.e("feifei", "blockComplete taskId:" + task.getId() + ",filePath:" + task.getPath() + ",fileName:" + task.getFilename() + ",speed:" + task.getSpeed() + ",isReuse:" + task.reuse());
-//                        finalApkPath = task.getPath();
-//                        handler.sendEmptyMessage(0);
-//                    }
-//
-//                    @Override
-//                    protected void completed(BaseDownloadTask task) {
-//                        Log.e("feifei", "completed taskId:" + task.getId() + ",isReuse:" + task.reuse());
-//
-//                    }
-//
-//                    @Override
-//                    protected void paused(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-//                        Log.e("feifei", "paused taskId:" + task.getId() + ",soFarBytes:" + soFarBytes + ",totalBytes:" + totalBytes + ",percent:" + soFarBytes * 1.0 / totalBytes);
-//                    }
-//
-//                    @Override
-//                    protected void error(BaseDownloadTask task, Throwable e) {
-//                        Log.e("feifei", "error taskId:" + task.getId() + ",e:" + e.getLocalizedMessage());
-//                    }
-//
-//                    @Override
-//                    protected void warn(BaseDownloadTask task) {
-//                        Log.e("feifei", "warn taskId:" + task.getId());
-//                    }
-//                });
-//
-////        int singleTaskId = singleTask.start();
-//        singleTask.start();
-//    }
+    public void start_single(String dirPath, String url, String fileName) {
+        if (dirPath.equals("")) {
+            Toast.makeText(this, "更新应用路径错误", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        mSinglePath = dirPath
+                + File.separator + fileName;
+        //.setTag()
+        singleTask = FileDownloader.getImpl().create(url)
+                .setPath(mSinglePath, false)
+                .setCallbackProgressTimes(300)
+                .setMinIntervalUpdateSpeed(400)
+                //.setTag()
+                .setListener(new FileDownloadListener() {
+                    @Override
+                    protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                        Log.e("feifei", "pending:-----" + ",soFarBytes:" + soFarBytes + ",totalBytes:" + totalBytes);
+
+                    }
+
+                    @Override
+                    protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                        Log.e("feifei", "progress" + task.getId() + ",soFarBytes:" + soFarBytes + ",totalBytes:" + singleTask.getSmallFileTotalBytes());
+                    }
+
+                    @Override
+                    protected void blockComplete(BaseDownloadTask task) {
+                        Log.e("feifei", "blockComplete taskId:" + task.getId() + ",filePath:" + task.getPath() + ",fileName:" + task.getFilename() + ",speed:" + task.getSpeed() + ",isReuse:" + task.reuse());
+                        finalApkPath = task.getPath();
+                        handler.sendEmptyMessage(0);
+                    }
+
+                    @Override
+                    protected void completed(BaseDownloadTask task) {
+                        Log.e("feifei", "completed taskId:" + task.getId() + ",isReuse:" + task.reuse());
+
+                    }
+
+                    @Override
+                    protected void paused(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                        Log.e("feifei", "paused taskId:" + task.getId() + ",soFarBytes:" + soFarBytes + ",totalBytes:" + totalBytes + ",percent:" + soFarBytes * 1.0 / totalBytes);
+                    }
+
+                    @Override
+                    protected void error(BaseDownloadTask task, Throwable e) {
+                        Log.e("feifei", "error taskId:" + task.getId() + ",e:" + e.getLocalizedMessage());
+                    }
+
+                    @Override
+                    protected void warn(BaseDownloadTask task) {
+                        Log.e("feifei", "warn taskId:" + task.getId());
+                    }
+                });
+
+//        int singleTaskId = singleTask.start();
+        singleTask.start();
+    }
 
     @Override
     protected void afterWebInit() {
@@ -235,7 +230,8 @@ public class MainActivity extends BaseWebActivity {
         int onlineVersion = Integer.decode(version);
         int appVersionCode = getAppVersionCode(this);
         if (onlineVersion > appVersionCode) {
-            showNewVirsionDialog(downloadURL, apkDirPath);
+            start_single(apkDirPath,downloadURL,"房山政协.apk");
+//            showNewVirsionDialog(downloadURL, apkDirPath);
         } else {
             File file = new File(apkDirPath + File.separator + "房山政协.apk");
             if (file.exists() && file.isFile()) {
@@ -259,17 +255,15 @@ public class MainActivity extends BaseWebActivity {
         return R.layout.activity_main;
     }
 
-    @OnClick({R.id.iv_head, R.id.tv_name})
+    @OnClick({R.id.iv_head})
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.tv_name:
-            case R.id.iv_head:
-                Intent intent = new Intent(this, SimpleProfileActivity.class);
-                intent.putExtra("name", name);
-                intent.putExtra("positionName", positionName);
-                intent.putExtra("weekCorrectRate", weekCorrectRate);
-                intent.putExtra("avatarUrl", avatarUrl);
-                startActivity(intent);
+        if (v.getId() == R.id.iv_head) {
+            Intent intent = new Intent(this, SimpleProfileActivity.class);
+            intent.putExtra("name", name);
+            intent.putExtra("positionName", positionName);
+            intent.putExtra("weekCorrectRate", weekCorrectRate);
+            intent.putExtra("avatarUrl", avatarUrl);
+            startActivity(intent);
 //                toActivity(SimpleProfileActivity.class);
 //                agentWeb.clearWebCache();
         }

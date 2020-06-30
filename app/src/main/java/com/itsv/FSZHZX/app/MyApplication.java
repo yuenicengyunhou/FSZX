@@ -10,6 +10,8 @@ import com.manis.core.interfaces.ManisApiInterface;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
+import cn.jpush.android.api.JPushInterface;
+
 
 public class MyApplication extends Application {
 
@@ -20,6 +22,12 @@ public class MyApplication extends Application {
         initManis();
         initDownloader();
         initWechatShare();
+        initJPush();
+    }
+
+    private void initJPush() {
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
     }
 
     private void initManis() {

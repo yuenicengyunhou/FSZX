@@ -58,7 +58,9 @@ public class LoginPresenter implements MvpPresenter<LoginActivity> {
         }
         LoginApi api = ApiHelper.getInstance().buildRetrofit(Constant.BASEURL)
                 .createService(LoginApi.class);
+        Log.e("WQ", "login: "+Constant.IMEI );
         call = api.login(userName, passWord,Constant.IMEI);
+
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call,@NonNull Response<ResponseBody> response) {

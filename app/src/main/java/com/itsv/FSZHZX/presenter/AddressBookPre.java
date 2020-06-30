@@ -15,7 +15,6 @@ import com.itsv.FSZHZX.model.GroupBaseModel;
 import com.itsv.FSZHZX.model.GroupListModel;
 import com.itsv.FSZHZX.model.NameModel;
 import com.itsv.FSZHZX.ui.activity.AddressBookActivity;
-import com.itsv.FSZHZX.utils.CharacterParser;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -168,15 +167,13 @@ public class AddressBookPre implements MvpPresenter<AddressBookActivity> {
     /*得到拼音首字母*/
     private List<NameModel.DataBean> filledData(List<NameModel.DataBean> list) {
         List<NameModel.DataBean> beanList = new ArrayList<>();
-        CharacterParser characterParser = CharacterParser.getInstance();
+//        CharacterParser characterParser = CharacterParser.getInstance();
         for (int i = 0; i < list.size(); i++) {
             NameModel.DataBean sortModel = list.get(i);
-            String name = sortModel.getName();
-            if (name.contains("隗")) {
-                Log.e("WQ", "name===" + name );
-            }
-            String pinyin = characterParser.getSelling(name);
-            String sortString = pinyin.substring(0, 1).toUpperCase();
+//            String name = sortModel.getName();
+//            String pinyin = characterParser.getSelling(name);
+            String account = sortModel.getAccount();
+            String sortString = account.substring(0, 1).toUpperCase();
             if (sortString.matches("[A-Z]")) {
                 sortModel.setSortLetters(sortString.toUpperCase());
             } else {

@@ -35,6 +35,7 @@ public class AddActivity extends BaseAppCompatActivity {
     EditText etUrName;
     private long userId;
     private boolean isStage;
+    private boolean initMeeting;
 
     @Override
     protected int getLayoutID() {
@@ -76,7 +77,11 @@ public class AddActivity extends BaseAppCompatActivity {
                     }
                 }
                 if (!TextUtils.isEmpty(Constant.USER_NAME)) {
-                    validEnableInto(roomNum, Constant.USER_NAME);
+                    if (initMeeting) {
+                        ToastUtils.showSingleToast("正在进入会议");
+                    } else {
+                        validEnableInto(roomNum, Constant.USER_NAME);
+                    }
                 }
                 break;
             case R.id.iv_back:
@@ -92,6 +97,7 @@ public class AddActivity extends BaseAppCompatActivity {
 
     private void joinMeetingRoom(String roomnumber, String username) {
         ManisApiInterface.app.guestLogin(roomnumber, username, this, "", (b, s, conferenceInfo, userInfo) -> {
+            initMeeting = false;
             if (b) {
                 Intent intent = new Intent(AddActivity.this, RoomActivity.class);
                 String record = conferenceInfo.getRecord();
@@ -119,6 +125,7 @@ public class AddActivity extends BaseAppCompatActivity {
     }
 
     public void validEnableInto(String roomNum, String userName) {
+        initMeeting = true;
         UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.meetingURL)
                 .createService(UserApi.class);
         Call<ResponseBody> call = api.validEnableInto(Constant.TOKEN, roomNum);
@@ -142,7 +149,7 @@ public class AddActivity extends BaseAppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable throwable) {
-
+                initMeeting = false;
             }
         });
     }
@@ -172,6 +179,7 @@ public class AddActivity extends BaseAppCompatActivity {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable throwable) {
                 ToastUtils.showSingleToast("获取主屏失败");
+                initMeeting = false;
             }
         });
     }

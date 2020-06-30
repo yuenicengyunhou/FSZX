@@ -88,7 +88,7 @@ public class NameModel implements Serializable {
         private String email;
         private String phone;
         private String roleId;
-        private int deptId;
+        private long deptId;
         private String status;
         private String avatar;
         private String position;
@@ -188,11 +188,11 @@ public class NameModel implements Serializable {
             this.roleId = roleId;
         }
 
-        public int getDeptId() {
+        public long getDeptId() {
             return deptId;
         }
 
-        public void setDeptId(int deptId) {
+        public void setDeptId(long deptId) {
             this.deptId = deptId;
         }
 
