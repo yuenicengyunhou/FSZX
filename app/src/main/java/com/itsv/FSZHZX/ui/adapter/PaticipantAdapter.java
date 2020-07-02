@@ -2,20 +2,16 @@ package com.itsv.FSZHZX.ui.adapter;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.itsv.FSZHZX.R;
-import com.itsv.FSZHZX.model.MyParticipant;
 import com.itsv.FSZHZX.utils.ToastUtils;
 import com.manis.core.entity.Participant;
 
@@ -29,7 +25,6 @@ public class PaticipantAdapter extends RecyclerView.Adapter<PaticipantAdapter.Pa
     private List<Participant> participantList;
     private LayoutInflater layoutInflater;
     private ItemClickListener itemClickListener;
-    private Context context;
     private boolean isModerator;
 
     public void setItemClickListener(ItemClickListener itemClickListener) {
@@ -37,7 +32,6 @@ public class PaticipantAdapter extends RecyclerView.Adapter<PaticipantAdapter.Pa
     }
 
     public PaticipantAdapter(Context context, List<Participant> participantList) {
-        this.context = context;
         this.layoutInflater = LayoutInflater.from(context);
         this.participantList = participantList;
     }
@@ -64,15 +58,11 @@ public class PaticipantAdapter extends RecyclerView.Adapter<PaticipantAdapter.Pa
         boolean getVideoStatus = participant.isGetVideoStatus();
         boolean getMuteMic = participant.isGetMuteMic();
         boolean host = participant.isHost();
-//        boolean speaker = participant.isSpeaker();
         boolean stage = participant.isStage();
         String jid = participant.getJid();
         String nickname = participant.getNickname();
-//        holder.cam.setChecked();
-//        holder.mic.setChecked(getMuteMic);
         holder.tvName.setText(nickname);
 
-        Log.e("WQ", "position==" + position + "    jid---" + jid);
         if (getMuteMic) {
             holder.mic.setBackground(holder.micOff);
         } else {
@@ -84,21 +74,25 @@ public class PaticipantAdapter extends RecyclerView.Adapter<PaticipantAdapter.Pa
         } else {
             holder.cam.setBackground(holder.camOn);
         }
+        if (stage) {
+            holder.tvBoss.setBackground(holder.bossOn);
+        }else {
+            holder.tvBoss.setBackground(holder.bossOff);
+        }
         if (host && stage) {
             holder.tvRole.setText("（管理员、主讲人）");
         } else {
-            if (stage) {
-                holder.tvBoss.setBackground(holder.bossOn);
-                holder.tvRole.setText("（主讲人）");
-            } else {
-                holder.tvBoss.setBackground(holder.bossOff);
+            if (!stage&&!host) {
                 holder.tvRole.setText("");
+            }else {
+                if (stage) {
+                    holder.tvRole.setText("（主讲人）");
+                }
+                if (host) {
+                    holder.tvRole.setText("（管理员）");
+                }
             }
-            if (host) {
-                holder.tvRole.setText("（管理员）");
-            } else {
-                holder.tvRole.setText("");
-            }
+
         }
         holder.mic.setOnClickListener(view -> {
             if ((null != itemClickListener) && isModerator) {

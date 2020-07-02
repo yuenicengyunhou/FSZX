@@ -95,7 +95,7 @@ public class AddActivity extends BaseAppCompatActivity {
         return editText.getText().toString().trim();
     }
 
-    private void joinMeetingRoom(String roomnumber, String username) {
+    private void joinMeetingRoom(String roomnumber, String username,String stageJid) {
         ManisApiInterface.app.guestLogin(roomnumber, username, this, "", (b, s, conferenceInfo, userInfo) -> {
             initMeeting = false;
             if (b) {
@@ -111,12 +111,13 @@ public class AddActivity extends BaseAppCompatActivity {
                 intent.putExtra("roomNumber", roomNumber);
                 intent.putExtra("sdkCid", "");
                 intent.putExtra("mic", false);
-                intent.putExtra("cam", true);
+                intent.putExtra("cam", false);
                 intent.putExtra("broad", false);
                 intent.putExtra("userId", this.userId);
                 intent.putExtra("isController", false);
                 intent.putExtra("moderatorPsw", "");
-                intent.putExtra("isStage", isStage);
+                intent.putExtra("isStage", jid.equals(stageJid));
+                intent.putExtra("stageJid", stageJid);
                 startActivity(intent);
             } else {
                 ToastUtils.showSingleToast(s);
@@ -167,8 +168,8 @@ public class AddActivity extends BaseAppCompatActivity {
                         boolean success = object.getBoolean("success");
                         String data = object.getString("data");
                         if (success) {
-                            isStage = data.equals(String.valueOf(userId));
-                            joinMeetingRoom(roomNum, userName);
+//                            isStage = data.equals(String.valueOf(userId));
+                            joinMeetingRoom(roomNum, userName,data);
                         }
                     } catch (IOException | JSONException e) {
                         e.printStackTrace();

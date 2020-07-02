@@ -307,6 +307,8 @@ public class MtNotifyPre implements MvpPresenter<MtNotifyActivity> {
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
+                    } catch (IllegalStateException e) {
+                        e.printStackTrace();
                     }
 
                 }
@@ -334,9 +336,9 @@ public class MtNotifyPre implements MvpPresenter<MtNotifyActivity> {
                         boolean success = object.getBoolean("success");
                         String data = object.getString("data");
                         if (success) {
-                            mvpView.setStage(data.equals(mId));
+//                            mvpView.setStage(data.equals(mId));
                             mvpView.hideLoading();
-                            mvpView.joinMeetingRoom(roomNum, userName, sdkCid, isModerator, psw, mId);
+                            mvpView.joinMeetingRoom(roomNum, userName, sdkCid, isModerator, psw, mId,data);
                         }
                     } catch (IOException | JSONException e) {
                         e.printStackTrace();

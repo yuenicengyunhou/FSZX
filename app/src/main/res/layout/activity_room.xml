@@ -58,24 +58,34 @@
     <org.webrtc.TextureViewRenderer
         android:id="@+id/textureViewMe"
         android:layout_width="90dp"
+        android:visibility="gone"
         android:layout_height="160dp"
         android:layout_above="@id/tabBar"
         android:layout_marginStart="@dimen/marginPrimary"
         android:layout_marginLeft="@dimen/marginPrimary"
         android:layout_marginBottom="@dimen/marginPrimary" />
+<!--    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="90dp"
+        android:layout_height="160dp"
+        android:layout_above="@id/tabBar"
+        android:layout_marginStart="@dimen/marginPrimary"
+        android:layout_marginLeft="@dimen/marginPrimary"
+        android:layout_marginBottom="@dimen/marginPrimary" >
+    </FrameLayout>-->
 
     <include
         layout="@layout/layout_member"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="100dp"
         android:visibility="gone" />
 
     <include
         layout="@layout/layout_chat"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="100dp"
         android:visibility="gone" />
 
 </RelativeLayout>

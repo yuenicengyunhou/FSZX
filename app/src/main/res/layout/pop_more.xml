@@ -16,7 +16,7 @@
         android:textSize="@dimen/textSize" />
 
     <View style="@style/fullViewStyle" />
-    <TextView
+<!--    <TextView
         android:id="@+id/pop_handsup"
         android:layout_width="match_parent"
         android:layout_height="@dimen/searchBarSize"
@@ -26,9 +26,9 @@
         android:textColor="@color/colorTextB"
         android:textSize="@dimen/textSize" />
 
-    <View style="@style/fullViewStyle" />
+    <View style="@style/fullViewStyle" />-->
 
-    <TextView
+<!--    <TextView
         android:id="@+id/pop_chat"
         android:layout_width="match_parent"
         android:layout_height="@dimen/searchBarSize"
@@ -38,7 +38,7 @@
         android:textColor="@color/colorTextB"
         android:textSize="@dimen/textSize" />
 
-    <View style="@style/fullViewStyle" />
+    <View style="@style/fullViewStyle" />-->
     <TextView
         android:id="@+id/pop_pushOff"
         android:layout_width="match_parent"

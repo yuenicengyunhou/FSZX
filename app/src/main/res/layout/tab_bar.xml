@@ -36,12 +36,12 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:button="@null"
-        android:textSize="@dimen/textSizeS"
         android:drawableTop="@drawable/selector_mic"
         android:gravity="center"
         android:paddingTop="@dimen/padding"
         android:text="静音"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:textSize="@dimen/textSizeS" />
 
     <!--<Button
         android:id="@+id/btn_camera"
@@ -51,18 +51,31 @@
         android:layout_marginRight="@dimen/padding"
         android:layout_weight="1"
         android:text="开启视频" />-->
-    <CheckBox
-        android:id="@+id/cb_cam"
+    <!--    <CheckBox-->
+    <!--        android:id="@+id/cb_cam"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:layout_weight="1"-->
+    <!--        android:button="@null"-->
+    <!--        android:textSize="@dimen/textSizeS"-->
+    <!--        android:drawableTop="@drawable/selector_cam"-->
+    <!--        android:gravity="center"-->
+    <!--        android:paddingTop="@dimen/padding"-->
+    <!--        android:text="开启视频"-->
+    <!--        android:textColor="@color/white" />-->
+    <TextView
+        android:id="@+id/tv_chat"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:button="@null"
-        android:textSize="@dimen/textSizeS"
-        android:drawableTop="@drawable/selector_cam"
+        android:checked="true"
+        android:drawableTop="@mipmap/ic_chat"
         android:gravity="center"
         android:paddingTop="@dimen/padding"
-        android:text="开启视频"
-        android:textColor="@color/white" />
+        android:text="@string/chat"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textSizeS" />
 
     <TextView
         android:id="@+id/tv_member"
@@ -70,13 +83,13 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:button="@null"
-        android:textSize="@dimen/textSizeS"
         android:checked="true"
         android:drawableTop="@drawable/selector_member"
         android:gravity="center"
         android:paddingTop="@dimen/padding"
         android:text="成员"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:textSize="@dimen/textSizeS" />
 
     <TextView
         android:id="@+id/tv_more"
@@ -84,31 +97,31 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:button="@null"
-        android:textSize="@dimen/textSizeS"
         android:checked="true"
         android:drawableTop="@mipmap/ic_more"
         android:gravity="center"
         android:paddingTop="@dimen/padding"
         android:text="更多"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:textSize="@dimen/textSizeS" />
 
-<!--    <Button-->
-<!--        android:id="@+id/btn_member"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginLeft="@dimen/padding"-->
-<!--        android:layout_marginRight="@dimen/padding"-->
-<!--        android:layout_weight="1"-->
-<!--        android:text="成员" />-->
+    <!--    <Button-->
+    <!--        android:id="@+id/btn_member"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginLeft="@dimen/padding"-->
+    <!--        android:layout_marginRight="@dimen/padding"-->
+    <!--        android:layout_weight="1"-->
+    <!--        android:text="成员" />-->
 
-<!--    <Button-->
-<!--        android:id="@+id/btn_more"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginLeft="@dimen/padding"-->
-<!--        android:layout_marginRight="@dimen/padding"-->
-<!--        android:layout_weight="1"-->
-<!--        android:text="更多" />-->
+    <!--    <Button-->
+    <!--        android:id="@+id/btn_more"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginLeft="@dimen/padding"-->
+    <!--        android:layout_marginRight="@dimen/padding"-->
+    <!--        android:layout_weight="1"-->
+    <!--        android:text="更多" />-->
     <!-- <Button
          android:layout_width="0dp"
          android:layout_height="wrap_content"
