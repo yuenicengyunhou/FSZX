@@ -105,6 +105,61 @@ public class NameModel implements Serializable {
         private String committeeName;
         private String committeeNumber;
         private String positionName;
+        private String nation;
+        private String qualifications;
+        private String placeWork;
+        private String jobName;
+        private String jobLevel;
+        private String standingCommitteeType;
+
+
+        public String getNation() {
+            return nation;
+        }
+
+        public void setNation(String nation) {
+            this.nation = nation;
+        }
+
+        public String getQualifications() {
+            return qualifications;
+        }
+
+        public void setQualifications(String qualifications) {
+            this.qualifications = qualifications;
+        }
+
+        public String getPlaceWork() {
+            return placeWork;
+        }
+
+        public void setPlaceWork(String placeWork) {
+            this.placeWork = placeWork;
+        }
+
+        public String getJobName() {
+            return jobName;
+        }
+
+        public void setJobName(String jobName) {
+            this.jobName = jobName;
+        }
+
+        public String getJobLevel() {
+            return jobLevel;
+        }
+
+        public void setJobLevel(String jobLevel) {
+            this.jobLevel = jobLevel;
+        }
+
+        public String getStandingCommitteeType() {
+            return standingCommitteeType;
+        }
+
+        public void setStandingCommitteeType(String standingCommitteeType) {
+            this.standingCommitteeType = standingCommitteeType;
+        }
 
         private String sortLetters;
 

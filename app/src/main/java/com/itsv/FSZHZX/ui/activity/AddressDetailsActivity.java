@@ -35,8 +35,8 @@ public class AddressDetailsActivity extends BaseAppCompatActivity {
     TextView tvMail;
     @BindView(R.id.detail_iv_head)
     RoundedImageView ivHead;
-    @BindView(R.id.detail_tv_address)
-    TextView tvAddress;
+//    @BindView(R.id.detail_tv_address)
+//    TextView tvAddress;
     @BindDrawable(R.mipmap.head_grey)
     Drawable headGrey;
     @BindString(R.string.address_details)
@@ -57,36 +57,36 @@ public class AddressDetailsActivity extends BaseAppCompatActivity {
             NameModel.DataBean bean = (NameModel.DataBean) intent.getSerializableExtra("bean");
             if (bean != null) {
                 String name = bean.getName();
-                String email = bean.getEmail();
+                String placeWork = bean.getPlaceWork();
                 String phone = bean.getPhone();
                 String address = bean.getAddress();
                 String avatar = bean.getAvatar();
-                String positionName = bean.getPositionName();
+                String positionName = bean.getJobName();
                 String officeTel = bean.getOfficeTel();
                 Glide.with(this).load(avatar).placeholder(headGrey).into(ivHead);
                 tvName.setText(name);
                 tvDuty.setText(positionName);
                 tvCell.setText(String.format("手机\n%s", dealNull(phone)));
-                tvMail.setText(String.format("邮箱\n%s",  dealNull(email)));
-                tvAddress.setText(String.format("地址\n%s", dealNull(address)));
+                tvMail.setText(String.format("工作单位\n%s",  dealNull(placeWork)));
+//                tvAddress.setText(String.format("地址\n%s", dealNull(address)));
                 tvPhone.setText(String.format("办公室电话\n%s", dealNull(officeTel)));
             }
         } else {
             GroupListModel.DataBean.UserListBean bean = (GroupListModel.DataBean.UserListBean) intent.getSerializableExtra("bean");
             if (bean==null) return;
             String name = bean.getName();
-            String email = bean.getEmail();
+            String placeWork = bean.getPlaceWork();
             String phone = bean.getPhone();
             String address = bean.getAddress();
-            String positionName = bean.getPositionName();
+            String positionName = bean.getJobName();
             String avatar = bean.getAvatar();
             String officeTel = bean.getOfficeTel();
             Glide.with(this).load(avatar).placeholder(headGrey).into(ivHead);
             tvName.setText(name);
             tvDuty.setText(positionName);
             tvCell.setText(String.format("手机\n%s", dealNull(phone)));
-            tvMail.setText(String.format("邮箱\n%s", dealNull(email)));
-            tvAddress.setText(String.format("地址\n%s", dealNull(address)));
+            tvMail.setText(String.format("工作单位\n%s", dealNull(placeWork)));
+//            tvAddress.setText(String.format("地址\n%s", dealNull(address)));
             tvPhone.setText(String.format("办公室电话\n%s", dealNull(officeTel)));
         }
 

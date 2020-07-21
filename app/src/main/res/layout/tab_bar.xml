@@ -36,10 +36,12 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:button="@null"
+        android:enabled="false"
+        android:checked="true"
         android:drawableTop="@drawable/selector_mic"
         android:gravity="center"
         android:paddingTop="@dimen/padding"
-        android:text="静音"
+        android:text="@string/mute"
         android:textColor="@color/white"
         android:textSize="@dimen/textSizeS" />
 
@@ -87,7 +89,7 @@
         android:drawableTop="@drawable/selector_member"
         android:gravity="center"
         android:paddingTop="@dimen/padding"
-        android:text="成员"
+        android:text="@string/member"
         android:textColor="@color/white"
         android:textSize="@dimen/textSizeS" />
 
@@ -101,7 +103,7 @@
         android:drawableTop="@mipmap/ic_more"
         android:gravity="center"
         android:paddingTop="@dimen/padding"
-        android:text="更多"
+        android:text="@string/more"
         android:textColor="@color/white"
         android:textSize="@dimen/textSizeS" />
 

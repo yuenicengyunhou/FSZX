@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.text.Layout;
 import android.text.TextPaint;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -143,7 +144,7 @@ public class NotiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             String isCanhui = dataBean.getIsCanhui();
             String content = dataBean.getContent();
             String reason = content == null ? "" : content;
-            if (null == isCanhui) {
+            if (null == isCanhui|| TextUtils.isEmpty(isCanhui)) {
                 holder.itemNotiSure.setVisibility(View.VISIBLE);
                 holder.itemNotiSure.setBackground(holder.attend);
                 holder.itemNotiSure.setText("确定参会");

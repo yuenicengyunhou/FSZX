@@ -7,7 +7,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/textSizeL"
+        android:textSize="@dimen/textSize18"
         android:text="@string/newVersion"
         android:textColor="@color/black"
         android:layout_marginTop="@dimen/marginPrimary"
@@ -30,7 +30,9 @@
         android:layout_gravity="end"
         android:layout_marginBottom="@dimen/marginPrimary"
         android:layout_marginRight="@dimen/marginPrimary"
+        android:background="?attr/selectableItemBackground"
         android:textSize="@dimen/textSize"
+        android:padding="@dimen/padding"
         android:textColor="@color/colorPrimary"
         android:text="@string/update"
         android:layout_marginTop="@dimen/marginM"

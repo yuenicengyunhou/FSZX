@@ -32,47 +32,46 @@
         android:textColor="@color/colorGrey"
         android:textSize="@dimen/textSize18" />
 
-    <RelativeLayout
-        android:id="@+id/textureParent"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/tabBar"
-        android:background="@android:color/transparent"
-        android:layout_centerInParent="true"
-        android:layout_below="@id/navBar">
-<!--
-        <org.webrtc.TextureViewRenderer
-            android:visibility="gone"
-            android:layout_centerInParent="true"
-            android:id="@+id/textureViewBoss"
+        <RelativeLayout
+            android:id="@+id/textureParent"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />-->
-    </RelativeLayout>
+            android:layout_height="match_parent"
+            android:layout_above="@id/tabBar"
+            android:background="@android:color/transparent"
+            android:layout_centerInParent="true"
+            android:layout_below="@id/navBar">
+    <!--
+            <org.webrtc.TextureViewRenderer
+                android:visibility="gone"
+                android:layout_centerInParent="true"
+                android:id="@+id/textureViewBoss"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />-->
+        </RelativeLayout>
 
 
-<!--     <androidx.recyclerview.widget.RecyclerView-->
-<!--         android:id="@+id/vid_recycler"-->
-<!--         android:layout_width="match_parent"-->
-<!--         android:layout_height="200dp"-->
-<!--         android:layout_below="@id/navBar" />-->
+    <!--     <androidx.recyclerview.widget.RecyclerView-->
+    <!--         android:id="@+id/vid_recycler"-->
+    <!--         android:layout_width="match_parent"-->
+    <!--         android:layout_height="200dp"-->
+    <!--         android:layout_below="@id/navBar" />-->
     <org.webrtc.TextureViewRenderer
         android:id="@+id/textureViewMe"
         android:layout_width="90dp"
-        android:visibility="gone"
         android:layout_height="160dp"
         android:layout_above="@id/tabBar"
         android:layout_marginStart="@dimen/marginPrimary"
         android:layout_marginLeft="@dimen/marginPrimary"
         android:layout_marginBottom="@dimen/marginPrimary" />
-<!--    <FrameLayout
+
+ <!--   <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="90dp"
         android:layout_height="160dp"
         android:layout_above="@id/tabBar"
         android:layout_marginStart="@dimen/marginPrimary"
         android:layout_marginLeft="@dimen/marginPrimary"
-        android:layout_marginBottom="@dimen/marginPrimary" >
-    </FrameLayout>-->
+        android:layout_marginBottom="@dimen/marginPrimary" />-->
 
     <include
         layout="@layout/layout_member"

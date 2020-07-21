@@ -8,17 +8,17 @@ android {
         applicationId "com.itsv.FSZHZX"
         minSdkVersion 16
         targetSdkVersion 29
-        versionCode 10    //10
-        versionName "1.1"   //1.1
+        versionCode 16   //15
+        versionName "1.2.5"   //1.2.4
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         ndk {
-            abiFilters("arm64-v8a", "armeabi-v7a", "x86", "x86_64","armeabi")
+            abiFilters("arm64-v8a", "armeabi-v7a", "x86", "x86_64", "armeabi")
         }
         manifestPlaceholders = [
-                JPUSH_PKGNAME : "com.itsv.FSZHZX",
+                JPUSH_PKGNAME: "com.itsv.FSZHZX",
                 JPUSH_APPKEY : "4c28609ada78b0fa171853b6", //JPush 上注册的包名对应的 Appkey.
-                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+                JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
         ]
     }
     // Butterknife requires Java 8.
@@ -54,10 +54,10 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
 
 
-//    compileOnly 'com.squareup.okhttp3:okhttp:3.12.1'
-//    compileOnly 'com.squareup.retrofit2:retrofit:2.5.0'
-//    compileOnly 'com.squareup.retrofit2:retrofit-converters:2.5.0'
-//    compileOnly 'com.squareup.retrofit2:converter-gson:2.5.0'
+//    implementation 'com.squareup.okhttp3:okhttp:3.12.1'
+//    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+//    implementation 'com.squareup.retrofit2:retrofit-converters:2.5.0'
+//    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'org.greenrobot:eventbus:3.1.1'
     implementation 'com.just.agentweb:agentweb:4.0.2'

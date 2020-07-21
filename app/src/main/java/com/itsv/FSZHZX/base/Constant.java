@@ -2,7 +2,7 @@ package com.itsv.FSZHZX.base;
 
 public class Constant {
 
-    public static String DEVICE_ID = "";
+//    public static String DEVICE_ID = "";
     public static String SP_NAME = "fszx";
     public static final String BASEURL = "https://www.fszxpt.cn:9528/api/";//正式
     public static final String logoutURL = "https://www.fszxpt.cn:9528/api/login/";//正式

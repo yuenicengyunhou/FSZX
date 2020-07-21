@@ -106,11 +106,6 @@ public class MtNotifyActivity extends MyBaseMvpActivity<MtNotifyActivity, MtNoti
     private SimpleDateFormat format;
     private String mRoomNum;
     private long mUserId;
-    private boolean isStage;
-
-    public void setStage(boolean stage) {
-        isStage = stage;
-    }
 
     @NonNull
     @Override
@@ -532,7 +527,7 @@ public class MtNotifyActivity extends MyBaseMvpActivity<MtNotifyActivity, MtNoti
                 mRoomNum = roomNumber;
                 intent.putExtra("sdkCid", sdkCid);
                 intent.putExtra("mic", false);
-                intent.putExtra("cam", false);
+                intent.putExtra("video", true);
                 intent.putExtra("broad", false);
                 intent.putExtra("userId", mId);
                 startActivity(intent);

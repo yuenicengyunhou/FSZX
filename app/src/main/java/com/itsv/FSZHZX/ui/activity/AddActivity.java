@@ -111,7 +111,7 @@ public class AddActivity extends BaseAppCompatActivity {
                 intent.putExtra("roomNumber", roomNumber);
                 intent.putExtra("sdkCid", "");
                 intent.putExtra("mic", false);
-                intent.putExtra("cam", false);
+                intent.putExtra("video", true);
                 intent.putExtra("broad", false);
                 intent.putExtra("userId", this.userId);
                 intent.putExtra("isController", false);

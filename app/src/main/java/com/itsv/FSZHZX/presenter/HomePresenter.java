@@ -41,6 +41,8 @@ public class HomePresenter implements MvpPresenter<HomeActivity> {
     private HomeActivity mvpView;
     private UIHandler handler;
     private String finalApkPath;
+    private int sofar;
+    private int totalByte;
 
     @SuppressLint("HandlerLeak")
     private class UIHandler extends Handler {
@@ -54,8 +56,14 @@ public class HomePresenter implements MvpPresenter<HomeActivity> {
         public void handleMessage(@NonNull Message msg) {
             HomeActivity activity = mActivity.get();
             if (activity == null) return;
-            if (msg.what == 0) {
-                mvpView.showUpdateDialog(new File(finalApkPath));
+            switch (msg.what) {
+                case 0:
+                    install(new File(finalApkPath));
+//                    mvpView.showUpdateDialog(new File(finalApkPath));
+                    break;
+                case 1:
+                    mvpView.setUpdateProgress(sofar*100/totalByte);
+                    break;
             }
         }
     }
@@ -66,6 +74,7 @@ public class HomePresenter implements MvpPresenter<HomeActivity> {
         handler = new UIHandler(mvpView);
     }
     public void getSimpleProfile() {
+//        mvpView.checkToken();
         UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.UserURL)
                 .createService(UserApi.class);
         Call<ResponseBody> call = api.personalData(Constant.TOKEN);
@@ -76,7 +85,6 @@ public class HomePresenter implements MvpPresenter<HomeActivity> {
                     try {
                         String params = response.body().string();
                         Gson gson = new Gson();
-
                         SimpleModel model = gson.fromJson(params, SimpleModel.class);
                         if (model.isSuccess()) {
                             SimpleModel.DataBean data = model.getData();
@@ -97,6 +105,7 @@ public class HomePresenter implements MvpPresenter<HomeActivity> {
     }
 
     public void checkAppUpdate(String apkPath) {
+//        mvpView.checkToken();
         UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.appURL)
                 .createService(UserApi.class);
         Call<ResponseBody> call = api.getAppVersion(Constant.TOKEN);
@@ -112,6 +121,8 @@ public class HomePresenter implements MvpPresenter<HomeActivity> {
                             JSONObject data = object.getJSONObject("data");
                             String downloadURL = data.getString("downloadURL");
                             String version = data.getString("version");
+                            long size = data.getLong("size");
+                            totalByte = (int) size;
                             downloadApk(apkPath, downloadURL, version);
                         }
                     } catch (IOException | JSONException e) {
@@ -131,7 +142,8 @@ public class HomePresenter implements MvpPresenter<HomeActivity> {
         int onlineVersion = Integer.decode(version);
         int appVersionCode = getAppVersionCode(mvpView);
         if (onlineVersion > appVersionCode) {
-            start_single(apkDirPath, downloadURL, "房山政协.apk");
+            mvpView.showUpdateDialog(downloadURL);
+//            start_single(apkDirPath, downloadURL, "房山政协.apk");
 //            showNewVirsionDialog(downloadURL, apkDirPath);
         } else {
             File file = new File(apkDirPath + File.separator + "房山政协.apk");
@@ -166,6 +178,9 @@ public class HomePresenter implements MvpPresenter<HomeActivity> {
 
                     @Override
                     protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                        Log.e("feifei", "progress ==:" + soFarBytes+"---total"+totalByte);
+                        sofar = soFarBytes/1024;
+                        handler.sendEmptyMessage(1);
                     }
 
                     @Override

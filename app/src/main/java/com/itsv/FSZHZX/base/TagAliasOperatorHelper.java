@@ -1,8 +1,10 @@
 package com.itsv.FSZHZX.base;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.util.SparseArray;
 
 import java.util.Locale;
@@ -288,17 +290,25 @@ public class TagAliasOperatorHelper {
             ExampleUtil.showToast("获取缓存记录失败", context);
             return;
         }
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.SP_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = sharedPreferences.edit();
         if(jPushMessage.getErrorCode() == 0){
             Logger.i(TAG,"action - modify alias Success,sequence:"+sequence);
             setActionCache.remove(sequence);
             String logs = getActionStr(tagAliasBean.action)+" alias success";
             Logger.i(TAG,logs);
-            ExampleUtil.showToast(logs, context);
+            Log.e("WQ", "========" + logs);
+            edit.putBoolean("aliasSuccess", true);
+            edit.apply();
+//            ExampleUtil.showToast(logs, context);
         }else{
             String logs = "Failed to " + getActionStr(tagAliasBean.action)+" alias, errorCode:" + jPushMessage.getErrorCode();
             Logger.e(TAG, logs);
             if(!RetryActionIfNeeded(jPushMessage.getErrorCode(),tagAliasBean)) {
-                ExampleUtil.showToast(logs, context);
+                edit.putBoolean("aliasSuccess", false);
+                edit.apply();
+                Log.e("WQ", "----" + logs);
+//                ExampleUtil.showToast(logs, context);
             }
         }
     }

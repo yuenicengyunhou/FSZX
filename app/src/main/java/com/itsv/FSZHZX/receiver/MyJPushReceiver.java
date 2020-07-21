@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.itsv.FSZHZX.base.Constant;
 import com.itsv.FSZHZX.base.TagAliasOperatorHelper;
+import com.itsv.FSZHZX.ui.activity.MtNotifyActivity;
 import com.itsv.FSZHZX.ui.activity.TestActivity;
 
 import cn.jpush.android.api.CmdMessage;
@@ -28,7 +30,9 @@ public class MyJPushReceiver extends JPushMessageReceiver {
         Log.e(TAG,"[onNotifyMessageOpened] "+message);
         try{
             //打开自定义的Activity
-            Intent i = new Intent(context, TestActivity.class);
+            Intent i = new Intent(context, MtNotifyActivity.class);
+            i.putExtra("title", "视频会议");
+            i.putExtra("userName", Constant.USER_NAME);
             Bundle bundle = new Bundle();
             bundle.putString(JPushInterface.EXTRA_NOTIFICATION_TITLE,message.notificationTitle);
             bundle.putString(JPushInterface.EXTRA_ALERT,message.notificationContent);

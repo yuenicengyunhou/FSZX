@@ -1,8 +1,7 @@
 package com.itsv.FSZHZX.presenter;
 
 
-import android.text.TextUtils;
-import android.util.Log;
+
 
 import androidx.annotation.NonNull;
 
@@ -16,8 +15,6 @@ import com.itsv.FSZHZX.model.NotiModel;
 import com.itsv.FSZHZX.model.ProfileDetailsM;
 import com.itsv.FSZHZX.ui.activity.MtNotifyActivity;
 import com.itsv.FSZHZX.utils.ToastUtils;
-import com.manis.core.interfaces.ManisApiInterface;
-import com.manis.retrofit.Api;
 
 import org.json.JSONException;
 import org.json.JSONObject;

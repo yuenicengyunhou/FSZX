@@ -7,10 +7,13 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -33,7 +36,7 @@ import com.itsv.FSZHZX.utils.ToastUtils;
 import com.itsv.FSZHZX.view.HomeView;
 import com.makeramen.roundedimageview.RoundedImageView;
 
-import java.io.File;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,6 +83,10 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
     private String weekCorrectRate;
     private String avatarUrl;
     public static boolean isForeground = false;
+    private String apkDirPath;
+    private TextView tvUpdate;
+    private ProgressBar progressBar;
+    boolean isDownloading = false;
 
     @NonNull
     @Override
@@ -96,6 +103,7 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
     @Override
     protected void initViewsAndEnvents() {
         checkToken();
+        checkImei();
         setJpushAlias();
         initToolbar(toolbar, false);
         initRecycler();
@@ -106,17 +114,15 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
 
     @Override
     public void setJpushAlias() {
-        if (TextUtils.isEmpty(Constant.IMEI)) {
-            ToastUtils.showSingleToast("设备码获取失败");
-            finish();
-            return;
+        SharedPreferences sharedPreferences = getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
+        boolean aliasSuccess = sharedPreferences.getBoolean("aliasSuccess", false);
+        if (!aliasSuccess) {
+            TagAliasBean tagAliasBean = new TagAliasBean();
+            tagAliasBean.action = ACTION_SET;
+            tagAliasBean.alias = Constant.IMEI;
+            tagAliasBean.isAliasAction = true;
+            TagAliasOperatorHelper.getInstance().handleAction(getApplicationContext(), sequence, tagAliasBean);
         }
-//        Log.e("WQ", "-----" + Constant.IMEI);
-//        TagAliasBean tagAliasBean = new TagAliasBean();
-//        tagAliasBean.action = ACTION_SET;
-//        tagAliasBean.alias = Constant.IMEI;
-//        tagAliasBean.isAliasAction = true;
-//        TagAliasOperatorHelper.getInstance().handleAction(getApplicationContext(), sequence, tagAliasBean);
     }
 
     @Override
@@ -131,23 +137,27 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
                 Constant.TOKEN = token;
             }
         }
+    }
+
+    @Override
+    public void checkImei() {
+        SharedPreferences preferences = getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
         if (TextUtils.isEmpty(Constant.IMEI)) {
-            String token = preferences.getString("imei", "");
-            if (TextUtils.isEmpty(token)) {
+            String imei = preferences.getString("imei", "");
+            if (TextUtils.isEmpty(imei)) {
                 ToastUtils.showSingleToast("登录验证失效，请重新登录");
                 finish();
             } else {
-                Constant.IMEI = token;
+                Constant.IMEI = imei;
             }
         }
     }
-
 
     private void makeDir() {
         FileUtils fileUtils = new FileUtils(this);
         Constant.PDFPath = fileUtils.getCachePath();
         Constant.FilePath = fileUtils.createFileDir();
-        String apkDirPath = fileUtils.getApkDirPath();
+        apkDirPath = fileUtils.getApkDirPath();
         presenter.checkAppUpdate(apkDirPath);
     }
 
@@ -218,17 +228,65 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
         Glide.with(this).load(avatarUrl).placeholder(icHead).into(ivHead);
     }
 
+//    @Override
+//    public void showUpdateDialog(File file) {
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setTitle("版本更新");
+//        AlertDialog alertDialog = builder.create();
+//        alertDialog.setCanceledOnTouchOutside(false);
+//        builder.setPositiveButton("立即更新", (dialog, which) -> {
+//            presenter.install(file);
+//            dialog.dismiss();
+//        });
+//        builder.show();
+//    }
+
     @Override
-    public void showUpdateDialog(File file) {
+    public void showUpdateDialog(String downloadURL) {
+        View view = LayoutInflater.from(this).inflate(R.layout.dialog_update, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("版本更新");
-        AlertDialog alertDialog = builder.create();
-        alertDialog.setCanceledOnTouchOutside(false);
-        builder.setPositiveButton("立即更新", (dialog, which) -> {
-            presenter.install(file);
-            dialog.dismiss();
+        builder.setView(view);
+        builder.setCancelable(false);
+        progressBar = view.findViewById(R.id.update_progress);
+        tvUpdate = view.findViewById(R.id.update_text);
+        tvUpdate.setOnClickListener(v -> {
+            if (isDownloading) {
+                ToastUtils.showSingleToast("正在下载，请稍后");
+            } else {
+                presenter.start_single(apkDirPath, downloadURL, "房山政协.apk");
+                isDownloading = true;
+            }
+        });
+        builder.setOnDismissListener(dialog -> {
+            if (isDownloading) {
+                ToastUtils.showSingleToast("后台下载中...");
+            }
         });
         builder.show();
+    }
+
+    @Override
+    public void setUpdateProgress(int progress) {
+        if (null != progressBar) {
+            if (progressBar.getVisibility() == View.INVISIBLE) {
+                progressBar.setVisibility(View.VISIBLE);
+            }
+            progressBar.setProgress(progress);
+        }
+        if (null != tvUpdate) {
+            if (progress > 85 && progress < 90) {
+                tvUpdate.setText("下载完成后将自行安装");
+            } else {
+                tvUpdate.setText(MessageFormat.format("{0}%", progress));
+            }
+        }
+    }
+
+    @Override
+    public void setDialogViewAfterDownloaded() {
+        if (null != tvUpdate) {
+            tvUpdate.setText("立即安装");
+        }
     }
 
     @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.MODIFY_AUDIO_SETTINGS, //扬声器权限

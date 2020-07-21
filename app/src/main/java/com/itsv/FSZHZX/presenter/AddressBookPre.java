@@ -1,7 +1,6 @@
 package com.itsv.FSZHZX.presenter;
 
 
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -61,10 +60,6 @@ public class AddressBookPre implements MvpPresenter<AddressBookActivity> {
                         if (model != null) {
                             List<NameModel.DataBean> data = model.getData();
                             List<NameModel.DataBean> dataBeans = filledData(data);
-                            for (int i = 0; i < dataBeans.size(); i++) {
-                                String name1 = dataBeans.get(i).getName();
-                                Log.e("WQ", "name===" + name1);
-                            }
                             if (dataBeans.isEmpty()) {
                                 mvpView.showNoDataView();
                             } else {
