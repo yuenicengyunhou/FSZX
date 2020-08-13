@@ -19,5 +19,4 @@ public class Constant {
     public static String APP_ID="wx13088771b5a0334b";
     public static String USER_NAME="";
     public static String IMEI="";
-    public static boolean isOnlyMe;
 }

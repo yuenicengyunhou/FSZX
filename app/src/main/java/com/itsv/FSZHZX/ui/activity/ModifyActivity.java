@@ -16,6 +16,8 @@ import com.itsv.FSZHZX.base.MyBaseMvpActivity;
 import com.itsv.FSZHZX.presenter.ModifyPre;
 import com.itsv.FSZHZX.view.ModifyView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.BindColor;
 import butterknife.BindDrawable;
 import butterknife.BindView;
@@ -114,5 +116,11 @@ public class ModifyActivity extends MyBaseMvpActivity<ModifyActivity, ModifyPre>
         } else {
             presenter.modifyBirthday(trim);
         }
+    }
+
+    @Override
+    public void afterModified(String s) {
+        EventBus.getDefault().post(s);
+        finish();
     }
 }

@@ -17,6 +17,10 @@ import com.itsv.FSZHZX.presenter.SimpleProfilePre;
 import com.itsv.FSZHZX.view.SimpleView;
 import com.makeramen.roundedimageview.RoundedImageView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.text.MessageFormat;
 
 import butterknife.BindDrawable;
@@ -69,6 +73,7 @@ public class SimpleProfileActivity extends MyBaseMvpActivity<SimpleProfileActivi
         String weekCorrectRate = intent.getStringExtra("weekCorrectRate");
         String avatarUrl = intent.getStringExtra("avatarUrl");
         loadViews( name, positionName, weekCorrectRate, avatarUrl);
+        EventBus.getDefault().register(this);
     }
 
     @OnClick({ R.id.simple_modify, R.id.simple_logout,R.id.toProfile})
@@ -97,6 +102,12 @@ public class SimpleProfileActivity extends MyBaseMvpActivity<SimpleProfileActivi
         simplePosition.setText(positionName);
         simpleRate.setText(MessageFormat.format("周学习答题正确率：{0}", rate));
     }
+    //修改了用户名，通知此页面更改用户名
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void modifyName(String name) {
+        simpleName.setText(name);
+    }
 
     @Override
     public void logout() {
@@ -105,5 +116,11 @@ public class SimpleProfileActivity extends MyBaseMvpActivity<SimpleProfileActivi
         edit.clear();
         edit.apply();
         appManager.clearExceptFirst();
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        EventBus.getDefault().unregister(this);
     }
 }

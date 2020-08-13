@@ -15,6 +15,11 @@
         android:layout_height="wrap_content"
         android:scaleType="fitXY"
         android:src="@mipmap/iv_home" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textTest"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/homeRecycler"

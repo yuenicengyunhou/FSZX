@@ -77,4 +77,10 @@ public class ProfileActivity extends MyBaseMvpActivity<ProfileActivity, ProfileP
 
         });
     }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        presenter.userDetailInfo();
+    }
 }

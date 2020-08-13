@@ -2,11 +2,14 @@ package com.itsv.FSZHZX.ui.activity;
 
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Environment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,8 +39,18 @@ import com.itsv.FSZHZX.utils.ToastUtils;
 import com.itsv.FSZHZX.view.HomeView;
 import com.makeramen.roundedimageview.RoundedImageView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.DateFormat;
 import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindDrawable;
@@ -55,6 +68,8 @@ import static com.itsv.FSZHZX.base.TagAliasOperatorHelper.sequence;
 public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter> implements HomeView {
     @BindView(R.id.homeRecycler)
     RecyclerView recyclerView;
+    @BindView(R.id.textTest)
+    TextView textTest;
     @BindDrawable(R.mipmap.ic_vidmeet)
     Drawable vidMeeting;
     @BindDrawable(R.mipmap.ic_mtnoti)
@@ -110,6 +125,7 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
         initDisplayImage();
         presenter.getSimpleProfile();
         questPermission();
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -188,9 +204,6 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
 //                case "在线答题":
 //                    ToastUtils.showSingleToast("功能建设中，后续开放");
 //                    break;
-//                case "视频会议":
-//                    toMeeting(title);
-//                    break;
                 case "视频会议":
                 case "会议通知":
                     toMeeting(title);
@@ -212,6 +225,9 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
         });
     }
 
+
+
+
     @Override
     public void initDisplayImage() {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DesignUtils.getScreenWidth(this) * 39 / 69);
@@ -228,6 +244,11 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
         Glide.with(this).load(avatarUrl).placeholder(icHead).into(ivHead);
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getNewName(String newName) {
+        name = newName;
+        Constant.USER_NAME = newName;
+    }
 //    @Override
 //    public void showUpdateDialog(File file) {
 //        AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -344,5 +365,11 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
     protected void onPause() {
         super.onPause();
         isForeground = false;
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        EventBus.getDefault().unregister(this);
     }
 }

@@ -19,6 +19,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         AppUtils.init(this);
+        CrashHandler.getInstance().init(this);
         initManis();
         initDownloader();
         initWechatShare();

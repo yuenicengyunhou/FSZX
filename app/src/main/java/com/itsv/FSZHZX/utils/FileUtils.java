@@ -14,7 +14,7 @@ public class FileUtils {
     public FileUtils(Context context) {
 		mDataRootPath = context.getCacheDir().getPath();
         this.context = context;
-		makeAppDir();
+//		makeAppDir();
     }
 
 	public String makeAppDir(){
@@ -38,6 +38,10 @@ public class FileUtils {
     public String createFileDir() {
         return Objects.requireNonNull(context.getExternalFilesDir("pdf")).getPath();
     }
+
+	public String createCrashDir() {
+		return Objects.requireNonNull(context.getExternalFilesDir("crash")).getPath();
+	}
 	private static final String mSdRootPath = Environment.getExternalStorageDirectory().getPath();
 	private final static String FOLDER_NAME = "/com.itsv.FSZHZX";
 

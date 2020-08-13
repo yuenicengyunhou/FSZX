@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import com.itsv.FSZHZX.R;
 import com.itsv.FSZHZX.api.UserApi;
 import com.itsv.FSZHZX.base.ApiHelper;
@@ -13,6 +14,9 @@ import com.itsv.FSZHZX.base.Constant;
 import com.itsv.FSZHZX.utils.ToastUtils;
 import com.manis.core.interfaces.ManisApiInterface;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -34,8 +38,8 @@ public class AddActivity extends BaseAppCompatActivity {
     @BindView(R.id.et_urName)
     EditText etUrName;
     private long userId;
-    private boolean isStage;
     private boolean initMeeting;
+    private String roomNum;
 
     @Override
     protected int getLayoutID() {
@@ -44,13 +48,12 @@ public class AddActivity extends BaseAppCompatActivity {
 
     @Override
     protected void initViewsAndEnvents() {
-//        personalData();
+        EventBus.getDefault().register(this);
         tvTitle.setText("加入会议室");
         if (TextUtils.isEmpty(Constant.USER_NAME)) {
             etUrName.setVisibility(View.VISIBLE);
         }
         initSdk();
-
     }
 
     private void initSdk() {
@@ -62,7 +65,7 @@ public class AddActivity extends BaseAppCompatActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_joinMt:
-                String roomNum = getEditContent(etRoomNum);
+                roomNum = getEditContent(etRoomNum);
                 if (roomNum.isEmpty()) {
                     ToastUtils.showSingleToast("请填写会议号");
                     return;
@@ -95,7 +98,7 @@ public class AddActivity extends BaseAppCompatActivity {
         return editText.getText().toString().trim();
     }
 
-    private void joinMeetingRoom(String roomnumber, String username,String stageJid) {
+    private void joinMeetingRoom(String roomnumber, String username, String stageJid) {
         ManisApiInterface.app.guestLogin(roomnumber, username, this, "", (b, s, conferenceInfo, userInfo) -> {
             initMeeting = false;
             if (b) {
@@ -169,7 +172,7 @@ public class AddActivity extends BaseAppCompatActivity {
                         String data = object.getString("data");
                         if (success) {
 //                            isStage = data.equals(String.valueOf(userId));
-                            joinMeetingRoom(roomNum, userName,data);
+                            joinMeetingRoom(roomNum, userName, data);
                         }
                     } catch (IOException | JSONException e) {
                         e.printStackTrace();
@@ -183,5 +186,43 @@ public class AddActivity extends BaseAppCompatActivity {
                 initMeeting = false;
             }
         });
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void close(String s) {
+        if (s.equals("close")) {
+            closeMeeting(roomNum);
+        }
+    }
+
+    public void closeMeeting(String roomNum) {
+        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.meetingURL)
+                .createService(UserApi.class);
+        Call<ResponseBody> call = api.closeMeeting(Constant.TOKEN, roomNum);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    try {
+                        String params = response.body().string();
+//                        JSONObject object = new JSONObject(params);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable throwable) {
+
+            }
+        });
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        EventBus.getDefault().unregister(this);
     }
 }

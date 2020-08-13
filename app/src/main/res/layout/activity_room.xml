@@ -32,22 +32,22 @@
         android:textColor="@color/colorGrey"
         android:textSize="@dimen/textSize18" />
 
-        <RelativeLayout
-            android:id="@+id/textureParent"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@id/tabBar"
-            android:background="@android:color/transparent"
-            android:layout_centerInParent="true"
-            android:layout_below="@id/navBar">
-    <!--
-            <org.webrtc.TextureViewRenderer
-                android:visibility="gone"
-                android:layout_centerInParent="true"
-                android:id="@+id/textureViewBoss"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />-->
-        </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/textureParent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/tabBar"
+        android:layout_below="@id/navBar"
+        android:layout_centerInParent="true"
+        android:background="@android:color/transparent">
+        <!--
+                <org.webrtc.TextureViewRenderer
+                    android:visibility="gone"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/textureViewBoss"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />-->
+    </RelativeLayout>
 
 
     <!--     <androidx.recyclerview.widget.RecyclerView-->
@@ -64,14 +64,15 @@
         android:layout_marginLeft="@dimen/marginPrimary"
         android:layout_marginBottom="@dimen/marginPrimary" />
 
- <!--   <FrameLayout
-        android:id="@+id/frameLayout"
-        android:layout_width="90dp"
-        android:layout_height="160dp"
-        android:layout_above="@id/tabBar"
-        android:layout_marginStart="@dimen/marginPrimary"
-        android:layout_marginLeft="@dimen/marginPrimary"
-        android:layout_marginBottom="@dimen/marginPrimary" />-->
+
+    <!--   <FrameLayout
+           android:id="@+id/frameLayout"
+           android:layout_width="90dp"
+           android:layout_height="160dp"
+           android:layout_above="@id/tabBar"
+           android:layout_marginStart="@dimen/marginPrimary"
+           android:layout_marginLeft="@dimen/marginPrimary"
+           android:layout_marginBottom="@dimen/marginPrimary" />-->
 
     <include
         layout="@layout/layout_member"
@@ -86,5 +87,22 @@
         android:layout_height="match_parent"
         android:layout_marginTop="100dp"
         android:visibility="gone" />
+<!--
+    <ScrollView
+        android:id="@+id/logScroll"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/tabBar"
+        android:layout_below="@id/navBar">
+
+        <TextView
+            android:id="@+id/logText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textSizeM" />
+    </ScrollView>-->
 
 </RelativeLayout>

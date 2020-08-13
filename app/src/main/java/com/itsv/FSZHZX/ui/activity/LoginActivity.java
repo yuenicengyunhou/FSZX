@@ -18,6 +18,7 @@ import com.itsv.FSZHZX.R;
 import com.itsv.FSZHZX.base.Constant;
 import com.itsv.FSZHZX.base.MyBaseMvpActivity;
 import com.itsv.FSZHZX.presenter.LoginPresenter;
+import com.itsv.FSZHZX.utils.ToastUtils;
 import com.itsv.FSZHZX.view.LoginView;
 
 import butterknife.BindView;
@@ -93,7 +94,13 @@ public class LoginActivity extends MyBaseMvpActivity<LoginActivity, LoginPresent
 
     @OnClick(R.id.login_btn)
     public void onClick(View v) {
-        loginPresenter.login(getEditContent(loginEditUser), getEditContent(loginEditPsw));
+        String userName = getEditContent(loginEditUser);
+        String psd = getEditContent(loginEditPsw);
+        if (TextUtils.isEmpty(userName) || TextUtils.isEmpty(psd)) {
+            ToastUtils.showSingleToast("请输入用户名或密码");
+        } else {
+            loginPresenter.login(userName, psd);
+        }
     }
 
     public void saveToken(String token) {

@@ -42,6 +42,10 @@ import com.itsv.FSZHZX.utils.ToastUtils;
 import com.itsv.FSZHZX.view.MtNofityView;
 import com.manis.core.interfaces.ManisApiInterface;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.ParseException;
@@ -128,6 +132,7 @@ public class MtNotifyActivity extends MyBaseMvpActivity<MtNotifyActivity, MtNoti
     protected void initViewsAndEnvents() {
         initToolbar(toolbar_add, false);
 //        tvCommit.setText("加入会议");
+        EventBus.getDefault().register(this);
         initLoading();
         initMeetingTime();
         Intent intent = getIntent();
@@ -557,8 +562,18 @@ public class MtNotifyActivity extends MyBaseMvpActivity<MtNotifyActivity, MtNoti
             currentPage = 1;
             queryList(currentPage);
         }
-        if (Constant.isOnlyMe) {
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void closeMeeting(String s) {
+        if (s.equals("close")) {
             presenter.closeMeeting(mRoomNum);
         }
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        EventBus.getDefault().unregister(this);
     }
 }

@@ -71,7 +71,7 @@ dependencies {
         exclude module: 'support-v13'
     }
     annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:3.1.0'
-    implementation(name: 'ManisLib-3.0.4', ext: 'aar')
+    implementation(name: 'ManisLib-3.6.0', ext: 'aar')
     implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'

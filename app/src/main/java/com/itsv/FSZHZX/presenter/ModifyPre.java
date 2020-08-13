@@ -48,7 +48,7 @@ public class ModifyPre implements MvpPresenter<ModifyActivity> {
                         String msg = object.getString("msg");
                         mvpView.showErrorToast(msg);
                         if (success) {
-                            mvpView.finish();
+                            mvpView.afterModified(name);
                         }
                     } catch (IOException | JSONException e) {
                         e.printStackTrace();
