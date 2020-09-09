@@ -26,7 +26,6 @@ import com.itsv.FSZHZX.model.MyAttachModel;
 import com.itsv.FSZHZX.ui.activity.AddressBookActivity;
 import com.itsv.FSZHZX.ui.activity.MtNotifyActivity;
 import com.itsv.FSZHZX.ui.activity.PdfActivity;
-import com.itsv.FSZHZX.ui.activity.QuizActivity;
 import com.itsv.FSZHZX.ui.activity.WebActivity;
 import com.itsv.FSZHZX.utils.DesignUtils;
 import com.itsv.FSZHZX.utils.ToastUtils;

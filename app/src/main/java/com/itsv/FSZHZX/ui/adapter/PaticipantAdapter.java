@@ -74,11 +74,11 @@ public class PaticipantAdapter extends RecyclerView.Adapter<PaticipantAdapter.Pa
         } else {
             holder.cam.setBackground(holder.camOn);
         }
-        if (stage) {
-            holder.tvBoss.setBackground(holder.bossOn);
-        }else {
-            holder.tvBoss.setBackground(holder.bossOff);
-        }
+//        if (stage) {
+//            holder.tvBoss.setBackground(holder.bossOn);
+//        }else {
+//            holder.tvBoss.setBackground(holder.bossOff);
+//        }
         if (host && stage) {
             holder.tvRole.setText("（管理员、主讲人）");
         } else {
@@ -110,17 +110,17 @@ public class PaticipantAdapter extends RecyclerView.Adapter<PaticipantAdapter.Pa
             }
         });
 
-        holder.tvBoss.setOnClickListener(v -> {
-            if ((null != itemClickListener) && isModerator) {
-                if (stage) {
-                    ToastUtils.showSingleToast("该成员已被指定为主讲人");
-                } else {
-                    itemClickListener.onBoss(jid, nickname);
-                }
-            } else {
-                ToastUtils.showSingleToast("请先获取管理员资格");
-            }
-        });
+//        holder.tvBoss.setOnClickListener(v -> {
+//            if ((null != itemClickListener) && isModerator) {
+//                if (stage) {
+//                    ToastUtils.showSingleToast("该成员已被指定为主讲人");
+//                } else {
+//                    itemClickListener.onBoss(jid, nickname);
+//                }
+//            } else {
+//                ToastUtils.showSingleToast("请先获取管理员资格");
+//            }
+//        });
 //        if (!isModerator) {
 //            holder.fullLayout.setOnClickListener(v -> Toast.makeText(context, "请先获取管理员资格", Toast.LENGTH_SHORT).show());
 //        }
@@ -138,8 +138,8 @@ public class PaticipantAdapter extends RecyclerView.Adapter<PaticipantAdapter.Pa
         TextView cam;
         @BindView(R.id.member_mic)
         TextView mic;
-        @BindView(R.id.member_boss)
-        TextView tvBoss;
+//        @BindView(R.id.member_boss)
+//        TextView tvBoss;
         @BindView(R.id.tv_role_member)
         TextView tvRole;
         @BindDrawable(R.drawable.boss_off)
@@ -169,6 +169,6 @@ public class PaticipantAdapter extends RecyclerView.Adapter<PaticipantAdapter.Pa
 
         void onMic(String jid, boolean isOn);
 
-        void onBoss(String jid, String name);
+//        void onBoss(String jid, String name);
     }
 }

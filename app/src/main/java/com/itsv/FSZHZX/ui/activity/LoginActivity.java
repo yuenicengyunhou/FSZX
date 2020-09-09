@@ -103,12 +103,13 @@ public class LoginActivity extends MyBaseMvpActivity<LoginActivity, LoginPresent
         }
     }
 
-    public void saveToken(String token) {
+    public void saveToken(String token,String alias) {
         Constant.TOKEN = token;
         SharedPreferences.Editor edit = fszx.edit();
         edit.putBoolean("autoLog", checkBox.isChecked());
         edit.putString("token", token);
         edit.putString("imei", Constant.IMEI);
+        edit.putString("alias", alias);
         edit.apply();
     }
 

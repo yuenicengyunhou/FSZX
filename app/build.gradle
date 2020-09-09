@@ -8,9 +8,9 @@ android {
         applicationId "com.itsv.FSZHZX"
         minSdkVersion 16
         targetSdkVersion 29
-        versionCode 16   //15
-        versionName "1.2.5"   //1.2.4
-
+        versionCode 19
+        versionName "1.2.8"
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         ndk {
             abiFilters("arm64-v8a", "armeabi-v7a", "x86", "x86_64", "armeabi")
@@ -45,11 +45,12 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'com.jakewharton:butterknife:10.2.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
 
@@ -64,7 +65,8 @@ dependencies {
 
     implementation 'com.hannesdorfmann.mosby:mvp:2.0.1'
     implementation 'com.hannesdorfmann.mosby:viewstate:2.0.1'
-    implementation 'androidx.recyclerview:recyclerview:1.2.0-alpha03'
+    implementation 'androidx.recyclerview:recyclerview:1.2.0-alpha05'
+    //noinspection GradleCompatible
     implementation 'com.android.support:design:28.0.0'
     implementation 'com.liulishuo.filedownloader:library:1.7.7'
     implementation('com.github.hotchemi:permissionsdispatcher:3.1.0') {
@@ -83,4 +85,9 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.1.1'
     implementation 'cn.jiguang.sdk:jpush:3.6.6'  // 此处以JPush 3.6.6 版本为例。
     implementation 'cn.jiguang.sdk:jcore:2.3.8'  // 此处以JCore 2.3.8 版本为例。
+
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6'
+    testImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6'
+    implementation 'com.android.support:multidex:1.0.3'
 }

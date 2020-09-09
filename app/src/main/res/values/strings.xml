@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">房山政协</string>
     <string name="full_name">房山区政协学习与履职服务信息化平台</string>
@@ -58,4 +59,6 @@
     <string name="chat">聊天</string>
     <string name="member">成员</string>
     <string name="more">更多</string>
+    <string name="title_activity_scrolling">ScrollingActivity</string>
+    <string name="action_settings">Settings</string>
 </resources>

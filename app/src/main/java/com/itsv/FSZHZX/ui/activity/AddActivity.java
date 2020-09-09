@@ -98,7 +98,7 @@ public class AddActivity extends BaseAppCompatActivity {
         return editText.getText().toString().trim();
     }
 
-    private void joinMeetingRoom(String roomnumber, String username, String stageJid) {
+    private void joinMeetingRoom(String roomnumber, String username) {
         ManisApiInterface.app.guestLogin(roomnumber, username, this, "", (b, s, conferenceInfo, userInfo) -> {
             initMeeting = false;
             if (b) {
@@ -119,8 +119,6 @@ public class AddActivity extends BaseAppCompatActivity {
                 intent.putExtra("userId", this.userId);
                 intent.putExtra("isController", false);
                 intent.putExtra("moderatorPsw", "");
-                intent.putExtra("isStage", jid.equals(stageJid));
-                intent.putExtra("stageJid", stageJid);
                 startActivity(intent);
             } else {
                 ToastUtils.showSingleToast(s);
@@ -143,7 +141,7 @@ public class AddActivity extends BaseAppCompatActivity {
                         boolean success = object.getBoolean("success");
                         if (success) {
 //                            String data = object.getString("data");
-                            questStage(roomNum, userName);
+                            joinMeetingRoom(roomNum, userName);
                         }
                     } catch (IOException | JSONException e) {
                         e.printStackTrace();
@@ -157,37 +155,6 @@ public class AddActivity extends BaseAppCompatActivity {
             }
         });
     }
-
-    private void questStage(String roomNum, String userName) {
-        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.meetingURL).createService(UserApi.class);
-        Call<ResponseBody> call = api.getStageByRoomNumber(roomNum);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.isSuccessful()) {
-                    try {
-                        String params = response.body().string();
-                        JSONObject object = new JSONObject(params);
-                        boolean success = object.getBoolean("success");
-                        String data = object.getString("data");
-                        if (success) {
-//                            isStage = data.equals(String.valueOf(userId));
-                            joinMeetingRoom(roomNum, userName, data);
-                        }
-                    } catch (IOException | JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable throwable) {
-                ToastUtils.showSingleToast("获取主屏失败");
-                initMeeting = false;
-            }
-        });
-    }
-
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void close(String s) {

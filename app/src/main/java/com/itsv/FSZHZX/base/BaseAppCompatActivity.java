@@ -21,6 +21,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import com.itsv.FSZHZX.R;
+import com.itsv.FSZHZX.app.MyApplication;
 import com.itsv.FSZHZX.ui.activity.MainActivity;
 import com.itsv.FSZHZX.utils.StatusBarCompat;
 
@@ -49,6 +50,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MyApplication.getWatcher().watch(this);
         appManager = BaseAppManager.getInstance();
         appManager.addActivity(this);
 //        setWhiteStatusBar();

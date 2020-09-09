@@ -245,7 +245,8 @@ public class MtNotifyPre implements MvpPresenter<MtNotifyActivity> {
                         boolean success = object.getBoolean("success");
                         if (success) {
 //                            String data = object.getString("data");
-                           questStage(roomNum,userName,sdkCid,isModerator,psw,mId);
+                            mvpView.hideLoading();
+                            mvpView.joinMeetingRoom(roomNum, userName, sdkCid, isModerator, psw, mId);
                         }
                     } catch (IOException | JSONException e) {
                         e.printStackTrace();
@@ -318,36 +319,6 @@ public class MtNotifyPre implements MvpPresenter<MtNotifyActivity> {
         });
 
 
-    }
-
-    private void questStage(String roomNum, String userName, String sdkCid, boolean isModerator, String psw, String mId) {
-        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.meetingURL).createService(UserApi.class);
-        Call<ResponseBody> call = api.getStageByRoomNumber(roomNum);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.isSuccessful()) {
-                    try {
-                        String params = response.body().string();
-                        JSONObject object = new JSONObject(params);
-                        boolean success = object.getBoolean("success");
-                        String data = object.getString("data");
-                        if (success) {
-//                            mvpView.setStage(data.equals(mId));
-                            mvpView.hideLoading();
-                            mvpView.joinMeetingRoom(roomNum, userName, sdkCid, isModerator, psw, mId,data);
-                        }
-                    } catch (IOException | JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable throwable) {
-                ToastUtils.showSingleToast("获取主屏失败");
-            }
-        });
     }
 
 }

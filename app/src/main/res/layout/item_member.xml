@@ -32,7 +32,7 @@
         android:textColor="@color/colorTextInvalid"
         android:textSize="@dimen/textSize" />
 
-    <TextView
+  <!--  <TextView
         android:id="@+id/member_boss"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
         android:layout_marginEnd="@dimen/marginPrimary"
         android:layout_marginRight="@dimen/marginPrimary"
         android:background="@drawable/selector_boss"
-        android:button="@null" />
+        android:button="@null" />-->
 
     <TextView
         android:id="@+id/member_mic"

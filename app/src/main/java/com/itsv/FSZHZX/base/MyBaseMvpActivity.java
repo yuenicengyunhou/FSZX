@@ -27,6 +27,7 @@ import com.hannesdorfmann.mosby.mvp.MvpActivity;
 import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 import com.hannesdorfmann.mosby.mvp.MvpView;
 import com.itsv.FSZHZX.R;
+import com.itsv.FSZHZX.app.MyApplication;
 import com.itsv.FSZHZX.ui.activity.HomeActivity;
 import com.itsv.FSZHZX.ui.activity.LoginActivity;
 import com.itsv.FSZHZX.utils.DesignUtils;
@@ -56,6 +57,7 @@ public abstract class MyBaseMvpActivity<V extends MvpView, P extends MvpPresente
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MyApplication.getWatcher().watch(this);
         appManager = BaseAppManager.getInstance();
         appManager.addActivity(this);
         if (Constant.SCREEN_DENSITY == 0) {

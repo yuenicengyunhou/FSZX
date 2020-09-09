@@ -67,7 +67,7 @@
     </style>
 
     <style name="activityInOut" parent="AppTheme">
-    <item name="android:windowAnimationStyle">@style/activityAnim</item>
+        <item name="android:windowAnimationStyle">@style/activityAnim</item>
     </style>
     <style name="activityInOutReverse" parent="AppTheme">
         <item name="android:activityOpenEnterAnimation">@anim/slide_in</item>
@@ -125,7 +125,6 @@
     <style name="item_noti_button">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_below">@id/item_noti_attach</item>
         <item name="android:layout_marginTop">@dimen/marginM</item>
         <item name="android:layout_marginRight">@dimen/margin_xLarge</item>
         <item name="android:layout_marginBottom">@dimen/marginPrimary</item>

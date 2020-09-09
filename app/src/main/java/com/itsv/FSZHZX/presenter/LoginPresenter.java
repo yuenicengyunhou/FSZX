@@ -69,7 +69,9 @@ public class LoginPresenter implements MvpPresenter<LoginActivity> {
                             String msg = model.getMsg();
                             String data = model.getData();
                             if (model.isSuccess()) {
-                                loginView.saveToken(data);
+                                LoginModel.InfoBean info = model.getInfo();
+                                String alias = info.getAlias();
+                                loginView.saveToken(data,alias);
                                 loginView.loginTo();
                             } else {
                                 ToastUtils.showSingleToast(msg);

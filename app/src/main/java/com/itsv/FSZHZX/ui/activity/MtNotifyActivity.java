@@ -510,7 +510,7 @@ public class MtNotifyActivity extends MyBaseMvpActivity<MtNotifyActivity, MtNoti
         tvNoData.setVisibility(View.GONE);
     }
 
-    public void joinMeetingRoom(String roomnumber, String username, String sdkCid,boolean isModerator,String psw,String mId,String stageJid) {
+    public void joinMeetingRoom(String roomnumber, String username, String sdkCid,boolean isModerator,String psw,String mId) {
         showLoading();
         ManisApiInterface.app.guestLogin(roomnumber, username, this, "", (b, s, conferenceInfo, userInfo) -> {
             if (b) {
@@ -527,8 +527,6 @@ public class MtNotifyActivity extends MyBaseMvpActivity<MtNotifyActivity, MtNoti
                 intent.putExtra("moderatorPsw", psw);
                 intent.putExtra("userName", userName);
                 intent.putExtra("roomNumber", roomNumber);
-                intent.putExtra("isStage", stageJid.equals(jid));
-                intent.putExtra("stageJid", stageJid);
                 mRoomNum = roomNumber;
                 intent.putExtra("sdkCid", sdkCid);
                 intent.putExtra("mic", false);

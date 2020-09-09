@@ -2,14 +2,11 @@ package com.itsv.FSZHZX.ui.activity;
 
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.os.Environment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,14 +40,9 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.text.DateFormat;
+
 import java.text.MessageFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindDrawable;
@@ -133,9 +125,10 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
         SharedPreferences sharedPreferences = getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
         boolean aliasSuccess = sharedPreferences.getBoolean("aliasSuccess", false);
         if (!aliasSuccess) {
+            String alias = sharedPreferences.getString("alias", "");
             TagAliasBean tagAliasBean = new TagAliasBean();
             tagAliasBean.action = ACTION_SET;
-            tagAliasBean.alias = Constant.IMEI;
+            tagAliasBean.alias = alias;
             tagAliasBean.isAliasAction = true;
             TagAliasOperatorHelper.getInstance().handleAction(getApplicationContext(), sequence, tagAliasBean);
         }
@@ -224,8 +217,6 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
             }
         });
     }
-
-
 
 
     @Override
