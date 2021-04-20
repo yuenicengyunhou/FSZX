@@ -31,7 +31,7 @@ import permissions.dispatcher.RuntimePermissions;
 public class LoginActivity extends MyBaseMvpActivity<LoginActivity, LoginPresenter> implements LoginView {
 
     @BindView(R.id.login_edit_user)
-    EditText loginEditUser;
+    public EditText loginEditUser;
     @BindView(R.id.login_edit_psw)
     EditText loginEditPsw;
     @BindView(R.id.login_btn)

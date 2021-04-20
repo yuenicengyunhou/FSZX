@@ -59,7 +59,7 @@ public class LoginPresenter implements MvpPresenter<LoginActivity> {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call,@NonNull Response<ResponseBody> response) {
-                if (null==loginView) return;
+                if (null==loginView.loginEditUser) return;
                 if (response.isSuccessful()) {
                     try {
                         String params = response.body().string();

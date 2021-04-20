@@ -53,7 +53,7 @@ public class MtNotifyPre implements MvpPresenter<MtNotifyActivity> {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                if (null == mvpView) return;
+                if (null == mvpView.tvTitle) return;
                 if (currentPage == 1) {
                     mvpView.stopRefresh();
                 } else {
@@ -98,7 +98,7 @@ public class MtNotifyPre implements MvpPresenter<MtNotifyActivity> {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                if (null == mvpView) return;
+                if (null == mvpView.tvTitle) return;
                 if (currentPage == 1) {
                     mvpView.stopRefresh();
                 } else {
@@ -138,7 +138,7 @@ public class MtNotifyPre implements MvpPresenter<MtNotifyActivity> {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                if (null == mvpView) return;
+                if (null == mvpView.tvTitle) return;
                 if (response.isSuccessful()) {
                     try {
                         String params = response.body().string();

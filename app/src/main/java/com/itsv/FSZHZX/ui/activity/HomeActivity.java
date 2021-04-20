@@ -59,7 +59,7 @@ import static com.itsv.FSZHZX.base.TagAliasOperatorHelper.sequence;
 @RuntimePermissions
 public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter> implements HomeView {
     @BindView(R.id.homeRecycler)
-    RecyclerView recyclerView;
+   public RecyclerView recyclerView;
     @BindView(R.id.textTest)
     TextView textTest;
     @BindDrawable(R.mipmap.ic_vidmeet)
@@ -194,9 +194,10 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
         recyclerView.setAdapter(homeAdapter);
         homeAdapter.setOnFunctionClickListener(title -> {
             switch (title) {
-//                case "在线答题":
-//                    ToastUtils.showSingleToast("功能建设中，后续开放");
-//                    break;
+                case "在线答题":
+                    Intent quizItent = new Intent(this, QuizActivity.class);
+                    startActivity(quizItent);
+                    break;
                 case "视频会议":
                 case "会议通知":
                     toMeeting(title);
@@ -205,14 +206,15 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
                     toAddress();
                     break;
                 case "在线学习":
+                case "学习材料":
                     Intent intent = new Intent(this, WebActivity.class);
                     intent.putExtra("title", title);
-                    intent.putExtra("url", "https://www.fszxpt.cn:9530/online_learning");
+                    if (title.equals("学习材料")) {
+                        intent.putExtra("url", "https://www.fszxpt.cn:9530/learning_materials");
+                    } else {
+                        intent.putExtra("url", "https://www.fszxpt.cn:9530/online_learning");
+                    }
                     startActivity(intent);
-                    break;
-                case "在线答题":
-                case "学习材料":
-                    ToastUtils.showSingleToast("功能建设中，后续开放");
                     break;
             }
         });

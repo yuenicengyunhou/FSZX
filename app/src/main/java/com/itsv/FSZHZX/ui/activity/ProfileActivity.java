@@ -27,7 +27,7 @@ public class ProfileActivity extends MyBaseMvpActivity<ProfileActivity, ProfileP
     @BindString(R.string.profile)
     String mine;
     @BindView(R.id.tv_title)
-    TextView tvTitle;
+    public TextView tvTitle;
 
     @BindView(R.id.recycler_profile)
     RecyclerView recyclerView;

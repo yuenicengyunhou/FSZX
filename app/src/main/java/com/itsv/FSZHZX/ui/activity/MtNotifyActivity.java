@@ -64,7 +64,7 @@ import butterknife.OnClick;
 public class MtNotifyActivity extends MyBaseMvpActivity<MtNotifyActivity, MtNotifyPre> implements MtNofityView, SwipeRefreshLayout.OnRefreshListener {
 
     @BindView(R.id.tv_title)
-    TextView tvTitle;
+   public TextView tvTitle;
     @BindView(R.id.toolbar_add)
     Toolbar toolbar_add;
     //    @BindView(R.id.tv_commit)

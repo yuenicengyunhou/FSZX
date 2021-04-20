@@ -20,7 +20,7 @@ import butterknife.OnClick;
 public class PasswordActivity extends MyBaseMvpActivity<PasswordActivity, PsdPresenter> implements PsdView {
 
     @BindView(R.id.tv_title)
-    TextView tvTitle;
+   public TextView tvTitle;
     @BindView(R.id.edit_oldPass)
     EditText editOldPass;
     @BindView(R.id.edit_newPass)

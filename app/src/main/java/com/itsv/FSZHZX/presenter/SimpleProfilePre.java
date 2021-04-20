@@ -78,6 +78,7 @@ public class SimpleProfilePre implements MvpPresenter<SimpleProfileActivity> {
         logout.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (null==mvpView.tvTitle)return;
                 if (response.isSuccessful()) {
                     try {
                         String params = response.body().string();

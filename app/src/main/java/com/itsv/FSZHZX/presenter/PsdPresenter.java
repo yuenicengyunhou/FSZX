@@ -41,7 +41,7 @@ public class PsdPresenter implements MvpPresenter<PasswordActivity> {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                if (null==mvpView) return;
+                if (null==mvpView.tvTitle) return;
                 if (response.isSuccessful()) {
                     try {
                         String params = response.body().string();

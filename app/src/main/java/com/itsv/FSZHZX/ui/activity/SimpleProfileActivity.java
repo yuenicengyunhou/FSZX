@@ -31,7 +31,7 @@ import butterknife.OnClick;
 public class SimpleProfileActivity extends MyBaseMvpActivity<SimpleProfileActivity, SimpleProfilePre> implements SimpleView {
 
     @BindView(R.id.tv_title)
-    TextView tvTitle;
+    public TextView tvTitle;
     @BindView(R.id.headImage)
     RoundedImageView headImage;
     @BindView(R.id.simple_name)

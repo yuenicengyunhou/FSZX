@@ -27,7 +27,7 @@ public class ModifyActivity extends MyBaseMvpActivity<ModifyActivity, ModifyPre>
 
     private ModifyPre presenter;
     @BindView(R.id.edit_modify)
-    EditText editText;
+    public EditText editText;
     @BindView(R.id.tv_commit)
     TextView tvCommit;
     @BindDrawable(R.drawable.button_invalid)

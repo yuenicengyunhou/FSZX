@@ -25,7 +25,7 @@ public class MeetingDetailsActivity extends MyBaseMvpActivity<MeetingDetailsActi
     private MtDetailsPre presenter;
 
     @BindView(R.id.tv_title)
-    TextView tvTitle;
+    public TextView tvTitle;
     @BindView(R.id.item_noti_sign)
     ImageView ivSign;
     @BindView(R.id.item_noti_title)

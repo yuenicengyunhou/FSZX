@@ -39,7 +39,7 @@ public class ModifyPre implements MvpPresenter<ModifyActivity> {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                if (null==mvpView) return;
+                if (null==mvpView.editText) return;
                 if (response.isSuccessful()) {
                     try {
                         String params = response.body().string();
@@ -71,7 +71,7 @@ public class ModifyPre implements MvpPresenter<ModifyActivity> {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                if (null==mvpView) return;
+                if (null==mvpView.editText) return;
                 if (response.isSuccessful()) {
                     try {
                         String params = response.body().string();
@@ -102,7 +102,7 @@ public class ModifyPre implements MvpPresenter<ModifyActivity> {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                if (null==mvpView) return;
+                if (null==mvpView.editText) return;
                 if (response.isSuccessful()) {
                     try {
                         String params = response.body().string();

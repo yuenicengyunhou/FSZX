@@ -38,7 +38,7 @@ import butterknife.BindView;
 public class AddressBookActivity extends MyBaseMvpActivity<AddressBookActivity, AddressBookPre> implements AddressBookView, SwipeRefreshLayout.OnRefreshListener {
 
     @BindView(R.id.tv_title)
-    TextView tvTitle;
+    public TextView tvTitle;
     @BindView(R.id.spinner_type)
     Spinner spinnerType;
     @BindView(R.id.spinner_number)

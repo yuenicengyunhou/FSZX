@@ -81,6 +81,7 @@ public class HomePresenter implements MvpPresenter<HomeActivity> {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                if (null==mvpView.recyclerView)return;
                 if (response.isSuccessful()) {
                     try {
                         String params = response.body().string();
@@ -112,6 +113,7 @@ public class HomePresenter implements MvpPresenter<HomeActivity> {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (null==mvpView.recyclerView)return;
                 if (response.isSuccessful()) {
                     try {
                         String params = response.body().string();

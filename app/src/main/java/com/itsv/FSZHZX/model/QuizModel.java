@@ -79,7 +79,7 @@ public class QuizModel {
         private String hintContent;
         private String explainContent;
         private String createTime;
-        private long createUserId;
+        private String createUserId;
         private boolean enable;
 
         public String getId() {
@@ -178,11 +178,11 @@ public class QuizModel {
             this.createTime = createTime;
         }
 
-        public long getCreateUserId() {
+        public String getCreateUserId() {
             return createUserId;
         }
 
-        public void setCreateUserId(long createUserId) {
+        public void setCreateUserId(String createUserId) {
             this.createUserId = createUserId;
         }
 

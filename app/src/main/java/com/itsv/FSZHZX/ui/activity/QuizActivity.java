@@ -40,7 +40,7 @@ import butterknife.OnClick;
 public class QuizActivity extends MyBaseMvpActivity<QuizActivity, QuizPre> implements QuizView {
 
     @BindView(R.id.tv_title)
-    TextView tvTitle;
+   public TextView tvTitle;
     @BindView(R.id.tv_commit)
     TextView tvCommit;
     @BindView(R.id.tv_number)
