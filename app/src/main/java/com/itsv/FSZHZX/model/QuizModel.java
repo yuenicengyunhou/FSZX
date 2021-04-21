@@ -81,6 +81,19 @@ public class QuizModel {
         private String createTime;
         private String createUserId;
         private boolean enable;
+        private boolean answered;
+
+        public boolean isEnable() {
+            return enable;
+        }
+
+        public boolean isAnswered() {
+            return answered;
+        }
+
+        public void setAnswered(boolean answered) {
+            this.answered = answered;
+        }
 
         public String getId() {
             return id;

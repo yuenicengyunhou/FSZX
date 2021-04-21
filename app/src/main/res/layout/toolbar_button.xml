@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/toolbar_button"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:id="@+id/toolbar_button"
     android:background="@color/colorPrimary">
 
 
     <ImageView
         android:id="@+id/iv_back"
         style="@style/toolbar_back_style"
-        android:src="@mipmap/back_white"
-        />
+        android:src="@mipmap/back_white" />
+
+    <TextView
+        android:id="@+id/tv_back_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/paddingL"
+        android:text="@string/backToList"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textSizeM"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/tv_title"
@@ -26,18 +35,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:clickable="true"
-        android:focusable="true"
-        android:text="@string/done"
-        android:background="@drawable/selector_button"
-        android:textColor="@color/white"
-        android:textSize="@dimen/textSize"
         android:layout_marginEnd="@dimen/marginPrimary"
         android:layout_marginRight="@dimen/marginPrimary"
+        android:background="@drawable/selector_button"
+        android:clickable="true"
+        android:focusable="true"
+        android:paddingLeft="@dimen/marginM"
         android:paddingTop="@dimen/paddingS"
         android:paddingRight="@dimen/marginM"
         android:paddingBottom="@dimen/paddingS"
-        android:paddingLeft="@dimen/marginM" />
+        android:text="@string/done"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textSize" />
 
 
 </androidx.appcompat.widget.Toolbar>

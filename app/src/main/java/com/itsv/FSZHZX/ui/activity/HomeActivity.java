@@ -206,6 +206,9 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
                     toAddress();
                     break;
                 case "在线学习":
+                    Intent newIntent = new Intent(this, NewQuizActivity.class);
+                    startActivity(newIntent);
+                    break;
                 case "学习材料":
                     Intent intent = new Intent(this, WebActivity.class);
                     intent.putExtra("title", title);

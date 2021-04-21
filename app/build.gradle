@@ -39,6 +39,10 @@ android {
         }
     }
 
+    viewBinding {
+        enabled = true;
+    }
+
 
 }
 
@@ -90,4 +94,5 @@ dependencies {
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6'
     testImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6'
     implementation 'com.android.support:multidex:1.0.3'
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
 }

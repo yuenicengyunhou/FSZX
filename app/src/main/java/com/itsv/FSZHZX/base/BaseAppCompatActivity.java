@@ -55,7 +55,11 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
         appManager.addActivity(this);
 //        setWhiteStatusBar();
         transparent19and20();
-        setContentView(getLayoutID());
+        if (getLayoutID() == 0) {
+            setContentView(getLayoutView());
+        } else {
+            setContentView(getLayoutID());
+        }
         bind = ButterKnife.bind(this);
         initViewsAndEnvents();
         getDensity();
@@ -113,6 +117,10 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
     }
 
     protected abstract int getLayoutID();
+
+    protected View getLayoutView(){
+        return null;
+    }
 
     protected abstract void initViewsAndEnvents();
 
