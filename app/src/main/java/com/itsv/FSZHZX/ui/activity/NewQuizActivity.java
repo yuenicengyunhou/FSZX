@@ -1,12 +1,16 @@
 package com.itsv.FSZHZX.ui.activity;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
-import androidx.viewpager2.widget.ViewPager2;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.annotation.SuppressLint;
+import android.graphics.drawable.ColorDrawable;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.PopupWindow;
 
 import com.google.gson.Gson;
 import com.itsv.FSZHZX.R;
@@ -15,11 +19,9 @@ import com.itsv.FSZHZX.base.ApiHelper;
 import com.itsv.FSZHZX.base.BaseAppCompatActivity;
 import com.itsv.FSZHZX.base.Constant;
 import com.itsv.FSZHZX.databinding.ActivityNewQuizBinding;
-import com.itsv.FSZHZX.listener.QuizAnswerListener;
+import com.itsv.FSZHZX.databinding.LayoutQuizBinding;
 import com.itsv.FSZHZX.model.QuizModel;
-import com.itsv.FSZHZX.ui.fragment.QuizFragment;
-import com.itsv.FSZHZX.ui.fragment.QuizListFragment;
-import com.itsv.FSZHZX.utils.MyPagerHelper;
+import com.itsv.FSZHZX.ui.adapter.QuizListAdapter;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,11 +34,9 @@ import retrofit2.Response;
 
 public class NewQuizActivity extends BaseAppCompatActivity {
 
-    private ArrayList<Fragment> fragments;
-    private QuizListFragment listFragment;
-    private QuizFragment quizFragment;
     private List<QuizModel.DataBean> quizList = new ArrayList<>();
     private ActivityNewQuizBinding binding;
+    private QuizListAdapter adapter;
 
     @Override
     protected int getLayoutID() {
@@ -53,79 +53,23 @@ public class NewQuizActivity extends BaseAppCompatActivity {
     protected void initViewsAndEnvents() {
         initToolbar(binding.toolbarLayout.toolbarButton, false);
         binding.toolbarLayout.tvTitle.setText("在线答题");
-        binding.toolbarLayout.tvCommit.setText("下一题");
-        binding.toolbarLayout.tvCommit.setVisibility(View.GONE);
-
-
-        binding.toolbarLayout.tvBackList.setOnClickListener(v -> transToListFragment());
-
-        ImageView ivBack = findViewById(R.id.iv_back);
-        ivBack.setOnClickListener(v -> {
-            int currentItem = binding.viewPager.getCurrentItem();
-            if (currentItem == 0) {
-                finish();
-            } else {
-                transToListFragment();
-            }
-        });
-
-        fragments = new ArrayList<>();
-        listFragment = new QuizListFragment();
-        fragments.add(listFragment);
-        quizFragment = new QuizFragment();
-        fragments.add(quizFragment);
-
-
-        initViewPager();
-        binding.viewPager.setCurrentItem(1);
-        binding.viewPager.setCurrentItem(0);
-
-        listFragment.setTabListener((quizItemPosition, fragmentIndex) -> {
-            MyPagerHelper.setCurrentItem(binding.viewPager, fragmentIndex, 300);
-            quizFragment.onListItemClick(quizItemPosition, this.quizList);
-        });
-
-        quizFragment.setAnswerListener((position, show) -> {
-            if (show) {
-                showCommitButton();
-            } else {
-                hideCommitButton(position);
-            }
-        });
+        binding.toolbarLayout.tvCommit.setText("确定");
+        binding.toolbarLayout.tvCommit.setVisibility(View.VISIBLE);
 
         binding.toolbarLayout.tvCommit.setOnClickListener(view -> {
-            quizFragment.judgeQuiz();
+
         });
+        intList();
 
         getRoundQuestion();
     }
 
-    private void initViewPager() {
-        binding.viewPager.setUserInputEnabled(false);
-        binding.viewPager.setAdapter(new FragmentStateAdapter(this) {
-
-            @Override
-            public int getItemCount() {
-                return fragments.size();
-            }
-
-            @NonNull
-            @Override
-            public Fragment createFragment(int position) {
-                return fragments.get(position);
-            }
-        });
-
-        binding.viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                if (position == 0) {
-                    binding.toolbarLayout.tvBackList.setVisibility(View.GONE);
-                } else {
-                    binding.toolbarLayout.tvBackList.setVisibility(View.VISIBLE);
-                }
-            }
+    private void intList() {
+        binding.recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        adapter = new QuizListAdapter(this, quizList);
+        binding.recycler.setAdapter(adapter);
+        adapter.setListener((position, bean) -> {
+            showQuizPop(bean,position);
         });
     }
 
@@ -143,7 +87,7 @@ public class NewQuizActivity extends BaseAppCompatActivity {
                         Gson gson = new Gson();
                         QuizModel model = gson.fromJson(params, QuizModel.class);
                         quizList = model.getData();
-                        listFragment.setListData(quizList);
+                        adapter.update(quizList);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -153,24 +97,11 @@ public class NewQuizActivity extends BaseAppCompatActivity {
 
             @Override
             public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
-
             }
         });
     }
 
-    @Override
-    public void onBackPressed() {
-        int currentItem = binding.viewPager.getCurrentItem();
-        if (currentItem == 0) {
-            finish();
-        } else {
-            transToListFragment();
-        }
-    }
 
-    private void transToListFragment() {
-        MyPagerHelper.setCurrentItem(binding.viewPager, 0, 300);
-    }
 
     public void showCommitButton() {
         if (binding.toolbarLayout.tvCommit.getVisibility() == View.GONE) {
@@ -185,5 +116,34 @@ public class NewQuizActivity extends BaseAppCompatActivity {
         } else {
             binding.toolbarLayout.tvCommit.setText("下一题");
         }
+    }
+
+    private void showQuizPop(QuizModel.DataBean bean,int position) {
+//        @SuppressLint("InflateParams") View view = LayoutInflater.from(this).inflate(R.layout.layout_quiz, null);
+        LayoutQuizBinding binding = LayoutQuizBinding.inflate(getLayoutInflater());
+        PopupWindow popupWindow = new PopupWindow(binding.getRoot(), ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        binding.tvQuestion.setText(bean.getQuestionTitle());
+        binding.tvSource.setText(bean.getQuestionSource());
+        binding.tvA.setText(bean.getOptionA());
+        binding.tvB.setText(bean.getOptionB());
+        binding.tvC.setText(bean.getOptionC());
+        binding.tvD.setText(bean.getOptionD());
+        binding.tvNumber.setText(String.valueOf(position + 1));
+        binding.tvCount.setText(String.valueOf(quizList.size()));
+        binding.tvExplaination.setText(bean.getExplainContent());
+        setBackgroundAlpha(0.5f);
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        popupWindow.setFocusable(true);
+        popupWindow.setOnDismissListener(() -> setBackgroundAlpha(1.0f));
+        popupWindow.showAtLocation(this.binding.getRoot(), Gravity.BOTTOM, 0, 0);
+    }
+
+
+    public void setBackgroundAlpha(float bgAlpha) {
+        WindowManager.LayoutParams lp = getWindow()
+                .getAttributes();
+        lp.alpha = bgAlpha;
+        getWindow().setAttributes(lp);
     }
 }

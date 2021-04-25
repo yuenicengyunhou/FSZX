@@ -3,19 +3,50 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/parent"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/padding"
+    android:layout_height="150dp"
+    android:layout_marginStart="@dimen/marginPrimary"
+    android:layout_marginTop="@dimen/marginM"
+    android:layout_marginBottom="@dimen/paddingL"
+    android:layout_marginEnd="@dimen/marginPrimary"
     app:cardCornerRadius="@dimen/padding"
-    app:cardElevation="@dimen/paddingS">
+    app:cardElevation="@dimen/cardview_default_elevation">
 
-    <TextView
-        android:id="@+id/tv_quiz"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/marginPrimary"
-        android:lineSpacingExtra="@dimen/padding"
-        android:textColor="@color/colorTextB"
-        android:textSize="@dimen/textSize"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        />
+        <TextView
+            android:id="@+id/tv_quiz"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/marginPrimary"
+            android:layout_marginTop="@dimen/marginPrimary"
+            android:layout_marginEnd="@dimen/marginPrimary"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:lineSpacingExtra="@dimen/padding"
+            android:textColor="@color/colorTextB"
+            android:textSize="@dimen/textSize" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            android:layout_marginBottom="@dimen/marginPrimary"
+            android:background="@android:color/holo_blue_bright"
+            android:text="开始答题"
+            android:paddingStart="@dimen/paddingL"
+            android:paddingEnd="@dimen/paddingL"
+            android:layout_gravity="end"
+            android:layout_marginTop="@dimen/marginM"
+            android:layout_marginEnd="@dimen/marginPrimary"
+            android:layout_marginRight="@dimen/marginPrimary"
+            android:paddingTop="@dimen/padding"
+            android:paddingBottom="@dimen/padding"
+            />
+    </LinearLayout>
+
+
 </androidx.cardview.widget.CardView>

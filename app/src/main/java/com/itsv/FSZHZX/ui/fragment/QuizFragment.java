@@ -228,6 +228,7 @@ public class QuizFragment extends Fragment {
 
     public void judgeQuiz() {
         if (questionIndex < quizList.size()) {
+            saveAnswer();
             if (isAnswerCorrect() || (binding.answerLayout.getVisibility() == View.VISIBLE)) {
                 initUserData();
                 if (questionIndex == quizList.size() - 1) {
@@ -242,6 +243,11 @@ public class QuizFragment extends Fragment {
             }
         }
     }
+
+    private void saveAnswer() {
+        quizList.get(questionIndex).setAnswered(true);
+    }
+
     public void getQuizInfor(List<QuizModel.DataBean> list, int position) {
         if (list == null || list.isEmpty()) return;
         QuizModel.DataBean dataBean = list.get(position);
