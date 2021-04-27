@@ -1,6 +1,7 @@
 package com.itsv.FSZHZX.ui.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.itsv.FSZHZX.R;
@@ -23,9 +25,11 @@ public class QuizListAdapter extends RecyclerView.Adapter<QuizListAdapter.Holder
     private List<QuizModel.DataBean> list;
     private final LayoutInflater inflater;
     private MyListener<QuizModel.DataBean> listener;
+    private final Context context;
 
 
-    public QuizListAdapter(Context context,List<QuizModel.DataBean> list) {
+    public QuizListAdapter(Context context, List<QuizModel.DataBean> list) {
+        this.context = context;
         this.list = list;
         inflater = LayoutInflater.from(context);
     }
@@ -50,15 +54,13 @@ public class QuizListAdapter extends RecyclerView.Adapter<QuizListAdapter.Holder
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         QuizModel.DataBean dataBean = list.get(position);
         holder.textView.setText(dataBean.getQuestionTitle());
-        holder.parent.setOnClickListener(v -> {
-            if (dataBean.isAnswered()) {
-                ToastUtils.showSingleToast("此题已答过");
-            }else {
-                if (null != listener) {
-                    listener.onItemClick(position, dataBean);
-                }
+        holder.tvStart.setBackground(dataBean.isAnswered() ? holder.bgDone : holder.bgNormal);
+        holder.tvStart.setClickable(!dataBean.isAnswered());
+        holder.tvStart.setText(dataBean.isAnswered() ? "已答题" : "开始答题");
+        holder.tvStart.setOnClickListener(v -> {
+            if (null != listener) {
+                listener.onItemClick(position, dataBean);
             }
-
         });
 
     }
@@ -68,14 +70,20 @@ public class QuizListAdapter extends RecyclerView.Adapter<QuizListAdapter.Holder
         return list.size();
     }
 
-    class Holder extends RecyclerView.ViewHolder{
+    class Holder extends RecyclerView.ViewHolder {
         TextView textView;
         CardView parent;
+        TextView tvStart;
+        private final Drawable bgNormal;
+        private final Drawable bgDone;
 
         public Holder(@NonNull View itemView) {
             super(itemView);
+            bgNormal = ContextCompat.getDrawable(context, R.drawable.selector_quiz_button);
+            bgDone = ContextCompat.getDrawable(context, R.drawable.shape_quiz_done);
             textView = itemView.findViewById(R.id.tv_quiz);
             parent = itemView.findViewById(R.id.parent);
+            tvStart = itemView.findViewById(R.id.tv_start);
         }
     }
 }

@@ -43,6 +43,7 @@
     <color name="colorChatStroke">#e5e5e5</color>
     <color name="colorChatmine">#ebf5ff</color>
     <color name="colorDoing">#4CAF50</color>
+    <color name="colorDoingDark">#3A8F3E</color>
     <color name="colorDone">#FF5252</color>
     <color name="colorUndo">#FFAB00</color>
 

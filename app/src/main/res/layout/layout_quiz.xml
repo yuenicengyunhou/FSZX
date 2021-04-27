@@ -67,7 +67,9 @@
                 android:textSize="@dimen/textSize18" />
 
             <Button
-                android:text="确定"
+                android:id="@+id/tv_verify"
+                android:text="@string/sure"
+                android:visibility="gone"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"

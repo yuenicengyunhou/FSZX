@@ -6,8 +6,8 @@
     android:layout_height="150dp"
     android:layout_marginStart="@dimen/marginPrimary"
     android:layout_marginTop="@dimen/marginM"
-    android:layout_marginBottom="@dimen/paddingL"
     android:layout_marginEnd="@dimen/marginPrimary"
+    android:layout_marginBottom="@dimen/paddingL"
     app:cardCornerRadius="@dimen/padding"
     app:cardElevation="@dimen/cardview_default_elevation">
 
@@ -30,22 +30,22 @@
             android:textSize="@dimen/textSize" />
 
         <TextView
+            android:id="@+id/tv_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="13sp"
-            android:layout_marginBottom="@dimen/marginPrimary"
-            android:background="@android:color/holo_blue_bright"
-            android:text="开始答题"
-            android:paddingStart="@dimen/paddingL"
-            android:paddingEnd="@dimen/paddingL"
             android:layout_gravity="end"
             android:layout_marginTop="@dimen/marginM"
             android:layout_marginEnd="@dimen/marginPrimary"
             android:layout_marginRight="@dimen/marginPrimary"
+            android:layout_marginBottom="@dimen/marginPrimary"
+            android:background="@drawable/selector_quiz_button"
+            android:paddingStart="@dimen/paddingL"
             android:paddingTop="@dimen/padding"
+            android:paddingEnd="@dimen/paddingL"
             android:paddingBottom="@dimen/padding"
-            />
+            android:text="开始答题"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
     </LinearLayout>
 
 
