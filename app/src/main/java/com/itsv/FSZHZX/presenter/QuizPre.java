@@ -1,6 +1,5 @@
 package com.itsv.FSZHZX.presenter;
 
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -11,9 +10,6 @@ import com.itsv.FSZHZX.base.ApiHelper;
 import com.itsv.FSZHZX.base.Constant;
 import com.itsv.FSZHZX.model.QuizModel;
 import com.itsv.FSZHZX.ui.activity.QuizActivity;
-import com.itsv.FSZHZX.utils.ToastUtils;
-
-import org.jivesoftware.smackx.bytestreams.ibb.packet.Data;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -25,7 +21,6 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Query;
 
 public class QuizPre implements MvpPresenter<QuizActivity> {
     private QuizActivity mvpView;

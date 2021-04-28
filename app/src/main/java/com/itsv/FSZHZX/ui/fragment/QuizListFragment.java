@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.itsv.FSZHZX.R;
-import com.itsv.FSZHZX.databinding.FragmentQuizListBinding;
 import com.itsv.FSZHZX.listener.MyListener;
 import com.itsv.FSZHZX.listener.TabListener;
 import com.itsv.FSZHZX.model.QuizModel;
@@ -31,7 +30,6 @@ public class QuizListFragment extends Fragment {
     private List<QuizModel.DataBean> beanList;
     private QuizListAdapter adapter;
     private TabListener tabListener;
-    private FragmentQuizListBinding binding;
 
     public void setTabListener(TabListener tabListener) {
         this.tabListener = tabListener;
@@ -40,8 +38,7 @@ public class QuizListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentQuizListBinding.inflate(inflater, container, false);
-        return binding.getRoot();
+        return inflater.inflate(R.layout.fragment_quiz_list, container);
     }
 
     @Override

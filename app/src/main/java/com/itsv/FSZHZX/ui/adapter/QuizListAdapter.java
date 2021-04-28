@@ -54,13 +54,28 @@ public class QuizListAdapter extends RecyclerView.Adapter<QuizListAdapter.Holder
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         QuizModel.DataBean dataBean = list.get(position);
         holder.textView.setText(dataBean.getQuestionTitle());
-        holder.tvStart.setBackground(dataBean.isAnswered() ? holder.bgDone : holder.bgNormal);
-        holder.tvStart.setClickable(!dataBean.isAnswered());
-        holder.tvStart.setText(dataBean.isAnswered() ? "已答题" : "开始答题");
-        holder.tvStart.setOnClickListener(v -> {
-            if (null != listener) {
-                listener.onItemClick(position, dataBean);
+//        holder.tvStart.setEnabled(!dataBean.isAnswered());
+        if (dataBean.isAnswered()) {
+            if (dataBean.isCorrect()) {
+                holder.tvStart.setText("回答正确");
+                holder.tvStart.setBackground(holder.bgCorrect);
+            } else {
+                holder.tvStart.setBackground(holder.bgWrong);
+                holder.tvStart.setText("回答错误");
             }
+        } else {
+            holder.tvStart.setBackground(holder.bgNormal);
+            holder.tvStart.setText("开始答题");
+        }
+        holder.tvStart.setOnClickListener(v -> {
+            if (dataBean.isAnswered()) {
+                ToastUtils.showSingleToast("此题已作答");
+            }else {
+                if (null != listener) {
+                    listener.onItemClick(position, dataBean);
+                }
+            }
+
         });
 
     }
@@ -75,12 +90,14 @@ public class QuizListAdapter extends RecyclerView.Adapter<QuizListAdapter.Holder
         CardView parent;
         TextView tvStart;
         private final Drawable bgNormal;
-        private final Drawable bgDone;
+        private final Drawable bgCorrect;
+        private final Drawable bgWrong;
 
         public Holder(@NonNull View itemView) {
             super(itemView);
             bgNormal = ContextCompat.getDrawable(context, R.drawable.selector_quiz_button);
-            bgDone = ContextCompat.getDrawable(context, R.drawable.shape_quiz_done);
+            bgCorrect = ContextCompat.getDrawable(context, R.drawable.shape_quiz_correct);
+            bgWrong = ContextCompat.getDrawable(context, R.drawable.shape_quiz_wrong);
             textView = itemView.findViewById(R.id.tv_quiz);
             parent = itemView.findViewById(R.id.parent);
             tvStart = itemView.findViewById(R.id.tv_start);

@@ -53,4 +53,7 @@
     <color name="specialMeeting">#FF9800</color>
     <color name="longMeeting">#AA00FF</color>
     <color name="tempMeeting">#3D5AFE</color>
+
+    <color name="colorQuizButton">#b89f86</color>
+    <color name="colorQuizButtonDark">#AC947C</color>
 </resources>

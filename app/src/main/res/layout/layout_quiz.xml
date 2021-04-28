@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:orientation="vertical">
-<!--    <View-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:background="@android:color/transparent"-->
-<!--        android:layout_height="?attr/actionBarSize"/>-->
+    <!--    <View-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:background="@android:color/transparent"-->
+    <!--        android:layout_height="?attr/actionBarSize"/>-->
+    <!--<ScrollView-->
+    <!--    android:layout_width="match_parent"-->
+    <!--    android:background="@color/white"-->
+    <!--    android:layout_height="wrap_content">-->
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-<!--    <LinearLayout-->
-<!--        android:background="@color/white"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:orientation="vertical"-->
-<!--        android:layout_height="match_parent">-->
         <RelativeLayout
             android:id="@+id/questionView"
             android:layout_width="match_parent"
@@ -28,29 +31,29 @@
                 android:id="@+id/tv_sign"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/marginM"
                 android:layout_marginLeft="@dimen/marginM"
                 android:layout_marginTop="@dimen/marginM"
                 android:layout_marginBottom="@dimen/paddingL"
+                android:drawableStart="@mipmap/yellow"
                 android:drawableLeft="@mipmap/yellow"
                 android:drawablePadding="@dimen/paddingL"
                 android:text="@string/singleChoicQuiz"
                 android:textColor="@color/colorTextDark"
                 android:textSize="@dimen/textSize"
-                android:textStyle="bold"
-                android:layout_marginStart="@dimen/marginM"
-                android:drawableStart="@mipmap/yellow" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/paddingL"
                 android:layout_marginLeft="@dimen/marginM"
                 android:layout_marginTop="@dimen/paddingS"
                 android:layout_marginRight="@dimen/padding"
-                android:layout_toEndOf="@id/tv_sign"
-                android:layout_marginStart="@dimen/paddingL"
-                android:layout_toRightOf="@id/tv_sign"
                 android:layout_toLeftOf="@id/tv_count"
+                android:layout_toEndOf="@id/tv_sign"
+                android:layout_toRightOf="@id/tv_sign"
                 android:textColor="@color/colorTextDark"
                 android:textSize="@dimen/textSizeL"
                 android:textStyle="bold" />
@@ -59,21 +62,21 @@
                 android:id="@+id/tv_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/tv_number"
-                android:layout_toEndOf="@id/tv_number"
                 android:layout_marginTop="@dimen/marginM"
                 android:layout_marginRight="@dimen/marginM"
+                android:layout_toEndOf="@id/tv_number"
+                android:layout_toRightOf="@id/tv_number"
                 android:textColor="@color/colorTextInvalid"
                 android:textSize="@dimen/textSize18" />
 
             <Button
                 android:id="@+id/tv_verify"
-                android:text="@string/sure"
-                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:text="@string/sure"
+                android:visibility="gone" />
 
             <View
                 android:id="@+id/quiz_view"
@@ -226,7 +229,17 @@
                 android:textColor="@color/colorTextB"
                 android:textSize="@dimen/textSize" />
         </LinearLayout>
-<!--    </LinearLayout>-->
+    </LinearLayout>
+
+    <!--</ScrollView>-->
+
+    <!--    <LinearLayout-->
+    <!--        android:background="@color/white"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:orientation="vertical"-->
+    <!--        android:layout_height="match_parent">-->
+
+    <!--    </LinearLayout>-->
 
 
-</LinearLayout>
+</ScrollView>

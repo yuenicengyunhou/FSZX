@@ -3,7 +3,7 @@
     android:shape="rectangle"
     >
 
-    <solid android:color="@color/colorDoing" />
+    <solid android:color="@color/colorQuizButton" />
     <corners android:radius="@dimen/paddingS"/>
 
 

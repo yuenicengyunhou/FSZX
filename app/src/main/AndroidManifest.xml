@@ -312,6 +312,7 @@
             android:theme="@style/activityInOut"
             tools:ignore="LockedOrientationActivity"
             />
+        <activity android:name=".ui.activity.AnotherQuizActivity" />
     </application>
 
 </manifest>

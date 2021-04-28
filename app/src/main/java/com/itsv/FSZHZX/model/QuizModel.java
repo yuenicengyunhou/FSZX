@@ -82,6 +82,15 @@ public class QuizModel {
         private String createUserId;
         private boolean enable;
         private boolean answered;
+        private boolean correct;
+
+        public boolean isCorrect() {
+            return correct;
+        }
+
+        public void setCorrect(boolean correct) {
+            this.correct = correct;
+        }
 
         public boolean isEnable() {
             return enable;
