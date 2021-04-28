@@ -6,6 +6,8 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.Gravity;
@@ -24,6 +26,7 @@ import com.itsv.FSZHZX.base.Constant;
 import com.itsv.FSZHZX.databinding.ActivityNewQuizBinding;
 import com.itsv.FSZHZX.databinding.LayoutQuizBinding;
 import com.itsv.FSZHZX.model.QuizModel;
+import com.itsv.FSZHZX.model.QuizResult;
 import com.itsv.FSZHZX.ui.adapter.QuizListAdapter;
 import com.itsv.FSZHZX.utils.ToastUtils;
 
@@ -31,6 +34,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -55,10 +59,12 @@ public class NewQuizActivity extends BaseAppCompatActivity {
     private String startTime;
     private long startLong;
     private int totalScore;
+    private int correctTimes;
     /*记录的用户数据*/
     private List<String> questionIds = new ArrayList<>();
     private List<String> answers = new ArrayList<>();
     private List<String> scores = new ArrayList<>();
+    private List<QuizResult> resultList;
 
     @Override
     protected int getLayoutID() {
@@ -76,13 +82,9 @@ public class NewQuizActivity extends BaseAppCompatActivity {
         initToolbar(binding.toolbarLayout.toolbarButton, false);
         binding.toolbarLayout.tvTitle.setText("在线答题");
         binding.toolbarLayout.tvCommit.setVisibility(View.GONE);
-        binding.toolbarLayout.tvCommit.setText("提交");
-        binding.toolbarLayout.tvCommit.setOnClickListener(v -> {
-            commitAnswers();
-        });
         binding.toolbarLayout.ivBack.setOnClickListener(v -> finish());
         getStartTime();
-
+        resultList = new ArrayList<>();
         green = ContextCompat.getColor(this, R.color.colorTextTrue);
         red = ContextCompat.getColor(this, R.color.colorTextFalse);
         choices.add("A");
@@ -90,6 +92,12 @@ public class NewQuizActivity extends BaseAppCompatActivity {
         choices.add("C");
         choices.add("D");
         intList();
+
+        binding.btnOneMore.setOnClickListener(view -> {
+            clearUp();
+        });
+
+        binding.btnBack.setOnClickListener(view -> finish());
 
         getRoundQuestion();
     }
@@ -106,8 +114,18 @@ public class NewQuizActivity extends BaseAppCompatActivity {
     }
 
     private void commitAnswers() {
-        answerOnline(Constant.TOKEN, startTime, questionIds, answers, scores, String.valueOf(getDuration()), String.valueOf(scores));
+        for (int i = 0; i < resultList.size(); i++) {
+            QuizResult quizResult = resultList.get(i);
+            String questionId = quizResult.getQuestionId();
+            String score = quizResult.getScore();
+            String userAnswer = quizResult.getUserAnswer();
+            answers.add(userAnswer);
+            questionIds.add(questionId);
+            scores.add(score);
+        }
+        answerOnline(Constant.TOKEN, startTime, questionIds, answers, scores, String.valueOf(getDuration()), String.valueOf(totalScore));
     }
+    //a d a a c b a b d c
 
     public void answerOnline(String token, String startTime, List<String> questionIds, List<String> answers, List<String> scores, String duration, String totalScore) {
         UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.questionURL).createService(UserApi.class);
@@ -124,7 +142,7 @@ public class NewQuizActivity extends BaseAppCompatActivity {
                         if (!success) {
                             ToastUtils.showSingleToast("答题结果提交服务器失败");
                         } else {
-                            finish();
+                            ToastUtils.showSingleToast("答案已自动提交");
                         }
                     } catch (IOException | JSONException e) {
                         e.printStackTrace();
@@ -197,6 +215,7 @@ public class NewQuizActivity extends BaseAppCompatActivity {
                         Gson gson = new Gson();
                         QuizModel model = gson.fromJson(params, QuizModel.class);
                         quizList = model.getData();
+                        setList();
                         adapter.update(quizList);
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -209,6 +228,13 @@ public class NewQuizActivity extends BaseAppCompatActivity {
             public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
             }
         });
+    }
+
+    private void setList() {
+        resultList.clear();
+        for (int i = 0; i < quizList.size(); i++) {
+            resultList.add(new QuizResult());
+        }
     }
 
 
@@ -226,10 +252,18 @@ public class NewQuizActivity extends BaseAppCompatActivity {
         binding.tvNumber.setText(String.format("%s/", (index + 1)));
         binding.tvCount.setText(String.valueOf(quizList.size()));
         binding.tvExplaination.setText(bean.getExplainContent());
+        binding.tvViewTips.setOnClickListener(view -> {
+//          binding.tvExplaination.setVisibility(View.VISIBLE);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(bean.getHintContent());
+            builder.setPositiveButton("确定", (dialogInterface, i) -> {
+                dialogInterface.dismiss();
+            });
+            builder.show();
+        });
         binding.radioGroup.setOnCheckedChangeListener((radioGroup, i) -> {
             binding.tvVerify.setVisibility(View.VISIBLE);
             userCheckPosition = binding.radioGroup.indexOfChild(radioGroup.findViewById(i));
-            Log.e("WQ", "用户选择答案==" + userCheckPosition);
         });
         binding.tvVerify.setOnClickListener(view -> {
             if (binding.tvVerify.getText().equals("关闭")) {
@@ -244,9 +278,38 @@ public class NewQuizActivity extends BaseAppCompatActivity {
         popupWindow.setFocusable(true);
         popupWindow.setOnDismissListener(() -> {
             setBackgroundAlpha(1.0f);
-            this.binding.toolbarLayout.tvCommit.setVisibility(questionIds.size() == quizList.size() ? View.VISIBLE : View.GONE);
+            Log.e("WQ", "listen==" + showCommitButton());
+            if (showCommitButton()) {
+                quizDone();
+            }
+
+//            this.binding.toolbarLayout.tvCommit.setVisibility(questionIds.size() == quizList.size() ? View.VISIBLE : View.GONE);
         });
         popupWindow.showAtLocation(this.binding.getRoot(), Gravity.BOTTOM, 0, 0);
+    }
+
+    private void quizDone() {
+        this.binding.recycler.setVisibility(View.GONE);
+        this.binding.doneView.setVisibility(View.VISIBLE);
+        this.binding.tvCorrectNum.setText(String.valueOf(correctTimes));
+        this.binding.tvRate.setText(MessageFormat.format("正确率：{0}%", correctTimes * 100 / quizList.size()));
+        this.binding.tvDuration.setText(MessageFormat.format("用时：{0}", generateTime(getDuration())));
+        this.binding.tvWrongCount.setText(MessageFormat.format("错题数：{0}", quizList.size() - correctTimes));
+        this.binding.tvScore.setText(MessageFormat.format("积分：+{0}", totalScore));
+        commitAnswers();
+//        answerOnline(Constant.TOKEN, startTime, questionIds, answers, scores, String.valueOf(getDuration()), String.valueOf(totalScore));
+    }
+
+    //a b c b b ca a b
+    private boolean showCommitButton() {
+        int temp = 0;
+        for (int i = 0; i < quizList.size(); i++) {
+            QuizModel.DataBean dataBean = quizList.get(i);
+            if (dataBean.isAnswered()) {
+                temp = temp + 1;
+            }
+        }
+        return temp == quizList.size();
     }
 
     private void verifyUserAnswer(int quizIndex, int userCheckPosition, QuizModel.DataBean bean, LayoutQuizBinding binding, PopupWindow popupWindow) {
@@ -254,8 +317,10 @@ public class NewQuizActivity extends BaseAppCompatActivity {
         String choice = choices.get(userCheckPosition);
         int score = bean.getScore();
         String id = bean.getId();
-        String userScore = "";
+        String userScore;
+        quizList.get(quizIndex).setAnswered(true);
         if (choice.equals(optionTrue)) {
+            correctTimes = correctTimes + 1;
             userScore = "1";
             totalScore = totalScore + score;
             quizList.get(quizIndex).setCorrect(true);
@@ -266,15 +331,17 @@ public class NewQuizActivity extends BaseAppCompatActivity {
             binding.answerLayout.setVisibility(View.VISIBLE);
             disableRadioGroup(binding, choices.indexOf(optionTrue));
         }
-        quizList.get(quizIndex).setAnswered(true);
         saveUserData(quizIndex, choice, id, userScore);
         adapter.update(quizList);
     }
+    //a c d d b  b b  b c a
 
     private void saveUserData(int quizIndex, String userAnswer, String quizId, String score) {
-        answers.add(quizIndex, userAnswer);
-        questionIds.add(quizIndex, quizId);
-        scores.add(quizIndex, score);
+        Log.e("WQ", "position===" + quizIndex + "   userAnswer---" + userAnswer);
+        QuizResult quizResult = resultList.get(quizIndex);
+        quizResult.setQuestionId(quizId);
+        quizResult.setScore(score);
+        quizResult.setUserAnswer(userAnswer);
     }
 
     public void disableRadioGroup(LayoutQuizBinding binding, int indexOfTrueOption) {
@@ -296,5 +363,19 @@ public class NewQuizActivity extends BaseAppCompatActivity {
                 .getAttributes();
         lp.alpha = bgAlpha;
         getWindow().setAttributes(lp);
+    }
+
+    public void clearUp() {
+        binding.doneView.setVisibility(View.GONE);
+        binding.recycler.setVisibility(View.VISIBLE);
+        quizList.clear();
+        getStartTime();
+        startLong = System.currentTimeMillis();
+        totalScore = 0;
+        correctTimes = 0;
+        questionIds.clear();
+        answers.clear();
+        scores.clear();
+        getRoundQuestion();
     }
 }
