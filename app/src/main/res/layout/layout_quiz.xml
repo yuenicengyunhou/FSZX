@@ -69,14 +69,23 @@
                 android:textColor="@color/colorTextInvalid"
                 android:textSize="@dimen/textSize18" />
 
-            <Button
+            <TextView
                 android:id="@+id/tv_verify"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/textSizeM"
+                android:visibility="gone"
+                android:paddingTop="@dimen/padding"
+                android:paddingBottom="@dimen/padding"
+                android:layout_alignBottom="@id/tv_sign"
+                android:paddingStart="@dimen/paddingL"
+                android:paddingEnd="@dimen/paddingL"
+                android:background="@drawable/selector_commit_button"
                 android:layout_alignParentRight="true"
                 android:text="@string/sure"
-                android:visibility="gone" />
+                 />
 
             <View
                 android:id="@+id/quiz_view"

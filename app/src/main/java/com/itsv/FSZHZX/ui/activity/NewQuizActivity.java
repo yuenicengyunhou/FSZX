@@ -276,6 +276,7 @@ public class NewQuizActivity extends BaseAppCompatActivity {
         popupWindow.setOutsideTouchable(true);
         popupWindow.setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         popupWindow.setFocusable(true);
+        popupWindow.setAnimationStyle(R.style.mypopwindow_anim_style);
         popupWindow.setOnDismissListener(() -> {
             setBackgroundAlpha(1.0f);
             Log.e("WQ", "listen==" + showCommitButton());
