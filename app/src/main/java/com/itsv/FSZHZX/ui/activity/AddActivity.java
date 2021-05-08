@@ -128,7 +128,7 @@ public class AddActivity extends BaseAppCompatActivity {
 
     public void validEnableInto(String roomNum, String userName) {
         initMeeting = true;
-        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.meetingURL)
+        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.BASEURL)
                 .createService(UserApi.class);
         Call<ResponseBody> call = api.validEnableInto(Constant.TOKEN, roomNum);
         call.enqueue(new Callback<ResponseBody>() {
@@ -164,7 +164,7 @@ public class AddActivity extends BaseAppCompatActivity {
     }
 
     public void closeMeeting(String roomNum) {
-        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.meetingURL)
+        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.BASEURL)
                 .createService(UserApi.class);
         Call<ResponseBody> call = api.closeMeeting(Constant.TOKEN, roomNum);
         call.enqueue(new Callback<ResponseBody>() {

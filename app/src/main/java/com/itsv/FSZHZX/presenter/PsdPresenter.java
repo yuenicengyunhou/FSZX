@@ -35,7 +35,7 @@ public class PsdPresenter implements MvpPresenter<PasswordActivity> {
     }
 
     public void editPassword(String oldPsd, String newPsd) {
-        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.UserURL)
+        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.BASEURL)
                 .createService(UserApi.class);
         Call<ResponseBody> call = api.editPassword(Constant.TOKEN, oldPsd, newPsd);
         call.enqueue(new Callback<ResponseBody>() {

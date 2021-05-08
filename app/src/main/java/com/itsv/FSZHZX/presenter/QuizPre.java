@@ -42,7 +42,7 @@ public class QuizPre implements MvpPresenter<QuizActivity> {
     }
 
     public void getRoundQuestion() {
-        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.questionURL)
+        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.BASEURL)
                 .createService(UserApi.class);
         Call<ResponseBody> call = api.getRoundQuestion(Constant.TOKEN);
         call.enqueue(new Callback<ResponseBody>() {
@@ -108,7 +108,7 @@ public class QuizPre implements MvpPresenter<QuizActivity> {
 
 
     public void answerOnline(String token, String startTime, List<String> questionIds, List<String> answers, List<String> scores, String duration, String totalScore) {
-        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.questionURL).createService(UserApi.class);
+        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.BASEURL).createService(UserApi.class);
         Call<ResponseBody> call = api.answerOnline(token, startTime, listToString(questionIds), listToString(answers), listToString(scores), duration, totalScore);
         call.enqueue(new Callback<ResponseBody>() {
             @Override

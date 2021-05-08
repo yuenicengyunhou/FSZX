@@ -33,7 +33,7 @@ public class ModifyPre implements MvpPresenter<ModifyActivity> {
     }
 
     public void modifyName(String name) {
-        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.UserURL)
+        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.BASEURL)
                 .createService(UserApi.class);
         Call<ResponseBody> call = api.modifyName(Constant.TOKEN, name);
         call.enqueue(new Callback<ResponseBody>() {
@@ -65,7 +65,7 @@ public class ModifyPre implements MvpPresenter<ModifyActivity> {
 
     public void modifyGerder(String name) {
         String string = name.equals("男") ? "M" : "F";
-        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.UserURL)
+        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.BASEURL)
                 .createService(UserApi.class);
         Call<ResponseBody> call = api.modifyGerder(Constant.TOKEN, string);
         call.enqueue(new Callback<ResponseBody>() {
@@ -96,7 +96,7 @@ public class ModifyPre implements MvpPresenter<ModifyActivity> {
     }
 
     public void modifyBirthday(String name) {
-        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.UserURL)
+        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.BASEURL)
                 .createService(UserApi.class);
         Call<ResponseBody> call = api.modifyBirthday(Constant.TOKEN, name);
         call.enqueue(new Callback<ResponseBody>() {

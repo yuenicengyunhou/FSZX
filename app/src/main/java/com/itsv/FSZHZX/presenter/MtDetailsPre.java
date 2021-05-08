@@ -34,7 +34,7 @@ public class MtDetailsPre implements MvpPresenter<MeetingDetailsActivity> {
 
     }
     public void adviceList(long id) {
-        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.meetingURL)
+        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.BASEURL)
                 .createService(UserApi.class);
         Call<ResponseBody> call = api.detail(id);
         call.enqueue(new Callback<ResponseBody>() {

@@ -116,7 +116,7 @@ public class AnotherQuizActivity extends AppCompatActivity {
 
 
     public void getRoundQuestion() {
-        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.questionURL)
+        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.BASEURL)
                 .createService(UserApi.class);
         Call<ResponseBody> call = api.getRoundQuestion(Constant.TOKEN);
         call.enqueue(new Callback<ResponseBody>() {

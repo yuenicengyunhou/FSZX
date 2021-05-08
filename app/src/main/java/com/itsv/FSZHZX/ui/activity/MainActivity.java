@@ -270,7 +270,7 @@ public class MainActivity extends BaseWebActivity {
     }
 
     private void getSimpleProfile() {
-        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.UserURL)
+        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.BASEURL)
                 .createService(UserApi.class);
         Call<ResponseBody> call = api.personalData(Constant.TOKEN);
         call.enqueue(new Callback<ResponseBody>() {

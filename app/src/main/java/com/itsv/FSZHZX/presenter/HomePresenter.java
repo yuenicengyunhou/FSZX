@@ -75,7 +75,7 @@ public class HomePresenter implements MvpPresenter<HomeActivity> {
     }
     public void getSimpleProfile() {
 //        mvpView.checkToken();
-        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.UserURL)
+        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.BASEURL)
                 .createService(UserApi.class);
         Call<ResponseBody> call = api.personalData(Constant.TOKEN);
         call.enqueue(new Callback<ResponseBody>() {

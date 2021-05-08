@@ -44,7 +44,7 @@ public class AddressBookPre implements MvpPresenter<AddressBookActivity> {
     public void querySimpleNameList(String jieci, String name, String typeValue) {
         mvpView.startRefreshView();
         if (null == api) {
-            api = ApiHelper.getInstance().buildRetrofit(Constant.UserURL).createService(UserApi.class);
+            api = ApiHelper.getInstance().buildRetrofit(Constant.BASEURL).createService(UserApi.class);
         }
         Call<ResponseBody> call = api.selectUsers(jieci, name, typeValue, "");
         call.enqueue(new Callback<ResponseBody>() {
@@ -85,7 +85,7 @@ public class AddressBookPre implements MvpPresenter<AddressBookActivity> {
     public void queryGroupedList(String jieci, String type) {
         mvpView.startRefreshView();
         if (null == api) {
-            api = ApiHelper.getInstance().buildRetrofit(Constant.UserURL).createService(UserApi.class);
+            api = ApiHelper.getInstance().buildRetrofit(Constant.BASEURL).createService(UserApi.class);
         }
         Call<ResponseBody> call = api.selectGroupUsers(jieci, type);
         call.enqueue(new Callback<ResponseBody>() {
@@ -125,7 +125,7 @@ public class AddressBookPre implements MvpPresenter<AddressBookActivity> {
     /*获取第一个筛选按钮内容/界次*/
     public void selectGroupBase() {
         if (null == api) {
-            api = ApiHelper.getInstance().buildRetrofit(Constant.UserURL).createService(UserApi.class);
+            api = ApiHelper.getInstance().buildRetrofit(Constant.BASEURL).createService(UserApi.class);
         }
         Call<ResponseBody> call = api.selectGroupBase();
         call.enqueue(new Callback<ResponseBody>() {

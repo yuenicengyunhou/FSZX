@@ -10,7 +10,7 @@ public interface LoginApi {
     @POST("login")
     Call<ResponseBody> login(@Query("username") String username, @Query("password") String password,@Query("imei")String imei);
 
-    @POST("logout")
+    @POST("login/logout")
     Call<ResponseBody> logout(@Query("token") String token);
 
 

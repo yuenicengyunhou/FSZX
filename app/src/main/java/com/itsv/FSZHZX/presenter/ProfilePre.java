@@ -38,7 +38,7 @@ public class ProfilePre implements MvpPresenter<ProfileActivity> {
     }
 
     public void userDetailInfo() {
-        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.UserURL)
+        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.BASEURL)
                 .createService(UserApi.class);
         Call<ResponseBody> call = api.userDetailInfo(Constant.TOKEN);
         call.enqueue(new Callback<ResponseBody>() {

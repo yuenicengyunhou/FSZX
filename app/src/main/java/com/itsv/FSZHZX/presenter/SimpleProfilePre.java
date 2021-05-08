@@ -72,7 +72,7 @@ public class SimpleProfilePre implements MvpPresenter<SimpleProfileActivity> {
 //    }
 
     public void logout() {
-        LoginApi api = ApiHelper.getInstance().buildRetrofit(Constant.logoutURL)
+        LoginApi api = ApiHelper.getInstance().buildRetrofit(Constant.BASEURL)
                 .createService(LoginApi.class);
         Call<ResponseBody> logout = api.logout(Constant.TOKEN);
         logout.enqueue(new Callback<ResponseBody>() {

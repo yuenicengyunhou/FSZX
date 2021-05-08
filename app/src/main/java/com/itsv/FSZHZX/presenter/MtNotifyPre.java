@@ -47,7 +47,7 @@ public class MtNotifyPre implements MvpPresenter<MtNotifyActivity> {
         } else {
             mvpView.loading();
         }
-        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.notifiURL)
+        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.BASEURL)
                 .createService(UserApi.class);
         Call<ResponseBody> call = api.adviceList(token, currentPage, pageSize);
         call.enqueue(new Callback<ResponseBody>() {
@@ -92,7 +92,7 @@ public class MtNotifyPre implements MvpPresenter<MtNotifyActivity> {
         } else {
             mvpView.loading();
         }
-        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.meetingURL)
+        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.BASEURL)
                 .createService(UserApi.class);
         Call<ResponseBody> call = api.userIndexList(token, currentPage, pageSize, meetingTitle, meetingOwnerUserName, meetingTime);
         call.enqueue(new Callback<ResponseBody>() {
@@ -132,7 +132,7 @@ public class MtNotifyPre implements MvpPresenter<MtNotifyActivity> {
     //提交是否参会
 
     public void editItem(long id, String isCanhui, String content, int position) {
-        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.notifiURL)
+        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.BASEURL)
                 .createService(UserApi.class);
         Call<ResponseBody> call = api.editItem(id, isCanhui, content);
         call.enqueue(new Callback<ResponseBody>() {
@@ -203,7 +203,7 @@ public class MtNotifyPre implements MvpPresenter<MtNotifyActivity> {
     //创建临时会议
     public void createTempConference() {
         mvpView.showLoading();
-        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.meetingURL)
+        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.BASEURL)
                 .createService(UserApi.class);
         Call<ResponseBody> call = api.createTempConference(Constant.TOKEN);
         call.enqueue(new Callback<ResponseBody>() {
@@ -232,7 +232,7 @@ public class MtNotifyPre implements MvpPresenter<MtNotifyActivity> {
     }
 
     public void validEnableInto(String roomNum, String userName, String sdkCid, boolean isModerator, String psw, String mId) {
-        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.meetingURL)
+        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.BASEURL)
                 .createService(UserApi.class);
         Call<ResponseBody> call = api.validEnableInto(Constant.TOKEN, roomNum);
         call.enqueue(new Callback<ResponseBody>() {
@@ -262,7 +262,7 @@ public class MtNotifyPre implements MvpPresenter<MtNotifyActivity> {
     }
 
     public void closeMeeting(String roomNum) {
-        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.meetingURL)
+        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.BASEURL)
                 .createService(UserApi.class);
         Call<ResponseBody> call = api.closeMeeting(Constant.TOKEN, roomNum);
         call.enqueue(new Callback<ResponseBody>() {
@@ -286,7 +286,7 @@ public class MtNotifyPre implements MvpPresenter<MtNotifyActivity> {
     }
 
     public void userDetailInfo() {
-        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.UserURL)
+        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.BASEURL)
                 .createService(UserApi.class);
         Call<ResponseBody> call = api.userDetailInfo(Constant.TOKEN);
         call.enqueue(new Callback<ResponseBody>() {

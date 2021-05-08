@@ -647,7 +647,7 @@ public class TempActivity extends BaseAppCompatActivity implements ManisApiInter
 
     private void setStage(String userId) {
         if (null == api) {
-            api = ApiHelper.getInstance().buildRetrofit(Constant.meetingURL).createService(UserApi.class);
+            api = ApiHelper.getInstance().buildRetrofit(Constant.BASEURL).createService(UserApi.class);
         }
         Call<ResponseBody> call = api.setStageByRoomNumber(roomNumber, userId);
         call.enqueue(new Callback<ResponseBody>() {
