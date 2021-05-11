@@ -1,13 +1,11 @@
 package com.itsv.FSZHZX.ui.activity;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.Gravity;
@@ -93,9 +91,7 @@ public class NewQuizActivity extends BaseAppCompatActivity {
         choices.add("D");
         intList();
 
-        binding.btnOneMore.setOnClickListener(view -> {
-            clearUp();
-        });
+        binding.btnOneMore.setOnClickListener(view -> clearUp());
 
         binding.btnBack.setOnClickListener(view -> finish());
 
@@ -182,11 +178,10 @@ public class NewQuizActivity extends BaseAppCompatActivity {
         int seconds = totalSeconds % 60;
         int minutes = (totalSeconds / 60) % 60;
         int hours = totalSeconds / 3600;
-        return formatt(hours) + ":" + formatt(minutes) + ":" + formatt(seconds);
+        return formatTime(hours) + ":" + formatTime(minutes) + ":" + formatTime(seconds);
     }
 
-    private String formatt(int i) {
-        String t = "";
+    private String formatTime(int i) {
         if (i < 10) {
             return "0" + i;
         } else {
@@ -256,9 +251,7 @@ public class NewQuizActivity extends BaseAppCompatActivity {
 //          binding.tvExplaination.setVisibility(View.VISIBLE);
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(bean.getHintContent());
-            builder.setPositiveButton("确定", (dialogInterface, i) -> {
-                dialogInterface.dismiss();
-            });
+            builder.setPositiveButton("确定", (dialogInterface, i) -> dialogInterface.dismiss());
             builder.show();
         });
         binding.radioGroup.setOnCheckedChangeListener((radioGroup, i) -> {

@@ -28,6 +28,19 @@
             android:lineSpacingExtra="@dimen/padding"
             android:textColor="@color/colorTextB"
             android:textSize="@dimen/textSize" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/textSizeM"
+            android:id="@+id/tv_time"
+            android:layout_marginTop="@dimen/padding"
+            android:layout_marginBottom="@dimen/padding"
+            android:layout_marginStart="@dimen/marginPrimary"
+            android:layout_marginEnd="@dimen/marginPrimary"
+            android:lines="1"
+            android:ellipsize="end"
+            android:textColor="@color/grey666"
+            />
 
         <TextView
             android:id="@+id/tv_start"
@@ -43,7 +56,7 @@
             android:paddingTop="@dimen/padding"
             android:paddingEnd="@dimen/paddingL"
             android:paddingBottom="@dimen/padding"
-            android:text="开始答题"
+            android:text="@string/startQuiz"
             android:textColor="@color/white"
             android:textSize="13sp" />
     </LinearLayout>

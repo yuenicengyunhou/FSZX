@@ -195,7 +195,7 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
         homeAdapter.setOnFunctionClickListener(title -> {
             switch (title) {
                 case "在线答题":
-                    Intent quizItent = new Intent(this, NewQuizActivity.class);
+                    Intent quizItent = new Intent(this, SortQuizActivity.class);
                     startActivity(quizItent);
                     break;
                 case "视频会议":
