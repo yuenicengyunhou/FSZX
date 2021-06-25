@@ -10,8 +10,8 @@ import com.itsv.FSZHZX.utils.AppUtils;
 import com.liulishuo.filedownloader.FileDownloader;
 import com.liulishuo.filedownloader.connection.FileDownloadUrlConnection;
 import com.manis.core.interfaces.ManisApiInterface;
-import com.squareup.leakcanary.LeakCanary;
-import com.squareup.leakcanary.RefWatcher;
+//import com.squareup.leakcanary.LeakCanary;
+//import com.squareup.leakcanary.RefWatcher;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
@@ -20,7 +20,7 @@ import cn.jpush.android.api.JPushInterface;
 
 public class MyApplication extends Application {
 
-    private static RefWatcher watcher;
+//    private static RefWatcher watcher;
 
     @Override
     public void onCreate() {
@@ -31,7 +31,7 @@ public class MyApplication extends Application {
         initDownloader();
         initWechatShare();
         initJPush();
-        watcher = LeakCanary.install(this);
+//        watcher = LeakCanary.install(this);
     }
 
     @Override
@@ -40,9 +40,9 @@ public class MyApplication extends Application {
         MultiDex.install(this);
     }
 
-    public static RefWatcher getWatcher() {
-        return watcher;
-    }
+//    public static RefWatcher getWatcher() {
+//        return watcher;
+//    }
 
     private void initJPush() {
         JPushInterface.setDebugMode(true);

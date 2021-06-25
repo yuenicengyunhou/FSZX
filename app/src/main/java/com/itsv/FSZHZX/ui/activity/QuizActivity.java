@@ -1,7 +1,9 @@
 package com.itsv.FSZHZX.ui.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +25,7 @@ import com.itsv.FSZHZX.base.Constant;
 import com.itsv.FSZHZX.base.MyBaseMvpActivity;
 import com.itsv.FSZHZX.model.QuizModel;
 import com.itsv.FSZHZX.presenter.QuizPre;
+import com.itsv.FSZHZX.utils.ToastUtils;
 import com.itsv.FSZHZX.view.QuizView;
 
 import java.text.MessageFormat;
@@ -40,7 +43,7 @@ import butterknife.OnClick;
 public class QuizActivity extends MyBaseMvpActivity<QuizActivity, QuizPre> implements QuizView {
 
     @BindView(R.id.tv_title)
-   public TextView tvTitle;
+    public TextView tvTitle;
     @BindView(R.id.tv_commit)
     TextView tvCommit;
     @BindView(R.id.tv_number)
@@ -101,7 +104,8 @@ public class QuizActivity extends MyBaseMvpActivity<QuizActivity, QuizPre> imple
     private int questionIndex;
     private int score;
     private String questionId = "";
-    private String hint;
+    private String hint;//提示
+    private String hintImportantContent;//提示中需要标红的字段
     private String optionTrue;
 
     private int userCheckedPosition;
@@ -114,6 +118,7 @@ public class QuizActivity extends MyBaseMvpActivity<QuizActivity, QuizPre> imple
     private List<String> questionIds = new ArrayList<>();
     private List<String> answers = new ArrayList<>();
     private List<String> scores = new ArrayList<>();
+    private String questionTypeId;
 
 
     @NonNull
@@ -130,10 +135,17 @@ public class QuizActivity extends MyBaseMvpActivity<QuizActivity, QuizPre> imple
 
     @Override
     protected void initViewsAndEnvents() {
+        Intent intent = getIntent();
+        questionTypeId = intent.getStringExtra("id");
         initToolbar(toolbar, false);
         tvTitle.setText(quiz);
         tvCommit.setText("下一题");
-        presenter.getRoundQuestion();
+        if (questionTypeId == null) {
+            ToastUtils.showSingleToast("答题专项为空");
+            finish();
+            return;
+        }
+        presenter.getQuestionList(questionTypeId);
         radioGroup.setOnCheckedChangeListener((radioGroup, i) -> {
             userCheckedPosition = radioGroup.indexOfChild(radioGroup.findViewById(i));
             showCommitButton();
@@ -278,7 +290,7 @@ public class QuizActivity extends MyBaseMvpActivity<QuizActivity, QuizPre> imple
     }
 
     @Override
-    public void initQuiz(String questionTitle, String optionA, String optionB, String optionC, String optionD, String questionSource, String explainContent, String optionTrue, String hintContent, int score, String id) {
+    public void initQuiz(String questionTitle, String optionA, String optionB, String optionC, String optionD, String questionSource, String explainContent, String optionTrue, String hintContent, int score, String id, String hintImportantContent) {
         this.score = score;
         this.questionId = id;
         if (questionIndex != 0) {
@@ -296,8 +308,21 @@ public class QuizActivity extends MyBaseMvpActivity<QuizActivity, QuizPre> imple
         tvD.setText(MessageFormat.format("D.  {0}", optionD));
         tvSource.setText(questionSource);
         tvExplaination.setText(explainContent);
-        hint = hintContent;
+//        hint = hintContent;
+        this.hintImportantContent = hintImportantContent;
+        hint = makeRedHint(hintContent, hintImportantContent);
         this.optionTrue = optionTrue;
+    }
+
+    /**
+     * 生成标红格式的hint
+     */
+    private String makeRedHint(String hintContent, String hintImportantContent) {
+        if (hintContent.contains(hintImportantContent)) {
+            String replaceWord = "<font color=\"#b21636\">" + hintImportantContent + "</font>";
+            return hintContent.replace(hintImportantContent, replaceWord);
+        }
+        return hintContent;
     }
 
     //    private int indexOfTrueOption;
@@ -361,7 +386,7 @@ public class QuizActivity extends MyBaseMvpActivity<QuizActivity, QuizPre> imple
         TextView tvDiss = contentView.findViewById(R.id.tv_dismiss);
         tvDiss.setOnClickListener(view -> popupWindow.dismiss());
         TextView tvTips = contentView.findViewById(R.id.tv_tips);
-        tvTips.setText(hint);
+        tvTips.setText(Html.fromHtml(hint));
     }
 
     @Override
@@ -400,7 +425,7 @@ public class QuizActivity extends MyBaseMvpActivity<QuizActivity, QuizPre> imple
         enableRadioGroup();
         hideExplaination();
         clearChoiceCheck();
-        presenter.getRoundQuestion();
+        presenter.getQuestionList(questionTypeId);
     }
 
 }

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/parent"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/marginPrimary"
     android:layout_marginTop="@dimen/marginM"
     android:layout_marginEnd="@dimen/marginPrimary"
@@ -19,14 +19,14 @@
         <TextView
             android:id="@+id/tv_quiz"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/marginPrimary"
             android:layout_marginTop="@dimen/marginPrimary"
             android:layout_marginEnd="@dimen/marginPrimary"
-            android:layout_weight="1"
             android:ellipsize="end"
+            android:maxLines="3"
             android:lineSpacingExtra="@dimen/padding"
-            android:textColor="@color/colorTextB"
+            android:textColor="@color/colorTextDark"
             android:textSize="@dimen/textSize" />
         <TextView
             android:layout_width="match_parent"
@@ -39,7 +39,7 @@
             android:layout_marginEnd="@dimen/marginPrimary"
             android:lines="1"
             android:ellipsize="end"
-            android:textColor="@color/grey666"
+            android:textColor="@color/colorTextGray"
             />
 
         <TextView
@@ -58,7 +58,7 @@
             android:paddingBottom="@dimen/padding"
             android:text="@string/startQuiz"
             android:textColor="@color/white"
-            android:textSize="13sp" />
+            android:textSize="@dimen/textSizeM" />
     </LinearLayout>
 
 

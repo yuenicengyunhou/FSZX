@@ -1,6 +1,8 @@
 package com.itsv.FSZHZX.ui.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +15,20 @@ import com.itsv.FSZHZX.databinding.ItemQuizBinding;
 import com.itsv.FSZHZX.model.QuestionSort;
 import com.itsv.FSZHZX.utils.ToastUtils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class QuizSortAdapter extends RecyclerView.Adapter<QuizSortAdapter.Holder> {
 
     private ArrayList<QuestionSort> list;
     private LayoutInflater inflater;
+    private OnItemClickListener onItemClickListener;
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
 
     public QuizSortAdapter(ArrayList<QuestionSort> list, Context context) {
         this.list = list;
@@ -38,10 +48,12 @@ public class QuizSortAdapter extends RecyclerView.Adapter<QuizSortAdapter.Holder
         String typeName = questionSort.getTypeName();
         String typeTime = questionSort.getTypeTime();
         String id = questionSort.getId();
-        holder.binding.tvTime.setText(typeTime);
+        holder.binding.tvTime.setText(formattTime(typeTime));
         holder.binding.tvQuiz.setText(typeName);
         holder.binding.tvStart.setOnClickListener(v -> {
-            ToastUtils.showSingleToast(id);
+            if (null != onItemClickListener) {
+                onItemClickListener.onClick(id);
+            }
         });
     }
 
@@ -58,6 +70,22 @@ public class QuizSortAdapter extends RecyclerView.Adapter<QuizSortAdapter.Holder
         notifyDataSetChanged();
     }
 
+    @SuppressLint("SimpleDateFormat")
+    private String formattTime(String time) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date date = dateFormat.parse(time);
+            if (null != date) {
+                return  format.format(date);
+            }
+            return "";
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
     class Holder extends RecyclerView.ViewHolder{
 
         //        public Holder(@NonNull View itemView) {
@@ -70,5 +98,9 @@ public class QuizSortAdapter extends RecyclerView.Adapter<QuizSortAdapter.Holder
             super(itemView);
             this.binding = binding;
         }
+    }
+
+    public interface OnItemClickListener{
+        void onClick(String id);
     }
 }

@@ -16,19 +16,19 @@
             android:id="@+id/login_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_above="@id/iv_fullName"
+            android:layout_centerHorizontal="true"
             android:src="@mipmap/login_icon" />
 
         <ImageView
             android:id="@+id/iv_fullName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/login_appname"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/marginPrimary"
-            android:layout_marginBottom="@dimen/margin40" />
+            android:layout_marginBottom="@dimen/margin40"
+            android:src="@mipmap/login_appname" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_alignStart="@id/login_edit_user"
             android:layout_alignLeft="@id/login_edit_user"
-          android:layout_marginTop="@dimen/marginPrimary"
+            android:layout_marginTop="@dimen/marginPrimary"
             android:src="@mipmap/login_arrow" />
 
         <EditText
@@ -63,11 +63,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/login_edit_user"
-            android:inputType="textPassword"
             android:layout_marginTop="@dimen/marginPrimary"
             android:drawableStart="@mipmap/login_pw"
             android:drawableLeft="@mipmap/login_pw"
-            android:hint="@string/passWord" />
+            android:hint="@string/passWord"
+            android:inputType="textPassword" />
 
         <Button
             android:id="@+id/login_btn"
@@ -90,16 +90,25 @@
             android:layout_below="@id/login_btn"
             android:layout_alignStart="@id/login_btn"
             android:layout_alignLeft="@id/login_btn"
+            android:layout_marginTop="@dimen/padding"
             android:button="@drawable/checkbox_login"
             android:paddingStart="@dimen/padding"
-            android:paddingRight="@dimen/padding"
+            android:paddingLeft="@dimen/padding"
             android:paddingTop="@dimen/marginM"
-            android:paddingBottom="@dimen/marginM"
             android:paddingEnd="@dimen/padding"
-            android:layout_marginTop="@dimen/padding"
+            android:paddingRight="@dimen/padding"
+            android:paddingBottom="@dimen/marginM"
             android:text="@string/autoLogin"
-            android:textColor="@color/colorAutoLogin"
-            android:paddingLeft="@dimen/padding" />
+            android:textColor="@color/colorAutoLogin" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:visibility="gone"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/margin40" />
     </RelativeLayout>
 
 

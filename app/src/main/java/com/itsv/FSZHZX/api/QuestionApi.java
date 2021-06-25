@@ -9,5 +9,8 @@ import retrofit2.http.QueryMap;
 
 public interface QuestionApi {
     @POST("questionType/getAllQuestionType")
-    Call<ResponseBody> getQuestionTypes(@QueryMap HashMap<String,Object> map);
+    Call<ResponseBody> getQuestionTypes(@QueryMap HashMap<String, Object> map);
+
+    @POST("questionBank/getListQuestion")
+    Call<ResponseBody> getQuestionList(@QueryMap HashMap<String, Object> map);
 }

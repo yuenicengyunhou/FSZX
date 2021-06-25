@@ -50,7 +50,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MyApplication.getWatcher().watch(this);
+//        MyApplication.getWatcher().watch(this);
         appManager = BaseAppManager.getInstance();
         appManager.addActivity(this);
 //        setWhiteStatusBar();

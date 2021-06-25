@@ -5,16 +5,19 @@ import androidx.annotation.NonNull;
 
 import com.google.gson.Gson;
 import com.hannesdorfmann.mosby.mvp.MvpPresenter;
+import com.itsv.FSZHZX.api.QuestionApi;
 import com.itsv.FSZHZX.api.UserApi;
 import com.itsv.FSZHZX.base.ApiHelper;
 import com.itsv.FSZHZX.base.Constant;
 import com.itsv.FSZHZX.model.QuizModel;
 import com.itsv.FSZHZX.ui.activity.QuizActivity;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -48,7 +51,49 @@ public class QuizPre implements MvpPresenter<QuizActivity> {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                if (null==mvpView.tvTitle) return;
+                if (null == mvpView.tvTitle) return;
+                if (response.isSuccessful()) {
+                    try {
+                        String params = response.body().string();
+                        Gson gson = new Gson();
+                        QuizModel model = gson.fromJson(params, QuizModel.class);
+                        if (model != null) {
+                            String msg = model.getMsg();
+                            int code = model.getCode();
+                            if (code != 200) {
+                                mvpView.showErrorToast(msg);
+                                return;
+                            }
+                            List<QuizModel.DataBean> data = model.getData();
+                            if (data.isEmpty()) return;
+                            mvpView.getAllQuiz(data);
+                            getQuizInfor(data, 0);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+
+            }
+        });
+    }
+
+    public void getQuestionList(String id) {
+        QuestionApi api = ApiHelper.getInstance().buildRetrofit(Constant.BASEURL)
+                .createService(QuestionApi.class);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("token", Constant.TOKEN);
+        map.put("questionType", id);
+        Call<ResponseBody> call = api.getQuestionList(map);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                if (null == mvpView.tvTitle) return;
                 if (response.isSuccessful()) {
                     try {
                         String params = response.body().string();
@@ -93,9 +138,10 @@ public class QuizPre implements MvpPresenter<QuizActivity> {
         String optionTrue = dataBean.getOptionTrue();
         String hintContent = dataBean.getHintContent();
         String id = dataBean.getId();
+        String hintImportantContent = dataBean.getHintImportantContent();
         int score = dataBean.getScore();
 
-        mvpView.initQuiz(questionTitle, optionA, optionB, optionC, optionD, questionSource, explainContent, optionTrue, hintContent, score, id);
+        mvpView.initQuiz(questionTitle, optionA, optionB, optionC, optionD, questionSource, explainContent, optionTrue, hintContent, score, id,hintImportantContent);
     }
 
     public int getIndexOfTrueOption(String optionTrue) {
@@ -113,7 +159,7 @@ public class QuizPre implements MvpPresenter<QuizActivity> {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                if (null==mvpView.tvTitle) return;
+                if (null == mvpView.tvTitle) return;
                 if (response.isSuccessful()) {
                     try {
                         String params = response.body().string();
@@ -155,6 +201,7 @@ public class QuizPre implements MvpPresenter<QuizActivity> {
         }
         return result.toString();
     }
+
     public String generateTime(long time) {
         int totalSeconds = (int) (time / 1000);
         int seconds = totalSeconds % 60;
@@ -168,7 +215,7 @@ public class QuizPre implements MvpPresenter<QuizActivity> {
         if (i < 10) {
             return "0" + i;
         } else {
-           return String.valueOf(i);
+            return String.valueOf(i);
         }
     }
 

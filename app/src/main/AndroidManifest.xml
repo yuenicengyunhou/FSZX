@@ -38,10 +38,19 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:usesCleartextTraffic="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.SortQuizActivity"></activity>
-        <activity android:name=".ui.activity.QuizListActivity" />
+        <activity
+            android:name=".ui.activity.SortQuizActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/activityInOut"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.activity.QuizListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/activityInOut"
+            tools:ignore="LockedOrientationActivity" />
         <activity android:name=".ui.activity.TestActivity" /> <!-- <activity android:name=".ui.activity.HomeActivity"></activity> -->
         <!-- 极光 -->
         <!-- Required SDK 核心功能 -->

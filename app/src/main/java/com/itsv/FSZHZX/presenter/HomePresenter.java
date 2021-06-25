@@ -62,7 +62,7 @@ public class HomePresenter implements MvpPresenter<HomeActivity> {
 //                    mvpView.showUpdateDialog(new File(finalApkPath));
                     break;
                 case 1:
-                    mvpView.setUpdateProgress(sofar*100/totalByte);
+                    mvpView.setUpdateProgress(sofar * 100 / totalByte);
                     break;
             }
         }
@@ -73,6 +73,7 @@ public class HomePresenter implements MvpPresenter<HomeActivity> {
         mvpView = view;
         handler = new UIHandler(mvpView);
     }
+
     public void getSimpleProfile() {
 //        mvpView.checkToken();
         UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.BASEURL)
@@ -81,7 +82,7 @@ public class HomePresenter implements MvpPresenter<HomeActivity> {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                if (null==mvpView.recyclerView)return;
+                if (null == mvpView.recyclerView) return;
                 if (response.isSuccessful()) {
                     try {
                         String params = response.body().string();
@@ -105,6 +106,10 @@ public class HomePresenter implements MvpPresenter<HomeActivity> {
         });
     }
 
+    public void getUserInfo() {
+
+    }
+
     public void checkAppUpdate(String apkPath) {
 //        mvpView.checkToken();
         UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.appURL)
@@ -113,7 +118,7 @@ public class HomePresenter implements MvpPresenter<HomeActivity> {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (null==mvpView.recyclerView)return;
+                if (null == mvpView.recyclerView) return;
                 if (response.isSuccessful()) {
                     try {
                         String params = response.body().string();
@@ -180,8 +185,8 @@ public class HomePresenter implements MvpPresenter<HomeActivity> {
 
                     @Override
                     protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-                        Log.e("feifei", "progress ==:" + soFarBytes+"---total"+totalByte);
-                        sofar = soFarBytes/1024;
+                        Log.e("feifei", "progress ==:" + soFarBytes + "---total" + totalByte);
+                        sofar = soFarBytes / 1024;
                         handler.sendEmptyMessage(1);
                     }
 
@@ -247,6 +252,7 @@ public class HomePresenter implements MvpPresenter<HomeActivity> {
         }
         mvpView.startActivity(intent);
     }
+
     @Override
     public void detachView(boolean retainInstance) {
     }

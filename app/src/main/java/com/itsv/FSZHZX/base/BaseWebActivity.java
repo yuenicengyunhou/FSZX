@@ -96,7 +96,8 @@ public abstract class BaseWebActivity extends BaseAppCompatActivity {
         WebSettings webSettings = agentWebSettings.getWebSettings();
         webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
         //自适应屏幕
-        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+//        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        webSettings.setUseWideViewPort(true);
         webSettings.setLoadWithOverviewMode(true);
         //注入对象
         JsCallAndroid jsCallAndroid = new JsCallAndroid(this, agentWeb);

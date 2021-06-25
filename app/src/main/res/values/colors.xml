@@ -13,6 +13,7 @@
     <color name="colorStatusBar">#bdbdbd</color>
     <color name="colorGrey">#e8e8e8</color>
     <color name="colorTextB">#3b3c40</color>
+    <color name="colorTextGray">#76797b</color>
     <color name="grey666">#666</color>
     <color name="colorTextGroup">#191919</color>
     <color name="colorIndicator">#ccc</color>
@@ -59,4 +60,6 @@
     <color name="colorQuizButtonDark">#AC947C</color>
     <color name="colorBlue">#1676fb</color>
     <color name="colorBlueDark">#156DE6</color>
+
+
 </resources>

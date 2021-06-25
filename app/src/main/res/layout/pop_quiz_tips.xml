@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -13,12 +14,11 @@
         android:layout_marginTop="@dimen/marginPrimary"
         android:layout_marginRight="@dimen/marginPrimary"
         android:layout_marginBottom="@dimen/marginPrimary"
-        android:drawableEnd="@drawable/close"
-        android:drawableRight="@drawable/close"
         android:gravity="center"
         android:text="@string/tips"
         android:textColor="@color/colorTextB"
-        android:textSize="@dimen/textSize" />
+        android:textSize="@dimen/textSize"
+        app:drawableEndCompat="@drawable/close" />
 
     <View style="@style/fullViewStyle" />
 

@@ -5,6 +5,7 @@ package com.itsv.FSZHZX.ui.activity;
 import android.content.Intent;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -47,6 +48,7 @@ public class WebActivity extends BaseWebActivity {
         Intent intent = getIntent();
         String title = intent.getStringExtra("title");
         url = intent.getStringExtra("url");
+        if (null==url) return "";
         hideShareButton(url);
         if (title != null) {
             hideShareButton(title);
@@ -58,7 +60,8 @@ public class WebActivity extends BaseWebActivity {
     }
 
     private void hideShareButton(String string) {
-        if (string.equals("在线学习") || string.equals("学习材料") || string.equals("使用帮助") || string.contains("learning_materials")) {
+        if (string.equals("在线学习") || string.equals("学习材料") || string.equals("使用帮助") || string.contains("learning_materials")||string.contains("getTianListView")
+                ||string.contains("getJifenByUserName")||string.contains("getDanganByUserName")) {
             ivShare.setVisibility(View.GONE);
         }
     }
@@ -86,9 +89,24 @@ public class WebActivity extends BaseWebActivity {
                 WxShareUtils.shareWeb(this,Constant.APP_ID,url,webTitle,"",appIcon);
                 break;
             case R.id.iv_back:
-                finish();
+                mFinsh();
                 break;
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        mFinsh();
+    }
+
+    private void mFinsh() {
+        if (url.contains("getTianListView")) {
+            boolean back = agentWeb.back();
+            if (!back) {
+                finish();
+            }
+        } else {
+            finish();
+        }
+    }
 }

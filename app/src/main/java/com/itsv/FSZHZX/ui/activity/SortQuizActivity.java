@@ -1,12 +1,15 @@
 package com.itsv.FSZHZX.ui.activity;
 
 
+import android.content.Intent;
 import android.view.View;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.itsv.FSZHZX.R;
 import com.itsv.FSZHZX.api.QuestionApi;
 import com.itsv.FSZHZX.base.ApiHelper;
 import com.itsv.FSZHZX.base.BaseAppCompatActivity;
@@ -47,14 +50,23 @@ public class SortQuizActivity extends BaseAppCompatActivity {
     @Override
     protected void initViewsAndEnvents() {
         beans = new ArrayList<>();
-        initToolbar(binding.toolbarLayout.toolbar, true);
-        binding.toolbarLayout.tvTitle.setText("专项答题");
+        initToolbar(binding.toolbarLayout.toolbar, false);
+        binding.toolbarLayout.tvTitle.setText("在线答题");
         binding.toolbarLayout.ivBack.setOnClickListener(v -> finish());
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         binding.recycler.setLayoutManager(layoutManager);
         adapter = new QuizSortAdapter(beans, this);
+        adapter.setOnItemClickListener(this::toQuizActivity);
         binding.recycler.setAdapter(adapter);
+        binding.swipe.setOnRefreshListener(this::getQuestionTypes);
+        binding.swipe.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         getQuestionTypes();
+    }
+
+    private void toQuizActivity(String id) {
+        Intent intent = new Intent(this, QuizActivity.class);
+        intent.putExtra("id", id);
+        startActivity(intent);
     }
 
 

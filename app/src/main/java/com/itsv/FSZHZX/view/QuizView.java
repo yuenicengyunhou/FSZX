@@ -22,7 +22,7 @@ public interface QuizView extends MvpView {
     void getAllQuiz(List<QuizModel.DataBean> list);
 
     void initQuiz(String questionTitle, String optionA, String optionB, String optionC, String optionD, String questionSource,
-                  String explainContent, String optionTrue, String hintContent,int score,String id);
+                  String explainContent, String optionTrue, String hintContent,int score,String id,String hintImportantContent);
 
 
     boolean isAnswerCorrect();

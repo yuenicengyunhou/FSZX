@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,15 +19,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 import com.itsv.FSZHZX.R;
 import com.itsv.FSZHZX.base.Constant;
 import com.itsv.FSZHZX.base.MyBaseMvpActivity;
 import com.itsv.FSZHZX.base.TagAliasOperatorHelper;
+import com.itsv.FSZHZX.model.ProfileDetailsM;
 import com.itsv.FSZHZX.model.SimpleModel;
 import com.itsv.FSZHZX.presenter.HomePresenter;
 import com.itsv.FSZHZX.ui.adapter.HomeAdapter;
@@ -41,8 +45,11 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import butterknife.BindDrawable;
@@ -59,7 +66,7 @@ import static com.itsv.FSZHZX.base.TagAliasOperatorHelper.sequence;
 @RuntimePermissions
 public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter> implements HomeView {
     @BindView(R.id.homeRecycler)
-   public RecyclerView recyclerView;
+    public RecyclerView recyclerView;
     @BindView(R.id.textTest)
     TextView textTest;
     @BindDrawable(R.mipmap.ic_vidmeet)
@@ -84,8 +91,8 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
     Drawable icHead;
 
     private HomePresenter presenter;
-    private String[] titles = {"视频会议", "会议通知", "云通讯录", "学习材料", "在线学习", "在线答题"};
-    private String name;
+    private final String[] titles = {"视频会议", "会议通知", "云通讯录", "学习材料", "在线学习", "在线答题", "提案查询", "履职积分", "履职档案"};
+    private String realName;
     private String positionName;
     private String weekCorrectRate;
     private String avatarUrl;
@@ -94,6 +101,10 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
     private TextView tvUpdate;
     private ProgressBar progressBar;
     boolean isDownloading = false;
+    private Drawable proposal;
+    private Drawable drawableScores;
+    private Drawable drawableFiles;
+    private ProfileDetailsM.DataBean userInfo;
 
     @NonNull
     @Override
@@ -111,6 +122,7 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
     protected void initViewsAndEnvents() {
         checkToken();
         checkImei();
+        readUserInfoCache();
         setJpushAlias();
         initToolbar(toolbar, false);
         initRecycler();
@@ -118,6 +130,19 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
         presenter.getSimpleProfile();
         questPermission();
         EventBus.getDefault().register(this);
+    }
+
+    /**
+     * 读取存储的userInfo数据
+     */
+    private void readUserInfoCache() {
+        SharedPreferences preferences = getSharedPreferences("fszx", MODE_PRIVATE);
+        String userInfoParams = preferences.getString("userInfo", "");
+        if (TextUtils.isEmpty(userInfoParams)) {
+            return;
+        }
+        ProfileDetailsM profileDetailsM = new Gson().fromJson(userInfoParams, ProfileDetailsM.class);
+        userInfo = profileDetailsM.getData();
     }
 
     @Override
@@ -184,12 +209,16 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
         GridLayoutManager layoutManager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         List<Drawable> icons = new ArrayList<>();
+        initDrawable();
         icons.add(vidMeeting);
         icons.add(mtNoti);
         icons.add(addressBook);
         icons.add(material);
         icons.add(studyOnline);
         icons.add(quiz);
+        icons.add(proposal);
+        icons.add(drawableScores);
+        icons.add(drawableFiles);
         HomeAdapter homeAdapter = new HomeAdapter(this, titles, icons);
         recyclerView.setAdapter(homeAdapter);
         homeAdapter.setOnFunctionClickListener(title -> {
@@ -219,8 +248,63 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
                     }
                     startActivity(intent);
                     break;
+                case "提案查询":
+                    if (null == realName || TextUtils.isEmpty(realName)) {
+                        ToastUtils.showSingleToast("用户信息获取失败");
+                        return;
+                    }
+                    try {
+                        Intent proposalIntent = new Intent(this, WebActivity.class);
+                        proposalIntent.putExtra("title", title);
+                        String encode = URLEncoder.encode(URLEncoder.encode(realName, "UTF-8"), "UTF-8");
+                        String url = "http://fszxta.itsv.com.cn:2021/sjstian.app.do?m=getTianListView&userName=" + encode;
+                        proposalIntent.putExtra("url", url);
+                        startActivity(proposalIntent);
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case "履职积分":
+                    if (null == realName || TextUtils.isEmpty(realName) || 0 == userInfo.getId()) {
+                        ToastUtils.showSingleToast("用户信息获取失败");
+                        return;
+                    }
+                    try {
+                        String encode = URLEncoder.encode(URLEncoder.encode(realName, "UTF-8"), "UTF-8");
+                        String scoreUrl = "http://fszxta.itsv.com.cn:2021/lvzhi_jifen.app.do?m=getJifenByUserName&year=2021&userName=" +
+                                encode + "&userId=" + userInfo.getId();
+                        Intent scoreIntent = new Intent(this, WebActivity.class);
+                        scoreIntent.putExtra("url", scoreUrl);
+                        startActivity(scoreIntent);
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case "履职档案":
+                    if (null == realName || TextUtils.isEmpty(realName)||0==userInfo.getId()) {
+                        ToastUtils.showSingleToast("用户信息获取失败");
+                        return;
+                    }
+                    String encode = null;
+                    try {
+                        encode = URLEncoder.encode(URLEncoder.encode(realName, "UTF-8"), "UTF-8");
+                        String scoreUrl = "http://fszxta.itsv.com.cn:2021/lvzhi_dangan.app.do?m=getDanganByUserName&year=2021&userName=" +
+                                encode + "&userId=" + userInfo.getId();
+                        Intent scoreIntent = new Intent(this, WebActivity.class);
+                        scoreIntent.putExtra("url", scoreUrl);
+                        startActivity(scoreIntent);
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                    break;
             }
         });
+    }
+
+    private void initDrawable() {
+        proposal = ContextCompat.getDrawable(this, R.drawable.ic_proposal);
+        drawableScores = ContextCompat.getDrawable(this, R.drawable.ic_scores);
+        drawableFiles = ContextCompat.getDrawable(this, R.drawable.ic_files);
     }
 
 
@@ -233,8 +317,8 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
     @Override
     public void initAvatar(SimpleModel.DataBean data) {
         avatarUrl = data.getAvatarUrl();
-        name = data.getName();
-        Constant.USER_NAME = name;
+        realName = data.getName();
+        Constant.USER_NAME = realName;
         positionName = data.getPositionName();
         weekCorrectRate = data.getWeekCorrectRate();
         Glide.with(this).load(avatarUrl).placeholder(icHead).into(ivHead);
@@ -242,7 +326,7 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getNewName(String newName) {
-        name = newName;
+        realName = newName;
         Constant.USER_NAME = newName;
     }
 //    @Override
@@ -331,7 +415,7 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
     public void onClick(View v) {
         if (v.getId() == R.id.iv_head) {
             Intent intent = new Intent(this, SimpleProfileActivity.class);
-            intent.putExtra("name", name);
+            intent.putExtra("name", realName);
             intent.putExtra("positionName", positionName);
             intent.putExtra("weekCorrectRate", weekCorrectRate);
             intent.putExtra("avatarUrl", avatarUrl);

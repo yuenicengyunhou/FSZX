@@ -27,7 +27,6 @@ import com.hannesdorfmann.mosby.mvp.MvpActivity;
 import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 import com.hannesdorfmann.mosby.mvp.MvpView;
 import com.itsv.FSZHZX.R;
-import com.itsv.FSZHZX.app.MyApplication;
 import com.itsv.FSZHZX.ui.activity.HomeActivity;
 import com.itsv.FSZHZX.ui.activity.LoginActivity;
 import com.itsv.FSZHZX.utils.DesignUtils;
@@ -57,7 +56,7 @@ public abstract class MyBaseMvpActivity<V extends MvpView, P extends MvpPresente
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MyApplication.getWatcher().watch(this);
+//        MyApplication.getWatcher().watch(this);
         appManager = BaseAppManager.getInstance();
         appManager.addActivity(this);
         if (Constant.SCREEN_DENSITY == 0) {
@@ -65,13 +64,21 @@ public abstract class MyBaseMvpActivity<V extends MvpView, P extends MvpPresente
         }
 //        setWhiteStatusBar();
         transparent19and20();
-        setContentView(getLayoutID());
+        if (getLayoutID() == 0) {
+            setContentView(getLayoutView());
+        } else {
+            setContentView(getLayoutID());
+        }
         bind = ButterKnife.bind(this);
         initViewsAndEnvents();
-        if (!(this instanceof LoginActivity||this instanceof HomeActivity)) {
+        if (!(this instanceof LoginActivity || this instanceof HomeActivity)) {
             ImageView ivBack = findViewById(R.id.iv_back);
             ivBack.setOnClickListener(view -> finish());
         }
+    }
+
+    protected View getLayoutView() {
+        return null;
     }
 
     private void getDensity() {
@@ -170,7 +177,7 @@ public abstract class MyBaseMvpActivity<V extends MvpView, P extends MvpPresente
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (this instanceof LoginActivity||this instanceof HomeActivity) {
+        if (this instanceof LoginActivity || this instanceof HomeActivity) {
             if (event.getKeyCode() == KeyEvent.KEYCODE_BACK
                     && event.getAction() == KeyEvent.ACTION_DOWN) {
                 long secondTime = System.currentTimeMillis();
@@ -199,7 +206,7 @@ public abstract class MyBaseMvpActivity<V extends MvpView, P extends MvpPresente
     /**
      * 设置recyclerView 和swipe
      */
-    protected void initRecycler(RecyclerView recyclerView, SwipeRefreshLayout refreshLayout,int colorPrimary) {
+    protected void initRecycler(RecyclerView recyclerView, SwipeRefreshLayout refreshLayout, int colorPrimary) {
         refreshLayout.setColorSchemeColors(colorPrimary);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -218,11 +225,13 @@ public abstract class MyBaseMvpActivity<V extends MvpView, P extends MvpPresente
         popupWindow.setOutsideTouchable(false);
         popupWindow.setTouchable(true);
         popupWindow.setAnimationStyle(R.style.mypopwindow_anim_style);
-        initPopEvents(contentView,popupWindow);
+        initPopEvents(contentView, popupWindow);
         popupWindow.showAtLocation(contentView, Gravity.BOTTOM, 0, 0);
     }
 
-    protected void initPopEvents(View contentView,PopupWindow popupWindow){
+    protected void initPopEvents(View contentView, PopupWindow popupWindow) {
 
-    };
+    }
+
+    ;
 }

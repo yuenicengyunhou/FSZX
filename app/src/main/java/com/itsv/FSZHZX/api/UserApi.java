@@ -26,7 +26,7 @@ public interface UserApi {
     Call<ResponseBody> userDetailInfo(@Query("token") String token);
 
 
-    @POST("questionBank/getRoundQuestion")
+    @POST("questionBank/getRoundQuestion")//题目列表
     Call<ResponseBody> getRoundQuestion(@Query("token") String token);
 
     //修改密码

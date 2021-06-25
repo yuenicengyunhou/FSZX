@@ -83,6 +83,16 @@ public class QuizModel {
         private boolean enable;
         private boolean answered;
         private boolean correct;
+        private String hintImportantContent;
+
+
+        public String getHintImportantContent() {
+            return hintImportantContent;
+        }
+
+        public void setHintImportantContent(String hintImportantContent) {
+            this.hintImportantContent = hintImportantContent;
+        }
 
         public boolean isCorrect() {
             return correct;
