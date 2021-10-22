@@ -118,7 +118,6 @@ public class PdfActivity extends BaseAppCompatActivity implements OnPageChangeLi
 
     @Override
     public void loadComplete(int nbPages) {
-        Log.e("WQ", "Cannooadpage ");
         PdfDocument.Meta meta = pdfView.getDocumentMeta();
 //        Log.e(TAG, "title = " + meta.getTitle());
 //        Log.e(TAG, "author = " + meta.getAuthor());
@@ -144,7 +143,6 @@ public class PdfActivity extends BaseAppCompatActivity implements OnPageChangeLi
 
     @Override
     public void onPageError(int page, Throwable t) {
-        Log.e("WQ", "Cannot load page " + page);
     }
 
     public void start_single(String dirPath, String url, String fileName) {

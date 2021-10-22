@@ -98,7 +98,7 @@ public class WebActivity extends BaseWebActivity {
     }
 
     private void mFinsh() {
-        if (url.contains("getTianListView")) {
+        if (url.contains("getTianListView")||url.contains(Constant.TAG_FILE_EXCHANGE)||url.contains(Constant.TAG_CPPCC)||url.contains(Constant.TAG_NOTICE)) {
             boolean back = agentWeb.back();
             if (!back) {
                 finish();

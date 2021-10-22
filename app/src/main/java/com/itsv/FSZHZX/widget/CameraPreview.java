@@ -29,7 +29,6 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
 
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
-        Log.e("WQ", "surfaceCreated");
         try {
 //            int i = FindFrontCamera();
 //            mCamera = Camera.open(i);
@@ -58,7 +57,6 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
 
     @Override
     public void surfaceChanged(SurfaceHolder surfaceHolder, int format, int width, int high) {
-        Log.e("WQ", "surfaceChanged");
         if (mSurfaceHolder.getSurface() == null){
             return;
         }

@@ -81,7 +81,6 @@ public class JsCallAndroid {
                 readFile(mSinglePath);
             } else if (msg.what == 1) {
                 String fileUrl = (String) msg.obj;
-                Log.e("WQ", "file url==" + fileUrl);
                 Toast.makeText(context, "下载失败,正在尝试浏览器下载", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent();
                 intent.setAction("android.intent.action.VIEW");
@@ -244,7 +243,6 @@ public class JsCallAndroid {
     }
 
     public void start_single(String url, String fileName) {
-        Log.e("WQ", "download url ===" + url);
         mSinglePath = dirPath
                 + File.separator + fileName;
         //.setTag()

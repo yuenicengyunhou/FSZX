@@ -136,6 +136,8 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
     }
 
 
+
+
     /**
      * 读取存储的userInfo数据
      */
@@ -147,8 +149,15 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
         }
         ProfileDetailsM profileDetailsM = new Gson().fromJson(userInfoParams, ProfileDetailsM.class);
         userInfo = profileDetailsM.getData();
-        Log.e("WQ", "realName---" + userInfo.getName());
-//        encodeTwiceRealName();
+    }
+
+    /**
+     * 请求未读数量
+     */
+    private void refreshUnreadCount() {
+        if (null == userInfo) {
+            readUserInfoCache();
+        }
         try {
             presenter.getUnreadNoticeCount(String.valueOf(userInfo.getId()),URLEncoder.encode(userInfo.getName(), "UTF-8"));
             presenter.getUnreadCppccFileCount(String.valueOf(userInfo.getId()),URLEncoder.encode(userInfo.getName(), "UTF-8"));
@@ -274,6 +283,8 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
                     toWebActivityWithUrl(MessageFormat.format("{0}{1}{2}&userName={3}&userId={4}", Constant.BASE_H5_URL, Constant.TAG_CPPCC, Constant.listCPPCC, mEncodeRealName, userInfo.getId()));
                     break;
                 case "通知公告":
+                    String format = MessageFormat.format("{0}{1}{2}&userName={3}&userId={4}", Constant.BASE_H5_URL, Constant.TAG_NOTICE, Constant.listNotice, mEncodeRealName, userInfo.getId());
+                    Log.e("WQ", "url---" + format);
                     toWebActivityWithUrl(MessageFormat.format("{0}{1}{2}&userName={3}&userId={4}", Constant.BASE_H5_URL, Constant.TAG_NOTICE, Constant.listNotice, mEncodeRealName, userInfo.getId()));
                     break;
             }
@@ -467,6 +478,7 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
         super.onResume();
         isForeground = true;
         mYear = Calendar.getInstance().get(Calendar.YEAR);
+        refreshUnreadCount();
     }
 
     @Override

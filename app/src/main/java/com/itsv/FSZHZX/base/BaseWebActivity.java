@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.net.http.SslError;
 import android.os.Build;
 import android.text.TextUtils;
+import android.util.Log;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;

@@ -719,22 +719,18 @@ public class TempActivity extends BaseAppCompatActivity implements ManisApiInter
     }
 
     private void initStage(String jid) {
-        Log.e("WQ", "initStage");
         SurfaceViewHolder surfaceViewHolder = mVideoList.get(jid);
         if (null != surfaceViewHolder) {
-            Log.e("WQ", "有");
             STAGE_JID = jid;
 //            createNewTexture(surfaceViewHolder);
             mSurfaceViewHolder = surfaceViewHolder;
         } else {
-            Log.e("WQ", "无");
             ToastUtils.showSingleToast("未找到主讲人画面,1秒后将自动重试");
             handler.sendEmptyMessageDelayed(12, 1000);
         }
     }
 
     private void resetStage() {
-        Log.e("WQ", "resetStage");
         releaseOldStage();
         initStage(newJid);
     }
@@ -780,9 +776,9 @@ public class TempActivity extends BaseAppCompatActivity implements ManisApiInter
             raiseJid = message.substring(42);
             handler.sendEmptyMessage(9);
         } else if (message.contains(MUTE_TAG) || message.contains(DISMUTE_TAG)) {
-            Log.e("WQ", "mute");
+//            Log.e("WQ", "mute");
         } else if (message.contains(ROLLBACK_TAG)) {
-            Log.e("WQ", "取回");
+//            Log.e("WQ", "取回");
         } else {
             if (!message.contains(NEW_MEMBER_TAG)) {
                 int temp = name.equals(userName) ? 1 : 0;
@@ -796,7 +792,6 @@ public class TempActivity extends BaseAppCompatActivity implements ManisApiInter
     @Override
     public void onAddStream(SurfaceViewHolder surfaceViewHolder) {
         String jid = surfaceViewHolder.getJid();
-        Log.e("WQ", "onAddStream"+jid);
         if (surfaceViewHolder.isScreen()) {
             mScreenHolder = surfaceViewHolder;
             handler.sendEmptyMessage(11);
@@ -822,7 +817,6 @@ public class TempActivity extends BaseAppCompatActivity implements ManisApiInter
 
     @Override
     public void onAddLocalStream(SurfaceViewHolder surfaceViewHolder) {
-        Log.e("WQ", "onAddLocalStream");
         localView = surfaceViewHolder;
         handler.sendEmptyMessageDelayed(0, 1500);
     }
@@ -893,12 +887,10 @@ public class TempActivity extends BaseAppCompatActivity implements ManisApiInter
 
     @Override
     public void onRecordStart(String s) {
-        Log.e("WQ", "onRecordStart");
     }
 
     @Override
     public void onRecordFinish() {
-        Log.e("WQ", "onRecordFinish");
     }
 
     @Override
@@ -1140,13 +1132,11 @@ public class TempActivity extends BaseAppCompatActivity implements ManisApiInter
             @Override
             public void onSucess(String message) {
                 //设置成功
-                Log.e("WQ", "环绕----" + message);
             }
 
             @Override
             public void onFailed(String message) {
                 //设置失败
-                Log.e("WQ", "环绕----" + message);
             }
         });
     }
@@ -1157,13 +1147,11 @@ public class TempActivity extends BaseAppCompatActivity implements ManisApiInter
             @Override
             public void onSucess(String message) {
                 //设置成功
-                Log.e("WQ", "设置主屏----" + message);
             }
 
             @Override
             public void onFailed(String message) {
                 //设置失败
-                Log.e("WQ", "设置主屏----" + message);
             }
         });
     }

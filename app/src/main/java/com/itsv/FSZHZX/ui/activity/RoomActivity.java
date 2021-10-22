@@ -606,9 +606,7 @@ public class RoomActivity extends BaseAppCompatActivity implements ManisApiInter
             raiseJid = message.substring(42);
             handler.sendEmptyMessage(9);
         } else if (message.contains(MUTE_TAG) || message.contains(DISMUTE_TAG)) {
-            Log.e("WQ", "mute");
         } else if (message.contains(ROLLBACK_TAG)) {
-            Log.e("WQ", "取回");
         } else {
             if (!message.contains(NEW_MEMBER_TAG)) {
                 int temp = name.equals(userName) ? 1 : 0;
@@ -639,7 +637,6 @@ public class RoomActivity extends BaseAppCompatActivity implements ManisApiInter
 
     @Override
     public void onRemoveStream(SurfaceViewHolder surfaceViewHolder) {
-        Log.e("WQ", "onRemoveStream---" + surfaceViewHolder.isScreen());
         if (surfaceViewHolder.isScreen()) {//如果是共享屏幕流，则移除这个流，并切回原流
             isShareScreen = false;
             handler.sendEmptyMessage(11);
@@ -656,7 +653,6 @@ public class RoomActivity extends BaseAppCompatActivity implements ManisApiInter
 
     @Override
     public void onAddLocalStream(SurfaceViewHolder surfaceViewHolder) {
-        Log.e("WQ", "onAddLocalStream");
         localView = surfaceViewHolder;
         handler.sendEmptyMessageDelayed(0, 1000);
     }
@@ -722,7 +718,6 @@ public class RoomActivity extends BaseAppCompatActivity implements ManisApiInter
 
     @Override
     public void memberLeave(String s) {
-        Log.e("WQ", "memberLeave---" + s);
     }
 
     @Override
@@ -735,7 +730,6 @@ public class RoomActivity extends BaseAppCompatActivity implements ManisApiInter
 
     @Override
     public void memberJoin(String s) {
-        Log.e("WQ", "memberJoin---" + s);
     }
 
     @Override

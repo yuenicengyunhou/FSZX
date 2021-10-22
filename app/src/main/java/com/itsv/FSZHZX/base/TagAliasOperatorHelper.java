@@ -297,7 +297,6 @@ public class TagAliasOperatorHelper {
             setActionCache.remove(sequence);
             String logs = getActionStr(tagAliasBean.action)+" alias success";
             Logger.i(TAG,logs);
-            Log.e("WQ", "========" + logs);
             edit.putBoolean("aliasSuccess", true);
             edit.apply();
 //            ExampleUtil.showToast(logs, context);
@@ -307,7 +306,6 @@ public class TagAliasOperatorHelper {
             if(!RetryActionIfNeeded(jPushMessage.getErrorCode(),tagAliasBean)) {
                 edit.putBoolean("aliasSuccess", false);
                 edit.apply();
-                Log.e("WQ", "----" + logs);
 //                ExampleUtil.showToast(logs, context);
             }
         }

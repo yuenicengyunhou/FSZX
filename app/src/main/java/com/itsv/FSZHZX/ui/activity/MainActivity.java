@@ -197,14 +197,12 @@ public class MainActivity extends BaseWebActivity {
     }
 
     private void checkAppUpdate() {
-        Log.e("WQ", "-----update");
         UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.appURL)
                 .createService(UserApi.class);
         Call<ResponseBody> call = api.getAppVersion(Constant.TOKEN);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Log.e("WQ", "-----response");
                 if (response.isSuccessful()) {
                     try {
                         String params = response.body().string();
@@ -224,7 +222,6 @@ public class MainActivity extends BaseWebActivity {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable throwable) {
-                Log.e("WQ", "-----fail");
             }
         });
     }

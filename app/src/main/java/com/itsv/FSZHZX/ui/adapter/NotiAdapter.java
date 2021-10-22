@@ -458,7 +458,6 @@ public class NotiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 int ellipsisCount = l.getEllipsisCount(lines - 1);
                 if (lines > 2) {
                     if (ellipsisCount > 0) {
-                        Log.e("WQ", "ellipsisCount==" + ellipsisCount + "   position===" + position + "  id=" + textView.getId());
                         imageView.setVisibility(View.VISIBLE);
                     } else {
                         imageView.setVisibility(View.GONE);

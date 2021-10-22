@@ -58,13 +58,13 @@ public class Constant {
      */
     public static String TAG_CPPCC = "zxwj.app.do?";//政协业务
     public static String listCPPCC = "m=getZxwjListView";//政协业务
-    public static String detailsCPPCC = "m=getZxwjDetailView";//政协业务
+//    public static String detailsCPPCC = "m=getZxwjDetailView";//政协业务
 
 
     /**
      * 公告
      */
     public static String TAG_NOTICE = "gg.app.do?";//公告业务
-    public static String listNotice = "m=getGgListView&userName";//公告业务
-    public static String detailsNotice = "m=getGgDetailView";//公告业务
+    public static String listNotice = "m=getGgListView";//公告业务
+//    public static String detailsNotice = "m=getGgDetailView";//公告业务
 }

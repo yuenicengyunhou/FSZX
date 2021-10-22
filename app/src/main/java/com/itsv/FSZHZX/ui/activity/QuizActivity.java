@@ -337,7 +337,6 @@ public class QuizActivity extends MyBaseMvpActivity<QuizActivity, QuizPre> imple
             RadioButton button = (RadioButton) radioGroup.getChildAt(i);
             button.setEnabled(false);
         }
-        Log.e("WQ", "==" + userCheckedPosition);
 //        radioGroup.check(userCheckedPosition);
 
     }

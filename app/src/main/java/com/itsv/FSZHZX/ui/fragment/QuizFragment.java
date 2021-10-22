@@ -97,7 +97,6 @@ public class QuizFragment extends Fragment {
     }
 
     private void initViews(View view) {
-        Log.e("WQ", "initView");
         tvTitle = view.findViewById(R.id.tv_title);
         tvCommit = view.findViewById(R.id.tv_commit);
         tvNumber = view.findViewById(R.id.tv_number);
@@ -125,7 +124,6 @@ public class QuizFragment extends Fragment {
     }
 
     public void onListItemClick(int position,List<QuizModel.DataBean> list) {
-        Log.e("WQ", "==onListItemClick");
         quizList = list;
         if (null != quizList && !quizList.isEmpty() && position < quizList.size()) {
             QuizModel.DataBean dataBean = quizList.get(position);
@@ -152,9 +150,9 @@ public class QuizFragment extends Fragment {
             enableRadioGroup();
             clearChoiceCheck();
         }
-        if (null == tvNumber) {
-            Log.e("WQ", "hahhha");
-        }
+//        if (null == tvNumber) {
+//            Log.e("WQ", "hahhha");
+//        }
 //        hideCommitButton();
 //        hideExplaination();
         tvNumber.setText(String.valueOf(questionIndex + 1));

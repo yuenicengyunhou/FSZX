@@ -272,7 +272,6 @@ public class NewQuizActivity extends BaseAppCompatActivity {
         popupWindow.setAnimationStyle(R.style.mypopwindow_anim_style);
         popupWindow.setOnDismissListener(() -> {
             setBackgroundAlpha(1.0f);
-            Log.e("WQ", "listen==" + showCommitButton());
             if (showCommitButton()) {
                 quizDone();
             }
@@ -331,7 +330,6 @@ public class NewQuizActivity extends BaseAppCompatActivity {
     //a c d d b  b b  b c a
 
     private void saveUserData(int quizIndex, String userAnswer, String quizId, String score) {
-        Log.e("WQ", "position===" + quizIndex + "   userAnswer---" + userAnswer);
         QuizResult quizResult = resultList.get(quizIndex);
         quizResult.setQuestionId(quizId);
         quizResult.setScore(score);

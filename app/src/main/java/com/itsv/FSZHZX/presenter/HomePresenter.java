@@ -157,7 +157,7 @@ public class HomePresenter implements MvpPresenter<HomeActivity> {
                 if (response.isSuccessful()) {
                     try {
                         String string = response.body().string();
-                        Log.e("WQ", "notice==" + string);
+                        Log.e("WQ", "json--notice--" + string);
                         int count = fromJson(string);
                         if (count > 0) {
                             mvpView.updateNoticeCount(count);
@@ -188,7 +188,7 @@ public class HomePresenter implements MvpPresenter<HomeActivity> {
                 if (response.isSuccessful()) {
                     try {
                         String string = response.body().string();
-                        Log.e("WQ", "cppcc==" + string);
+                        Log.e("WQ", "json--cppcc--" + string);
                         int count = fromJson(string);
                         if (count > 0) {
                             mvpView.updateCppccCount(count);
@@ -230,7 +230,7 @@ public class HomePresenter implements MvpPresenter<HomeActivity> {
             if (file.exists() && file.isFile()) {
                 boolean delete = file.delete();
                 if (!delete) {
-                    Log.e("WQ", "删除旧版安装包失败");
+//                    Log.e("WQ", "删除旧版安装包失败");
                 }
             }
         }
