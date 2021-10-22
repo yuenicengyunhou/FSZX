@@ -20,7 +20,9 @@ import com.itsv.FSZHZX.api.UserApi;
 import com.itsv.FSZHZX.base.ApiHelper;
 import com.itsv.FSZHZX.base.Constant;
 import com.itsv.FSZHZX.model.SimpleModel;
+import com.itsv.FSZHZX.model.UnreadModel;
 import com.itsv.FSZHZX.ui.activity.HomeActivity;
+import com.itsv.FSZHZX.utils.ToastUtils;
 import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadListener;
 import com.liulishuo.filedownloader.FileDownloader;
@@ -106,9 +108,6 @@ public class HomePresenter implements MvpPresenter<HomeActivity> {
         });
     }
 
-    public void getUserInfo() {
-
-    }
 
     public void checkAppUpdate(String apkPath) {
 //        mvpView.checkToken();
@@ -143,6 +142,80 @@ public class HomePresenter implements MvpPresenter<HomeActivity> {
 
             }
         });
+    }
+
+    public void getUnreadNoticeCount(String userId, String userName) {
+        if (null == userId || null == userName) {
+            ToastUtils.showSingleToast("用户信息错误，获取未读公告失败");
+            return;
+        }
+        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.BASEURL2).createService(UserApi.class);
+        Call<ResponseBody> call = api.queryNoticeUnreadCount(userName, userId);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    try {
+                        String string = response.body().string();
+                        Log.e("WQ", "notice==" + string);
+                        int count = fromJson(string);
+                        if (count > 0) {
+                            mvpView.updateNoticeCount(count);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable throwable) {
+
+            }
+        });
+    }
+
+    public void getUnreadCppccFileCount(String userId, String userName) {
+        if (null == userId || null == userName) {
+            ToastUtils.showSingleToast("用户信息错误，获取未读公告失败");
+            return;
+        }
+        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.BASEURL2).createService(UserApi.class);
+        Call<ResponseBody> call = api.queryCppccFileUnreadCount(userName, userId);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    try {
+                        String string = response.body().string();
+                        Log.e("WQ", "cppcc==" + string);
+                        int count = fromJson(string);
+                        if (count > 0) {
+                            mvpView.updateCppccCount(count);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable throwable) {
+
+            }
+        });
+    }
+
+    private int fromJson(String json) {
+        if (json.contains("unreadNum")) {
+            Gson gson = new Gson();
+            UnreadModel model = gson.fromJson(json, UnreadModel.class);
+            if (null != model) {
+                return model.getUnreadNum();
+            }
+            return 0;
+        }
+        return 0;
     }
 
     private void downloadApk(String apkDirPath, String downloadURL, String version) {

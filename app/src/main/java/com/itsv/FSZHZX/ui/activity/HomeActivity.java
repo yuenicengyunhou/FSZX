@@ -30,6 +30,7 @@ import com.itsv.FSZHZX.R;
 import com.itsv.FSZHZX.base.Constant;
 import com.itsv.FSZHZX.base.MyBaseMvpActivity;
 import com.itsv.FSZHZX.base.TagAliasOperatorHelper;
+import com.itsv.FSZHZX.model.HomeFunction;
 import com.itsv.FSZHZX.model.ProfileDetailsM;
 import com.itsv.FSZHZX.model.SimpleModel;
 import com.itsv.FSZHZX.presenter.HomePresenter;
@@ -50,6 +51,7 @@ import java.net.URLEncoder;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindDrawable;
@@ -69,17 +71,11 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
     public RecyclerView recyclerView;
     @BindView(R.id.textTest)
     TextView textTest;
-    @BindDrawable(R.mipmap.ic_vidmeet)
     Drawable vidMeeting;
-    @BindDrawable(R.mipmap.ic_mtnoti)
     Drawable mtNoti;
-    @BindDrawable(R.mipmap.ic_addressbook)
     Drawable addressBook;
-    @BindDrawable(R.mipmap.ic_material)
     Drawable material;
-    @BindDrawable(R.mipmap.ic_studyonline)
     Drawable studyOnline;
-    @BindDrawable(R.mipmap.ic_quiz)
     Drawable quiz;
     @BindView(R.id.ivDisplay)
     ImageView ivDisplay;
@@ -91,7 +87,7 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
     Drawable icHead;
 
     private HomePresenter presenter;
-    private final String[] titles = {"视频会议", "会议通知", "云通讯录", "学习材料", "在线学习", "在线答题", "提案查询", "履职积分", "履职档案"};
+    private List<HomeFunction> homeFunctionList = new ArrayList<>();
     private String realName;
     private String positionName;
     private String weekCorrectRate;
@@ -105,6 +101,13 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
     private Drawable drawableScores;
     private Drawable drawableFiles;
     private ProfileDetailsM.DataBean userInfo;
+    private Drawable drawableSituation;
+    private Drawable drawableFileExchange;
+    private Drawable drawableCPPCC;
+    private Drawable drawableNotice;
+    private String mEncodeRealName = "";
+    private int mYear;
+    private HomeAdapter homeAdapter;
 
     @NonNull
     @Override
@@ -132,6 +135,7 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
         EventBus.getDefault().register(this);
     }
 
+
     /**
      * 读取存储的userInfo数据
      */
@@ -143,6 +147,14 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
         }
         ProfileDetailsM profileDetailsM = new Gson().fromJson(userInfoParams, ProfileDetailsM.class);
         userInfo = profileDetailsM.getData();
+        Log.e("WQ", "realName---" + userInfo.getName());
+//        encodeTwiceRealName();
+        try {
+            presenter.getUnreadNoticeCount(String.valueOf(userInfo.getId()),URLEncoder.encode(userInfo.getName(), "UTF-8"));
+            presenter.getUnreadCppccFileCount(String.valueOf(userInfo.getId()),URLEncoder.encode(userInfo.getName(), "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -203,25 +215,26 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
             makeDir();
         }
     }
-
+    //                case "学习材料":
+//                    if (title.equals("学习材料")) {
+//                        intent.putExtra("url", "https://www.fszxpt.cn:9530/learning_materials");
+//                    } else {
+//                    }
     @Override
     public void initRecycler() {
         GridLayoutManager layoutManager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        List<Drawable> icons = new ArrayList<>();
         initDrawable();
-        icons.add(vidMeeting);
-        icons.add(mtNoti);
-        icons.add(addressBook);
-        icons.add(material);
-        icons.add(studyOnline);
-        icons.add(quiz);
-        icons.add(proposal);
-        icons.add(drawableScores);
-        icons.add(drawableFiles);
-        HomeAdapter homeAdapter = new HomeAdapter(this, titles, icons);
+//        Drawable[] homeIcons = new Drawable[]{vidMeeting, mtNoti, addressBook, studyOnline, quiz, proposal, drawableSituation, drawableScores, drawableFiles, drawableFileExchange, drawableCPPCC, drawableNotice};
+        homeAdapter = new HomeAdapter(this, homeFunctionList);
         recyclerView.setAdapter(homeAdapter);
         homeAdapter.setOnFunctionClickListener(title -> {
+            if (!title.equals("在线答题") && !title.equals("视频会议") && !title.equals("会议通知") && !title.equals("云通讯录") && !title.equals("在线学习")) {
+                if (null == realName || TextUtils.isEmpty(realName) || 0 == userInfo.getId()) {
+                    ToastUtils.showSingleToast("用户信息获取失败");
+                    return;
+                }
+            }
             switch (title) {
                 case "在线答题":
                     Intent quizItent = new Intent(this, SortQuizActivity.class);
@@ -235,76 +248,75 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
                     toAddress();
                     break;
                 case "在线学习":
-//                    Intent newIntent = new Intent(this, NewQuizActivity.class);
-//                    startActivity(newIntent);
-//                    break;
-                case "学习材料":
                     Intent intent = new Intent(this, WebActivity.class);
                     intent.putExtra("title", title);
-                    if (title.equals("学习材料")) {
-                        intent.putExtra("url", "https://www.fszxpt.cn:9530/learning_materials");
-                    } else {
-                        intent.putExtra("url", "https://www.fszxpt.cn:9530/online_learning");
-                    }
+                    intent.putExtra("url", "https://www.fszxpt.cn:9530/online_learning");
                     startActivity(intent);
+
                     break;
                 case "提案查询":
-                    if (null == realName || TextUtils.isEmpty(realName)) {
-                        ToastUtils.showSingleToast("用户信息获取失败");
-                        return;
-                    }
-                    try {
-                        Intent proposalIntent = new Intent(this, WebActivity.class);
-                        proposalIntent.putExtra("title", title);
-                        String encode = URLEncoder.encode(URLEncoder.encode(realName, "UTF-8"), "UTF-8");
-                        String url = "http://fszxta.itsv.com.cn:2021/sjstian.app.do?m=getTianListView&userName=" + encode;
-                        proposalIntent.putExtra("url", url);
-                        startActivity(proposalIntent);
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
+                    toWebActivityWithUrl(MessageFormat.format("{0}{1}{2}&userName={3}", Constant.BASE_H5_URL,Constant.TAG_PROPOSAL, Constant.param_proposal, mEncodeRealName));
+                    break;
+                case "社情民意":
+                    toWebActivityWithUrl(MessageFormat.format("{0}{1}{2}&userName={3}&userId={4}", Constant.BASE_H5_URL, Constant.TAG_SITUATION, Constant.param_situation, mEncodeRealName, userInfo.getId()));
                     break;
                 case "履职积分":
-                    if (null == realName || TextUtils.isEmpty(realName) || 0 == userInfo.getId()) {
-                        ToastUtils.showSingleToast("用户信息获取失败");
-                        return;
-                    }
-                    try {
-                        String encode = URLEncoder.encode(URLEncoder.encode(realName, "UTF-8"), "UTF-8");
-                        String scoreUrl = "http://fszxta.itsv.com.cn:2021/lvzhi_jifen.app.do?m=getJifenByUserName&year=2021&userName=" +
-                                encode + "&userId=" + userInfo.getId();
-                        Intent scoreIntent = new Intent(this, WebActivity.class);
-                        scoreIntent.putExtra("url", scoreUrl);
-                        startActivity(scoreIntent);
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
+                    int year = Calendar.getInstance().get(Calendar.YEAR);
+                    toWebActivityWithUrl(MessageFormat.format("{0}{1}{2}&year={3}&userName={4}&userId={5}", Constant.BASE_H5_URL, Constant.TAG_DUTY_SCORE, Constant.paramScore, year, mEncodeRealName, userInfo.getId()));
                     break;
                 case "履职档案":
-                    if (null == realName || TextUtils.isEmpty(realName)||0==userInfo.getId()) {
-                        ToastUtils.showSingleToast("用户信息获取失败");
-                        return;
-                    }
-                    String encode = null;
-                    try {
-                        encode = URLEncoder.encode(URLEncoder.encode(realName, "UTF-8"), "UTF-8");
-                        String scoreUrl = "http://fszxta.itsv.com.cn:2021/lvzhi_dangan.app.do?m=getDanganByUserName&year=2021&userName=" +
-                                encode + "&userId=" + userInfo.getId();
-                        Intent scoreIntent = new Intent(this, WebActivity.class);
-                        scoreIntent.putExtra("url", scoreUrl);
-                        startActivity(scoreIntent);
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
+                    toWebActivityWithUrl(MessageFormat.format("{0}{1}{2}&year={3}&userName={4}&userId={5}", Constant.BASE_H5_URL, Constant.TAG_DUTY_FILE, Constant.listDutyFile, mYear, mEncodeRealName, userInfo.getId()));
+                    break;
+                case "文件互传":
+                    toWebActivityWithUrl(MessageFormat.format("{0}{1}{2}&userName={3}&userId={4}", Constant.BASE_H5_URL, Constant.TAG_FILE_EXCHANGE,Constant.listFileEXchange, mEncodeRealName, userInfo.getId()));
+                    break;
+                case "政协文件":
+                    toWebActivityWithUrl(MessageFormat.format("{0}{1}{2}&userName={3}&userId={4}", Constant.BASE_H5_URL, Constant.TAG_CPPCC, Constant.listCPPCC, mEncodeRealName, userInfo.getId()));
+                    break;
+                case "通知公告":
+                    toWebActivityWithUrl(MessageFormat.format("{0}{1}{2}&userName={3}&userId={4}", Constant.BASE_H5_URL, Constant.TAG_NOTICE, Constant.listNotice, mEncodeRealName, userInfo.getId()));
                     break;
             }
         });
     }
 
+    private void toWebActivityWithUrl(String url) {
+        Intent intent = new Intent(this, WebActivity.class);
+        intent.putExtra("url", url);
+        startActivity(intent);
+    }
+
     private void initDrawable() {
+        vidMeeting = ContextCompat.getDrawable(this, R.mipmap.ic_vidmeet);
+        mtNoti = ContextCompat.getDrawable(this, R.mipmap.ic_mtnoti);
+        addressBook = ContextCompat.getDrawable(this, R.mipmap.ic_addressbook);
+
+//        material = ContextCompat.getDrawable(this, R.mipmap.ic_material);
+        studyOnline = ContextCompat.getDrawable(this, R.mipmap.ic_studyonline);
+        quiz = ContextCompat.getDrawable(this, R.mipmap.ic_quiz);
         proposal = ContextCompat.getDrawable(this, R.drawable.ic_proposal);
+
         drawableScores = ContextCompat.getDrawable(this, R.drawable.ic_scores);
         drawableFiles = ContextCompat.getDrawable(this, R.drawable.ic_files);
+        drawableSituation = ContextCompat.getDrawable(this, R.drawable.ic_situation);
+
+        drawableFileExchange = ContextCompat.getDrawable(this, R.drawable.ic_file_exchange);
+        drawableCPPCC = ContextCompat.getDrawable(this, R.mipmap.ic_cppcc);
+        drawableNotice = ContextCompat.getDrawable(this, R.mipmap.ic_notice);
+//        private final String[] titles = {"视频会议", "会议通知", "云通讯录", "在线学习", "在线答题", "提案查询", "社情民意", "履职积分", "履职档案", "文件互传", "政协文件", "通知公告"};
+
+        homeFunctionList.add(new HomeFunction("视频会议", vidMeeting, 0));
+        homeFunctionList.add(new HomeFunction("会议通知", mtNoti, 0));
+        homeFunctionList.add(new HomeFunction("云通讯录", addressBook, 0));
+        homeFunctionList.add(new HomeFunction("在线学习", studyOnline, 0));
+        homeFunctionList.add(new HomeFunction("在线答题", quiz, 0));
+        homeFunctionList.add(new HomeFunction("提案查询", proposal, 0));
+        homeFunctionList.add(new HomeFunction("社情民意", drawableScores, 0));
+        homeFunctionList.add(new HomeFunction("履职积分", drawableFiles, 0));
+        homeFunctionList.add(new HomeFunction("履职档案", drawableSituation, 0));
+        homeFunctionList.add(new HomeFunction("文件互传", drawableFileExchange, 0));
+        homeFunctionList.add(new HomeFunction("政协文件", drawableCPPCC, 0));
+        homeFunctionList.add(new HomeFunction("通知公告", drawableNotice, 0));
     }
 
 
@@ -322,25 +334,40 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
         positionName = data.getPositionName();
         weekCorrectRate = data.getWeekCorrectRate();
         Glide.with(this).load(avatarUrl).placeholder(icHead).into(ivHead);
+        encodeTwiceRealName(realName);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getNewName(String newName) {
         realName = newName;
         Constant.USER_NAME = newName;
+        encodeTwiceRealName(realName);
     }
-//    @Override
-//    public void showUpdateDialog(File file) {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        builder.setTitle("版本更新");
-//        AlertDialog alertDialog = builder.create();
-//        alertDialog.setCanceledOnTouchOutside(false);
-//        builder.setPositiveButton("立即更新", (dialog, which) -> {
-//            presenter.install(file);
-//            dialog.dismiss();
-//        });
-//        builder.show();
-//    }
+
+    /**
+     * 用户真实姓名url转码两次，为后面的跳转链接做准备
+     */
+    private void encodeTwiceRealName(String realName) {
+        try {
+            mEncodeRealName = URLEncoder.encode(URLEncoder.encode(realName, "UTF-8"), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateNoticeCount(int noticeCount) {
+        if (null!=homeAdapter) {
+            homeFunctionList.get(homeFunctionList.size()-1).setCount(noticeCount);
+            homeAdapter.updateList(homeFunctionList, homeFunctionList.size() - 1);
+        }
+    }
+
+    public void updateCppccCount(int count) {
+        if (null != homeAdapter) {
+            homeFunctionList.get(homeFunctionList.size() - 2).setCount(count);
+            homeAdapter.updateList(homeFunctionList, homeFunctionList.size() - 2);
+        }
+    }
 
     @Override
     public void showUpdateDialog(String downloadURL) {
@@ -439,6 +466,7 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
     protected void onResume() {
         super.onResume();
         isForeground = true;
+        mYear = Calendar.getInstance().get(Calendar.YEAR);
     }
 
     @Override

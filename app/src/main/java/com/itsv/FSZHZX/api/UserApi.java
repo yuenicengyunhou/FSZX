@@ -3,6 +3,7 @@ package com.itsv.FSZHZX.api;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -26,7 +27,8 @@ public interface UserApi {
     Call<ResponseBody> userDetailInfo(@Query("token") String token);
 
 
-    @POST("questionBank/getRoundQuestion")//题目列表
+    @POST("questionBank/getRoundQuestion")
+//题目列表
     Call<ResponseBody> getRoundQuestion(@Query("token") String token);
 
     //修改密码
@@ -60,7 +62,7 @@ public interface UserApi {
     //视频会议
     @POST("meetingBase/userIndexList")
     Call<ResponseBody> userIndexList(@Query("token") String token, @Query("currentPage") int currentPage, @Query("pageSize") int pageSize
-            , @Query("meetingTitle") String meetingTitle, @Query("meetingOwnerUserName") String meetingOwnerUserName,@Query("meetingTime")String meetingTime);
+            , @Query("meetingTitle") String meetingTitle, @Query("meetingOwnerUserName") String meetingOwnerUserName, @Query("meetingTime") String meetingTime);
 
     //会议详情
     @POST("meetingBase/detail")
@@ -76,30 +78,38 @@ public interface UserApi {
     //stage
     @POST("meetingBase/setStageByRoomNumber")
     Call<ResponseBody> setStageByRoomNumber(@Query("roomNumber") String roomNumber, @Query("userId") String userId);
+
     //stage
     @POST("getStageByRoomNumber")
     Call<ResponseBody> getStageByRoomNumber(@Query("roomNumber") String roomNumber);
 
     //app更新
     @POST("getAppVersion")
-    Call<ResponseBody> getAppVersion(@Query("token")String token);
+    Call<ResponseBody> getAppVersion(@Query("token") String token);
 
 //    @POST("downloadApp")
 //    Call<ResponseBody> downloadApp(@Query("version") String version);
 
     //创建临时会议
     @POST("meetingBase/createTempConference")
-    Call<ResponseBody> createTempConference(@Query("token")String token);
+    Call<ResponseBody> createTempConference(@Query("token") String token);
 
     @POST("meetingBase/validEnableInto")
     Call<ResponseBody> validEnableInto(@Query("token") String token, @Query("sdkRoomNum") String sdkRoomNum);
 
-  /*  //进入会议调用
-    @POST("handleUserIdAndJid")
-    Call<ResponseBody> handleUserIdAndJid(@Query("clientType") String clientType, @Query("userId") String userId, @Query("roomNum") String roomNum,
-                                          @Query("stageJid") String stageJid, @Query("newJid") String newJid);*/
+    /*  //进入会议调用
+      @POST("handleUserIdAndJid")
+      Call<ResponseBody> handleUserIdAndJid(@Query("clientType") String clientType, @Query("userId") String userId, @Query("roomNum") String roomNum,
+                                            @Query("stageJid") String stageJid, @Query("newJid") String newJid);*/
     //会议结束
     @POST("meetingBase/closeMeeting")
     Call<ResponseBody> closeMeeting(@Query("token") String token, @Query("roomNum") String roomNum);
 
+    //通知公告未读数量
+    @GET("gg.app.do?m=getGgUnreadNum")
+    Call<ResponseBody> queryNoticeUnreadCount(@Query("userName") String userName, @Query("userId") String userId);
+
+    //维度政协文件数量
+    @GET("zxwj.app.do?m=getZxwjUnreadNum")
+    Call<ResponseBody> queryCppccFileUnreadCount(@Query("userName") String userName, @Query("userId") String userId);
 }

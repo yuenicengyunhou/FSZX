@@ -1,7 +1,6 @@
 package com.itsv.FSZHZX.ui.activity;
 
 
-
 import android.content.Intent;
 
 import android.graphics.Bitmap;
@@ -48,7 +47,7 @@ public class WebActivity extends BaseWebActivity {
         Intent intent = getIntent();
         String title = intent.getStringExtra("title");
         url = intent.getStringExtra("url");
-        if (null==url) return "";
+        if (null == url) return "";
         hideShareButton(url);
         if (title != null) {
             hideShareButton(title);
@@ -60,8 +59,8 @@ public class WebActivity extends BaseWebActivity {
     }
 
     private void hideShareButton(String string) {
-        if (string.equals("在线学习") || string.equals("学习材料") || string.equals("使用帮助") || string.contains("learning_materials")||string.contains("getTianListView")
-                ||string.contains("getJifenByUserName")||string.contains("getDanganByUserName")) {
+        if (string.equals("在线学习") || string.equals("学习材料") || string.equals("使用帮助") || string.contains("learning_materials") || string.contains("getTianListView")
+                || string.contains("getJifenByUserName") || string.contains("getDanganByUserName") || string.contains("getFileListView") || string.contains("getSqmyListView")||string.contains(Constant.TAG_CPPCC)||string.contains(Constant.TAG_NOTICE)) {
             ivShare.setVisibility(View.GONE);
         }
     }
@@ -69,7 +68,6 @@ public class WebActivity extends BaseWebActivity {
     @Override
     protected void beforeWebInit() {
         initToolbar(toolbarShare, false);
-//
     }
 
     @Override
@@ -86,7 +84,7 @@ public class WebActivity extends BaseWebActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_share:
-                WxShareUtils.shareWeb(this,Constant.APP_ID,url,webTitle,"",appIcon);
+                WxShareUtils.shareWeb(this, Constant.APP_ID, url, webTitle, "", appIcon);
                 break;
             case R.id.iv_back:
                 mFinsh();

@@ -3,6 +3,7 @@ package com.itsv.FSZHZX.base;
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.net.http.SslError;
+import android.os.Build;
 import android.text.TextUtils;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
@@ -99,6 +100,9 @@ public abstract class BaseWebActivity extends BaseAppCompatActivity {
 //        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         webSettings.setUseWideViewPort(true);
         webSettings.setLoadWithOverviewMode(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);//支持同时加载https和http混合模式（有的手机图片显示不了）
+        }
         //注入对象
         JsCallAndroid jsCallAndroid = new JsCallAndroid(this, agentWeb);
         agentWeb.getJsInterfaceHolder().addJavaObject("android", jsCallAndroid);
