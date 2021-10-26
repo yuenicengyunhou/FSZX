@@ -512,7 +512,9 @@ public class MtNotifyActivity extends MyBaseMvpActivity<MtNotifyActivity, MtNoti
 
     public void joinMeetingRoom(String roomnumber, String username, String sdkCid,boolean isModerator,String psw,String mId) {
         showLoading();
-        ManisApiInterface.app.guestLogin(roomnumber, username, this, "", (b, s, conferenceInfo, userInfo) -> {
+        //ManisApiInterface.app.guestLogin(String roomnumber, String username, Context context,  String conferencePass, ManisApiInterface.OnGuestLoginToRoomEvents2 onGuestLoginToRoomEvents2);
+        //密码固定传Aa123456
+        ManisApiInterface.app.guestLogin(roomnumber, username, this, "Aa123456", (b, s, conferenceInfo, userInfo) -> {
             if (b) {
                 hideLoading();
                 Intent intent = new Intent(MtNotifyActivity.this, RoomActivity.class);

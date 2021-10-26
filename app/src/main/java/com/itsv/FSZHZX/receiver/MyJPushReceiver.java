@@ -8,7 +8,6 @@ import android.util.Log;
 import com.itsv.FSZHZX.base.Constant;
 import com.itsv.FSZHZX.base.TagAliasOperatorHelper;
 import com.itsv.FSZHZX.ui.activity.MtNotifyActivity;
-import com.itsv.FSZHZX.ui.activity.TestActivity;
 
 import cn.jpush.android.api.CmdMessage;
 import cn.jpush.android.api.CustomMessage;

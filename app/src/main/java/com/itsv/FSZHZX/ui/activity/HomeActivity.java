@@ -87,7 +87,7 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
     Drawable icHead;
 
     private HomePresenter presenter;
-    private List<HomeFunction> homeFunctionList = new ArrayList<>();
+    private final List<HomeFunction> homeFunctionList = new ArrayList<>();
     private String realName;
     private String positionName;
     private String weekCorrectRate;
@@ -97,14 +97,7 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
     private TextView tvUpdate;
     private ProgressBar progressBar;
     boolean isDownloading = false;
-    private Drawable proposal;
-    private Drawable drawableScores;
-    private Drawable drawableFiles;
     private ProfileDetailsM.DataBean userInfo;
-    private Drawable drawableSituation;
-    private Drawable drawableFileExchange;
-    private Drawable drawableCPPCC;
-    private Drawable drawableNotice;
     private String mEncodeRealName = "";
     private int mYear;
     private HomeAdapter homeAdapter;
@@ -136,8 +129,6 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
     }
 
 
-
-
     /**
      * 读取存储的userInfo数据
      */
@@ -159,8 +150,8 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
             readUserInfoCache();
         }
         try {
-            presenter.getUnreadNoticeCount(String.valueOf(userInfo.getId()),URLEncoder.encode(userInfo.getName(), "UTF-8"));
-            presenter.getUnreadCppccFileCount(String.valueOf(userInfo.getId()),URLEncoder.encode(userInfo.getName(), "UTF-8"));
+            presenter.getUnreadNoticeCount(String.valueOf(userInfo.getId()), URLEncoder.encode(userInfo.getName(), "UTF-8"));
+            presenter.getUnreadCppccFileCount(String.valueOf(userInfo.getId()), URLEncoder.encode(userInfo.getName(), "UTF-8"));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -224,11 +215,8 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
             makeDir();
         }
     }
-    //                case "学习材料":
-//                    if (title.equals("学习材料")) {
-//                        intent.putExtra("url", "https://www.fszxpt.cn:9530/learning_materials");
-//                    } else {
-//                    }
+
+    //  "学习材料":"https://www.fszxpt.cn:9530/learning_materials";
     @Override
     public void initRecycler() {
         GridLayoutManager layoutManager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
@@ -264,7 +252,7 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
 
                     break;
                 case "提案查询":
-                    toWebActivityWithUrl(MessageFormat.format("{0}{1}{2}&userName={3}", Constant.BASE_H5_URL,Constant.TAG_PROPOSAL, Constant.param_proposal, mEncodeRealName));
+                    toWebActivityWithUrl(MessageFormat.format("{0}{1}{2}&userName={3}", Constant.BASE_H5_URL, Constant.TAG_PROPOSAL, Constant.param_proposal, mEncodeRealName));
                     break;
                 case "社情民意":
                     toWebActivityWithUrl(MessageFormat.format("{0}{1}{2}&userName={3}&userId={4}", Constant.BASE_H5_URL, Constant.TAG_SITUATION, Constant.param_situation, mEncodeRealName, userInfo.getId()));
@@ -277,7 +265,7 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
                     toWebActivityWithUrl(MessageFormat.format("{0}{1}{2}&year={3}&userName={4}&userId={5}", Constant.BASE_H5_URL, Constant.TAG_DUTY_FILE, Constant.listDutyFile, mYear, mEncodeRealName, userInfo.getId()));
                     break;
                 case "文件互传":
-                    toWebActivityWithUrl(MessageFormat.format("{0}{1}{2}&userName={3}&userId={4}", Constant.BASE_H5_URL, Constant.TAG_FILE_EXCHANGE,Constant.listFileEXchange, mEncodeRealName, userInfo.getId()));
+                    toWebActivityWithUrl(MessageFormat.format("{0}{1}{2}&userName={3}&userId={4}", Constant.BASE_H5_URL, Constant.TAG_FILE_EXCHANGE, Constant.listFileEXchange, mEncodeRealName, userInfo.getId()));
                     break;
                 case "政协文件":
                     toWebActivityWithUrl(MessageFormat.format("{0}{1}{2}&userName={3}&userId={4}", Constant.BASE_H5_URL, Constant.TAG_CPPCC, Constant.listCPPCC, mEncodeRealName, userInfo.getId()));
@@ -305,15 +293,15 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
 //        material = ContextCompat.getDrawable(this, R.mipmap.ic_material);
         studyOnline = ContextCompat.getDrawable(this, R.mipmap.ic_studyonline);
         quiz = ContextCompat.getDrawable(this, R.mipmap.ic_quiz);
-        proposal = ContextCompat.getDrawable(this, R.drawable.ic_proposal);
+        Drawable proposal = ContextCompat.getDrawable(this, R.drawable.ic_proposal);
 
-        drawableScores = ContextCompat.getDrawable(this, R.drawable.ic_scores);
-        drawableFiles = ContextCompat.getDrawable(this, R.drawable.ic_files);
-        drawableSituation = ContextCompat.getDrawable(this, R.drawable.ic_situation);
+        Drawable drawableScores = ContextCompat.getDrawable(this, R.drawable.ic_scores);
+        Drawable drawableFiles = ContextCompat.getDrawable(this, R.drawable.ic_files);
+        Drawable drawableSituation = ContextCompat.getDrawable(this, R.drawable.ic_situation);
 
-        drawableFileExchange = ContextCompat.getDrawable(this, R.drawable.ic_file_exchange);
-        drawableCPPCC = ContextCompat.getDrawable(this, R.mipmap.ic_cppcc);
-        drawableNotice = ContextCompat.getDrawable(this, R.mipmap.ic_notice);
+        Drawable drawableFileExchange = ContextCompat.getDrawable(this, R.drawable.ic_file_exchange);
+        Drawable drawableCPPCC = ContextCompat.getDrawable(this, R.mipmap.ic_cppcc);
+        Drawable drawableNotice = ContextCompat.getDrawable(this, R.mipmap.ic_notice);
 //        private final String[] titles = {"视频会议", "会议通知", "云通讯录", "在线学习", "在线答题", "提案查询", "社情民意", "履职积分", "履职档案", "文件互传", "政协文件", "通知公告"};
 
         homeFunctionList.add(new HomeFunction("视频会议", vidMeeting, 0));
@@ -367,8 +355,8 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
     }
 
     public void updateNoticeCount(int noticeCount) {
-        if (null!=homeAdapter) {
-            homeFunctionList.get(homeFunctionList.size()-1).setCount(noticeCount);
+        if (null != homeAdapter) {
+            homeFunctionList.get(homeFunctionList.size() - 1).setCount(noticeCount);
             homeAdapter.updateList(homeFunctionList, homeFunctionList.size() - 1);
         }
     }
