@@ -101,6 +101,7 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
     private String mEncodeRealName = "";
     private int mYear;
     private HomeAdapter homeAdapter;
+    private SharedPreferences preferences;
 
     @NonNull
     @Override
@@ -133,13 +134,16 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
      * 读取存储的userInfo数据
      */
     private void readUserInfoCache() {
-        SharedPreferences preferences = getSharedPreferences("fszx", MODE_PRIVATE);
         String userInfoParams = preferences.getString("userInfo", "");
         if (TextUtils.isEmpty(userInfoParams)) {
             return;
         }
         ProfileDetailsM profileDetailsM = new Gson().fromJson(userInfoParams, ProfileDetailsM.class);
         userInfo = profileDetailsM.getData();
+        long id = userInfo.getId();
+        SharedPreferences.Editor edit = preferences.edit();
+        edit.putLong("userId", id);
+        edit.apply();
     }
 
     /**
@@ -187,7 +191,7 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
 
     @Override
     public void checkImei() {
-        SharedPreferences preferences = getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
+        preferences = getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
         if (TextUtils.isEmpty(Constant.IMEI)) {
             String imei = preferences.getString("imei", "");
             if (TextUtils.isEmpty(imei)) {
@@ -249,7 +253,6 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
                     intent.putExtra("title", title);
                     intent.putExtra("url", "https://www.fszxpt.cn:9530/online_learning");
                     startActivity(intent);
-
                     break;
                 case "提案查询":
                     toWebActivityWithUrl(MessageFormat.format("{0}{1}{2}&userName={3}", Constant.BASE_H5_URL, Constant.TAG_PROPOSAL, Constant.param_proposal, mEncodeRealName));
@@ -271,8 +274,7 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
                     toWebActivityWithUrl(MessageFormat.format("{0}{1}{2}&userName={3}&userId={4}", Constant.BASE_H5_URL, Constant.TAG_CPPCC, Constant.listCPPCC, mEncodeRealName, userInfo.getId()));
                     break;
                 case "通知公告":
-                    String format = MessageFormat.format("{0}{1}{2}&userName={3}&userId={4}", Constant.BASE_H5_URL, Constant.TAG_NOTICE, Constant.listNotice, mEncodeRealName, userInfo.getId());
-                    Log.e("WQ", "url---" + format);
+//                    String format = MessageFormat.format("{0}{1}{2}&userName={3}&userId={4}", Constant.BASE_H5_URL, Constant.TAG_NOTICE, Constant.listNotice, mEncodeRealName, userInfo.getId());
                     toWebActivityWithUrl(MessageFormat.format("{0}{1}{2}&userName={3}&userId={4}", Constant.BASE_H5_URL, Constant.TAG_NOTICE, Constant.listNotice, mEncodeRealName, userInfo.getId()));
                     break;
             }
@@ -349,6 +351,9 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
     private void encodeTwiceRealName(String realName) {
         try {
             mEncodeRealName = URLEncoder.encode(URLEncoder.encode(realName, "UTF-8"), "UTF-8");
+            SharedPreferences.Editor edit = preferences.edit();
+            edit.putString("encodeRealName", mEncodeRealName);
+            edit.apply();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }

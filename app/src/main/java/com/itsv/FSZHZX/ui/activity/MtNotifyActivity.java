@@ -450,7 +450,8 @@ public class MtNotifyActivity extends MyBaseMvpActivity<MtNotifyActivity, MtNoti
             url = "https://fs.itsv.com.cn:9528/api/open/file/previewPDF?fileId=" + fileId + "&fileName=" + URLEncoder.encode(fileName, "utf-8");
             Intent intent = new Intent(this, PdfActivity.class);
             intent.putExtra("url", url);
-            intent.putExtra("fileId", fileId);
+            intent.putExtra("fileId", fileId+".pdf");
+//            intent.putExtra("pdf_type", Constant.PDF_Link);
             startActivity(intent);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -514,7 +515,7 @@ public class MtNotifyActivity extends MyBaseMvpActivity<MtNotifyActivity, MtNoti
         showLoading();
         //ManisApiInterface.app.guestLogin(String roomnumber, String username, Context context,  String conferencePass, ManisApiInterface.OnGuestLoginToRoomEvents2 onGuestLoginToRoomEvents2);
         //密码固定传Aa123456
-        ManisApiInterface.app.guestLogin(roomnumber, username, this, "Aa123456", (b, s, conferenceInfo, userInfo) -> {
+        ManisApiInterface.app.guestLogin(roomnumber, username, this, "", (b, s, conferenceInfo, userInfo) -> {
             if (b) {
                 hideLoading();
                 Intent intent = new Intent(MtNotifyActivity.this, RoomActivity.class);

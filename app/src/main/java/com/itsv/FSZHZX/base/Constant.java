@@ -21,6 +21,8 @@ public class Constant {
     public static String APP_ID = "wx13088771b5a0334b";
     public static String USER_NAME = "";
     public static String IMEI = "";
+    public static String PDF_Link = "pdf_link";
+    public static String PDF_FILE = "pdf_file";
     //h5的url
     public static String BASE_H5_URL = "http://fszxta.itsv.com.cn:2021/";
 

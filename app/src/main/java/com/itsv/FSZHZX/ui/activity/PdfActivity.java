@@ -20,6 +20,7 @@ import com.github.barteksc.pdfviewer.listener.OnPageErrorListener;
 import com.itsv.FSZHZX.R;
 import com.itsv.FSZHZX.base.BaseAppCompatActivity;
 import com.itsv.FSZHZX.base.Constant;
+import com.itsv.FSZHZX.utils.ToastUtils;
 import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadSampleListener;
 import com.liulishuo.filedownloader.FileDownloader;
@@ -36,6 +37,7 @@ public class PdfActivity extends BaseAppCompatActivity implements OnPageChangeLi
 
     private String mSinglePath;
     private int percent;
+    private ProgressBar progressBar;
 
     @SuppressLint("HandlerLeak")
     private class UIHandler extends Handler {
@@ -51,6 +53,7 @@ public class PdfActivity extends BaseAppCompatActivity implements OnPageChangeLi
             if (roomActivity == null) return;
             switch (msg.what) {
                 case 0:
+                    progressBar.setVisibility(View.GONE);
                     if (null != pdfView) {
 //                        progressBar.setVisibility(View.GONE);
 //                        textView.setVisibility(View.GONE);
@@ -100,15 +103,24 @@ public class PdfActivity extends BaseAppCompatActivity implements OnPageChangeLi
 
     @Override
     protected void initViewsAndEnvents() {
+        progressBar = findViewById(R.id.progressBar);
         tvTitle.setText("附件详情");
         Intent intent = getIntent();
         url = intent.getStringExtra("url");
-        String fileId = intent.getStringExtra("fileId");
-        if (Constant.FilePath.equals("")) {
-            start_single(Constant.PDFPath, url, fileId + ".pdf");
-        } else {
-            start_single(Constant.FilePath, url, fileId + ".pdf");
-        }
+//        String pdf_type = intent.getStringExtra("pdf_type");
+//        if (null == pdf_type) {
+//            ToastUtils.showSingleToast("参数未传递");
+//            return;
+//        }
+//        if (pdf_type.equals(Constant.PDF_Link)) {
+            String fileName = intent.getStringExtra("fileId");
+            if (Constant.FilePath.equals("")) {
+                start_single(Constant.PDFPath, url, fileName);
+            } else {
+                start_single(Constant.FilePath, url, fileName);
+            }
+//        }
+
     }
 
     @Override
@@ -206,5 +218,13 @@ public class PdfActivity extends BaseAppCompatActivity implements OnPageChangeLi
 //        int singleTaskId = singleTask.start();
         singleTask.start();
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (null != pdfView) {
+            pdfView.recycle();
+        }
     }
 }

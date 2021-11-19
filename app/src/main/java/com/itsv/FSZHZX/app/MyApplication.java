@@ -14,8 +14,8 @@ import com.manis.core.interfaces.ManisApiInterface;
 //import com.squareup.leakcanary.RefWatcher;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
-import com.tencent.smtt.export.external.TbsCoreSettings;
-import com.tencent.smtt.sdk.QbSdk;
+//import com.tencent.smtt.export.external.TbsCoreSettings;
+//import com.tencent.smtt.sdk.QbSdk;
 
 import java.util.HashMap;
 
@@ -36,6 +36,7 @@ public class MyApplication extends Application {
         initDownloader();
         initWechatShare();
         initJPush();
+//        initTBS();
 //        watcher = LeakCanary.install(this);
     }
 
@@ -50,22 +51,22 @@ public class MyApplication extends Application {
      */
     private void initTBS() {
 
-        HashMap map = new HashMap();
-        map.put(TbsCoreSettings.TBS_SETTINGS_USE_SPEEDY_CLASSLOADER, true);
-        map.put(TbsCoreSettings.TBS_SETTINGS_USE_DEXLOADER_SERVICE, true);
-        QbSdk.initTbsSettings(map);
-
-        QbSdk.initX5Environment(getApplicationContext(), new QbSdk.PreInitCallback() {
-            @Override
-            public void onCoreInitFinished() {
-                Logger.d("","x5内核加载完成");
-            }
-
-            @Override
-            public void onViewInitFinished(boolean b) {
-                Logger.d("","x5内核加载完成"+b);
-            }
-        });
+//        HashMap map = new HashMap();
+//        map.put(TbsCoreSettings.TBS_SETTINGS_USE_SPEEDY_CLASSLOADER, true);
+//        map.put(TbsCoreSettings.TBS_SETTINGS_USE_DEXLOADER_SERVICE, true);
+//        QbSdk.initTbsSettings(map);
+//
+//        QbSdk.initX5Environment(getApplicationContext(), new QbSdk.PreInitCallback() {
+//            @Override
+//            public void onCoreInitFinished() {
+//                Logger.d("","x5内核加载完成");
+//            }
+//
+//            @Override
+//            public void onViewInitFinished(boolean b) {
+//                Logger.d("","x5内核加载完成"+b);
+//            }
+//        });
     }
 
 //    public static RefWatcher getWatcher() {

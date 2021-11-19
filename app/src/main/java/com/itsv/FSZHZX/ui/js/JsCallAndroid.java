@@ -40,7 +40,7 @@ import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadListener;
 import com.liulishuo.filedownloader.FileDownloader;
 import com.liulishuo.filedownloader.util.FileDownloadUtils;
-import com.tencent.smtt.sdk.QbSdk;
+//import com.tencent.smtt.sdk.QbSdk;
 
 
 import org.json.JSONException;
@@ -233,13 +233,24 @@ public class JsCallAndroid {
 
     @JavascriptInterface
     public void toDownload(String downloadUrl,String fileName) {
-        ToastUtils.showSingleToast("正在下载...");
-        long l = System.currentTimeMillis();
-        if (TextUtils.isEmpty(fileName) || null == fileName) {
-            start_single(downloadUrl, l + ".xls");
-        } else {
-            start_single(downloadUrl, fileName);
+        if (null == fileName || null == downloadUrl) {
+            ToastUtils.showSingleToast("未获取文件地址");
+            return;
         }
+        //||fileName.contains(".doc")||fileName.contains(".docx")||fileName.contains(".xls")
+        if (fileName.contains(".pdf")) {
+//            String fileId = fileName.substring(0, fileName.indexOf("."));
+            toPDFActivity(downloadUrl, fileName);
+        } else {
+            ToastUtils.showSingleToast("正在下载...");
+            long l = System.currentTimeMillis();
+            if (TextUtils.isEmpty(fileName)) {
+                start_single(downloadUrl, l + ".xls");
+            } else {
+                start_single(downloadUrl, fileName);
+            }
+        }
+
     }
 
     public void start_single(String url, String fileName) {
@@ -305,11 +316,11 @@ public class JsCallAndroid {
 
     private void readFile(String mFilePath) {
 //        OpenFiles.getImageFileIntent(mFilePath)
-        HashMap<String, String> params = new HashMap<>();
+/*        HashMap<String, String> params = new HashMap<>();暂时删除
         params.put("style", "0");
         params.put("local", "true");
         QbSdk.openFileReader(context, mFilePath, params, s -> {
-        });
+        });*/
     }
 
 }
