@@ -10,9 +10,11 @@
       <map>
         <entry key="..\:/workspace/FSZX/app/src/main/res/drawable/red_spot.xml" value="0.21979166666666666" />
         <entry key="..\:/workspace/FSZX/app/src/main/res/drawable/sidebar_background.xml" value="0.21979166666666666" />
+        <entry key="..\:/workspace/FSZX/app/src/main/res/layout/activity_file_read.xml" value="0.20364583333333333" />
         <entry key="..\:/workspace/FSZX/app/src/main/res/layout/activity_pdf.xml" value="0.20364583333333333" />
         <entry key="..\:/workspace/FSZX/app/src/main/res/layout/item_home.xml" value="0.20364583333333333" />
         <entry key="..\:/workspace/FSZX/app/src/main/res/layout/item_home_2.xml" value="1.25" />
+        <entry key="..\:/workspace/FSZX/app/src/main/res/layout/toolbar.xml" value="0.20364583333333333" />
       </map>
     </option>
   </component>

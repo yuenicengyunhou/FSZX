@@ -3,7 +3,7 @@
     <color name="colorPrimary">#e32416</color>
     <color name="colorPrimaryPale">#E16860</color>
     <color name="colorPrimaryMin">#FFEBEE</color>
-    <color name="colorPrimaryDark">#BC1E13</color>
+    <color name="colorPrimaryDark">#e32416</color>
 <!--    <color name="colorPrimaryDark">#e32416</color>-->
     <color name="colorDialog">#f0f5f6</color>
     <color name="colorAccent">#F37C74</color>

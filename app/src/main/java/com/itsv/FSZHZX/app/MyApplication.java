@@ -1,7 +1,10 @@
 package com.itsv.FSZHZX.app;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
 
 import androidx.multidex.MultiDex;
 
@@ -14,9 +17,16 @@ import com.manis.core.interfaces.ManisApiInterface;
 //import com.squareup.leakcanary.RefWatcher;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.tencent.smtt.sdk.QbSdk;
+//import com.ycbjie.webviewlib.cache.WebCacheType;
+//import com.ycbjie.webviewlib.cache.WebViewCacheDelegate;
+//import com.ycbjie.webviewlib.cache.WebViewCacheWrapper;
+//import com.ycbjie.webviewlib.utils.X5LogUtils;
+//import com.ycbjie.webviewlib.utils.X5WebUtils;
 //import com.tencent.smtt.export.external.TbsCoreSettings;
 //import com.tencent.smtt.sdk.QbSdk;
 
+import java.io.File;
 import java.util.HashMap;
 
 import cn.jpush.android.api.JPushInterface;
@@ -36,9 +46,63 @@ public class MyApplication extends Application {
         initDownloader();
         initWechatShare();
         initJPush();
+        initX5();
+//        initYCWeb();
 //        initTBS();
 //        watcher = LeakCanary.install(this);
     }
+
+    private void initX5() {
+        //非wifi情况下，主动下载x5内核
+        QbSdk.setDownloadWithoutWifi(true);
+        //搜集本地tbs内核信息并上报服务器，服务器返回结果决定使用哪个内核。
+        QbSdk.PreInitCallback cb = new QbSdk.PreInitCallback() {
+            @Override
+            public void onViewInitFinished(boolean arg0) {
+                //x5內核初始化完成的回调，为true表示x5内核加载成功，否则表示x5内核加载失败，会自动切换到系统内核。
+                SharedPreferences preferences = getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
+                SharedPreferences.Editor edit = preferences.edit();
+                edit.putBoolean("hasLoad", arg0);
+                edit.apply();
+            }
+
+            @Override
+            public void onCoreInitFinished() {
+
+            }
+        };
+        //x5内核初始化接口
+        QbSdk.initX5Environment(getApplicationContext(), cb);
+    }
+
+    /**
+ * 初始化ycwebview，用于打开文档
+ */
+//    private void initYCWeb() {
+//        X5WebUtils.init(this);
+//        X5LogUtils.setIsLog(true);
+////        X5WebUtils.initCache(this);
+////        WebViewCacheDelegate.getInstance().init(new WebViewCacheWrapper.Builder(this));
+//
+//
+//        //1.创建委托对象
+//        WebViewCacheDelegate webViewCacheDelegate = WebViewCacheDelegate.getInstance();
+//        //2.创建调用处理器对象，实现类
+//        WebViewCacheWrapper.Builder builder = new WebViewCacheWrapper.Builder(this);
+//        //设置缓存路径，默认getCacheDir，名称CacheWebViewCache
+//        builder.setCachePath(new File(this.getCacheDir().toString(),"CacheWebView"))
+//                //设置缓存大小，默认100M
+//                .setCacheSize(1024*1024*100)
+//                //设置本地路径
+//                //.setAssetsDir("yc")
+//                //设置http请求链接超时，默认20秒
+//                .setConnectTimeoutSecond(20)
+//                //设置http请求链接读取超时，默认20秒
+//                .setReadTimeoutSecond(20)
+//                //设置缓存为正常模式，默认模式为强制缓存静态资源
+//                .setCacheType(WebCacheType.FORCE);
+//        webViewCacheDelegate.init(builder);
+//    }
 
     @Override
     protected void attachBaseContext(Context base) {

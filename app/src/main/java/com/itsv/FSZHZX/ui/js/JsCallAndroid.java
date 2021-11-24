@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -30,6 +31,7 @@ import com.itsv.FSZHZX.base.BaseWebActivity;
 import com.itsv.FSZHZX.base.Constant;
 import com.itsv.FSZHZX.model.MyAttachModel;
 import com.itsv.FSZHZX.ui.activity.AddressBookActivity;
+import com.itsv.FSZHZX.ui.activity.FileReadActivity;
 import com.itsv.FSZHZX.ui.activity.MtNotifyActivity;
 import com.itsv.FSZHZX.ui.activity.PdfActivity;
 import com.itsv.FSZHZX.ui.activity.WebActivity;
@@ -40,6 +42,8 @@ import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadListener;
 import com.liulishuo.filedownloader.FileDownloader;
 import com.liulishuo.filedownloader.util.FileDownloadUtils;
+import com.tencent.smtt.sdk.QbSdk;
+import com.tencent.smtt.sdk.TbsReaderView;
 //import com.tencent.smtt.sdk.QbSdk;
 
 
@@ -48,11 +52,13 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
 import static android.content.Context.MODE_PRIVATE;
+import static org.webrtc.ContextUtils.getApplicationContext;
 
 
 public class JsCallAndroid {
@@ -63,6 +69,7 @@ public class JsCallAndroid {
    private final String dirPath = FileDownloadUtils.getDefaultSaveRootPath() + File.separator + "DocumentCache" + File.separator;
    private String mSinglePath = "";
     private UIHandler handler;
+    private String fileType;
 
     @SuppressLint("HandlerLeak")
      private class UIHandler extends Handler {
@@ -77,8 +84,17 @@ public class JsCallAndroid {
             Activity activity = weakReference.get();
             if (null==activity)return;
             if (msg.what == 0) {
-                Toast.makeText(context, "下载完成，即将自动打开文档", Toast.LENGTH_SHORT).show();
-                readFile(mSinglePath);
+                if (mSinglePath.contains(".doc") || mSinglePath.contains(".docx") || mSinglePath.contains(".xls")) {
+
+//                    Intent intent = new Intent(context, FileReadActivity.class);
+//                    intent.putExtra("filePath", mSinglePath);
+//                    intent.putExtra("fileType", fileType);
+//                    context.startActivity(intent);
+                    readFile(mSinglePath);
+                } else {
+                    Toast.makeText(context, "下载完成，即将自动打开文档", Toast.LENGTH_SHORT).show();
+                    readFile(mSinglePath);
+                }
             } else if (msg.what == 1) {
                 String fileUrl = (String) msg.obj;
                 Toast.makeText(context, "下载失败,正在尝试浏览器下载", Toast.LENGTH_SHORT).show();
@@ -233,10 +249,12 @@ public class JsCallAndroid {
 
     @JavascriptInterface
     public void toDownload(String downloadUrl,String fileName) {
+        Log.e("WQ", "---h==" + downloadUrl);
         if (null == fileName || null == downloadUrl) {
             ToastUtils.showSingleToast("未获取文件地址");
             return;
         }
+        fileType = fileName.substring(fileName.indexOf("."), fileName.length() );
         //||fileName.contains(".doc")||fileName.contains(".docx")||fileName.contains(".xls")
         if (fileName.contains(".pdf")) {
 //            String fileId = fileName.substring(0, fileName.indexOf("."));
@@ -245,7 +263,7 @@ public class JsCallAndroid {
             ToastUtils.showSingleToast("正在下载...");
             long l = System.currentTimeMillis();
             if (TextUtils.isEmpty(fileName)) {
-                start_single(downloadUrl, l + ".xls");
+                start_single(downloadUrl, MessageFormat.format("{0}.xls", l));
             } else {
                 start_single(downloadUrl, fileName);
             }
@@ -254,8 +272,7 @@ public class JsCallAndroid {
     }
 
     public void start_single(String url, String fileName) {
-        mSinglePath = dirPath
-                + File.separator + fileName;
+        mSinglePath = dirPath + fileName;
         //.setTag()
         BaseDownloadTask singleTask = FileDownloader.getImpl().create(url)
                 .setPath(mSinglePath, false)
@@ -315,12 +332,22 @@ public class JsCallAndroid {
     }
 
     private void readFile(String mFilePath) {
-//        OpenFiles.getImageFileIntent(mFilePath)
-/*        HashMap<String, String> params = new HashMap<>();暂时删除
+//        if (null != preferences) {
+//            boolean hasLoad = preferences.getBoolean("hasLoad", false);
+//            if (!hasLoad) {
+//                //非wifi情况下，主动下载x5内核
+//                initX5();
+//            }
+//        }
+        HashMap<String, String> params = new HashMap<>();
         params.put("style", "0");
         params.put("local", "true");
         QbSdk.openFileReader(context, mFilePath, params, s -> {
-        });*/
+        });
     }
+
+
+
+
 
 }
