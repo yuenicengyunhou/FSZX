@@ -9,7 +9,7 @@
 
     <include
         android:id="@+id/toolbar"
-        layout="@layout/toolbar" />
+        layout="@layout/toolbar_download" />
 
     <com.github.barteksc.pdfviewer.PDFView
         android:id="@+id/pdfView"

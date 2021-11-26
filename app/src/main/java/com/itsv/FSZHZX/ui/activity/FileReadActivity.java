@@ -16,10 +16,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 
 import com.itsv.FSZHZX.R;
 import com.itsv.FSZHZX.base.BaseAppCompatActivity;
 import com.itsv.FSZHZX.ui.js.JsCallAndroid;
+import com.itsv.FSZHZX.utils.FileUtils;
+import com.itsv.FSZHZX.utils.ToastUtils;
 import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadListener;
 import com.liulishuo.filedownloader.FileDownloader;
@@ -81,12 +84,17 @@ public class FileReadActivity extends BaseAppCompatActivity {
         initToolbar(toolbar, false);
         TextView tvTitle = findViewById(R.id.tv_title);
         ImageView ivBack = findViewById(R.id.iv_back);
+        ImageView ivDownload = findViewById(R.id.iv_download);
         ivBack.setOnClickListener(v -> finish());
         tvTitle.setText("附件详情");
         Intent intent = getIntent();
         String filePath = intent.getStringExtra("filePath");
         String fileType = intent.getStringExtra("fileType");
+        String fileName = intent.getStringExtra("fileName");
         openFile(filePath,fileType);
+        ivDownload.setOnClickListener(view -> {
+             FileUtils.copyFileToDownloadDir(this, filePath, fileName);
+        });
 //        initX5Settings();
 //        intent.getStringExtra("")
 //        fileReaderView.show(filePath);

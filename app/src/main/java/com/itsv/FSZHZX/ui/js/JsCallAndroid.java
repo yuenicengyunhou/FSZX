@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 
 import android.net.Uri;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -43,8 +42,6 @@ import com.liulishuo.filedownloader.FileDownloadListener;
 import com.liulishuo.filedownloader.FileDownloader;
 import com.liulishuo.filedownloader.util.FileDownloadUtils;
 import com.tencent.smtt.sdk.QbSdk;
-import com.tencent.smtt.sdk.TbsReaderView;
-//import com.tencent.smtt.sdk.QbSdk;
 
 
 import org.json.JSONException;
@@ -58,7 +55,6 @@ import java.util.List;
 import java.util.Objects;
 
 import static android.content.Context.MODE_PRIVATE;
-import static org.webrtc.ContextUtils.getApplicationContext;
 
 
 public class JsCallAndroid {
@@ -70,6 +66,7 @@ public class JsCallAndroid {
    private String mSinglePath = "";
     private UIHandler handler;
     private String fileType;
+    private String mFileName;
 
     @SuppressLint("HandlerLeak")
      private class UIHandler extends Handler {
@@ -85,12 +82,12 @@ public class JsCallAndroid {
             if (null==activity)return;
             if (msg.what == 0) {
                 if (mSinglePath.contains(".doc") || mSinglePath.contains(".docx") || mSinglePath.contains(".xls")) {
-
-//                    Intent intent = new Intent(context, FileReadActivity.class);
-//                    intent.putExtra("filePath", mSinglePath);
-//                    intent.putExtra("fileType", fileType);
-//                    context.startActivity(intent);
-                    readFile(mSinglePath);
+                    Intent intent = new Intent(context, FileReadActivity.class);
+                    intent.putExtra("filePath", mSinglePath);
+                    intent.putExtra("fileType", fileType);
+                    intent.putExtra("fileName", mFileName);
+                    context.startActivity(intent);
+//                    readFile(mSinglePath);
                 } else {
                     Toast.makeText(context, "下载完成，即将自动打开文档", Toast.LENGTH_SHORT).show();
                     readFile(mSinglePath);
@@ -249,12 +246,13 @@ public class JsCallAndroid {
 
     @JavascriptInterface
     public void toDownload(String downloadUrl,String fileName) {
+        mFileName = fileName;
         Log.e("WQ", "---h==" + downloadUrl);
         if (null == fileName || null == downloadUrl) {
             ToastUtils.showSingleToast("未获取文件地址");
             return;
         }
-        fileType = fileName.substring(fileName.indexOf("."), fileName.length() );
+        fileType = fileName.substring(fileName.indexOf("."));
         //||fileName.contains(".doc")||fileName.contains(".docx")||fileName.contains(".xls")
         if (fileName.contains(".pdf")) {
 //            String fileId = fileName.substring(0, fileName.indexOf("."));

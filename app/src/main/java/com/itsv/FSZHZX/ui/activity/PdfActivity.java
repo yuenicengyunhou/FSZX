@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +21,7 @@ import com.github.barteksc.pdfviewer.listener.OnPageErrorListener;
 import com.itsv.FSZHZX.R;
 import com.itsv.FSZHZX.base.BaseAppCompatActivity;
 import com.itsv.FSZHZX.base.Constant;
+import com.itsv.FSZHZX.utils.FileUtils;
 import com.itsv.FSZHZX.utils.ToastUtils;
 import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadSampleListener;
@@ -107,14 +109,16 @@ public class PdfActivity extends BaseAppCompatActivity implements OnPageChangeLi
         tvTitle.setText("附件详情");
         Intent intent = getIntent();
         url = intent.getStringExtra("url");
+        ImageView ivDownload = findViewById(R.id.iv_download);
 //        String pdf_type = intent.getStringExtra("pdf_type");
 //        if (null == pdf_type) {
 //            ToastUtils.showSingleToast("参数未传递");
 //            return;
 //        }
 //        if (pdf_type.equals(Constant.PDF_Link)) {
-            String fileName = intent.getStringExtra("fileId");
-            if (Constant.FilePath.equals("")) {
+        String fileName = intent.getStringExtra("fileId");
+        ivDownload.setOnClickListener(view -> FileUtils.copyFileToDownloadDir(this,mSinglePath,fileName));
+        if (Constant.FilePath.equals("")) {
                 start_single(Constant.PDFPath, url, fileName);
             } else {
                 start_single(Constant.FilePath, url, fileName);
