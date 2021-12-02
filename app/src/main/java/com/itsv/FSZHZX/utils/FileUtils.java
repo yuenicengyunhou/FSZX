@@ -227,7 +227,7 @@ public class FileUtils {
                 }
                 bufferedInputStream.close();
                 inputStream.close();
-                Toast.makeText(context, "文件已下载到文件管理中的Download文件夹", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "文件已保存至文件管理中的Download文件夹", Toast.LENGTH_SHORT).show();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {

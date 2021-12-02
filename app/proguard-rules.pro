@@ -56,6 +56,13 @@
 # mapping.txt文件列出混淆前后的映射
 -printmapping mapping.txt
 
+-keep class com.manis.**{*;}
+-keep class net.java.**{*;}
+-keep class orj.jitsi.**{*;}
+-keep class org.jitsi.**{*;}
+-keep class orj.webrtc.**{*;}
+-keep class org.webrtc.**{*;}
+
 
 -keep public class * extends android.app.Fragment
 -keep public class * extends android.app.Activity
@@ -591,10 +598,7 @@
 
 -keep class **JNI* {*;}
 
-#-keep class com.manis.**{*;}
-#-keep class net.java.**{*;}
-#-keep class orj.jitsi.**{*;}
-#-keep class orj.webrtc.**{*;}
+
 #
 #
 #-keep class cn.jiguang.**{

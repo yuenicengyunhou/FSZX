@@ -17,7 +17,9 @@ import com.manis.core.interfaces.ManisApiInterface;
 //import com.squareup.leakcanary.RefWatcher;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.tencent.smtt.export.external.TbsCoreSettings;
 import com.tencent.smtt.sdk.QbSdk;
+import com.tencent.smtt.sdk.TbsListener;
 //import com.ycbjie.webviewlib.cache.WebCacheType;
 //import com.ycbjie.webviewlib.cache.WebViewCacheDelegate;
 //import com.ycbjie.webviewlib.cache.WebViewCacheWrapper;
@@ -53,6 +55,11 @@ public class MyApplication extends Application {
     }
 
     private void initX5() {
+        // 在调用TBS初始化、创建WebView之前进行如下配置
+        HashMap map = new HashMap();
+        map.put(TbsCoreSettings.TBS_SETTINGS_USE_SPEEDY_CLASSLOADER, true);
+        map.put(TbsCoreSettings.TBS_SETTINGS_USE_DEXLOADER_SERVICE, true);
+        QbSdk.initTbsSettings(map);
         //非wifi情况下，主动下载x5内核
         QbSdk.setDownloadWithoutWifi(true);
         //搜集本地tbs内核信息并上报服务器，服务器返回结果决定使用哪个内核。
@@ -60,10 +67,11 @@ public class MyApplication extends Application {
             @Override
             public void onViewInitFinished(boolean arg0) {
                 //x5內核初始化完成的回调，为true表示x5内核加载成功，否则表示x5内核加载失败，会自动切换到系统内核。
-                SharedPreferences preferences = getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
-                SharedPreferences.Editor edit = preferences.edit();
-                edit.putBoolean("hasLoad", arg0);
-                edit.apply();
+                Log.e("WQ", "chushihua--" + arg0);
+//                SharedPreferences preferences = getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
+//                SharedPreferences.Editor edit = preferences.edit();
+//                edit.putBoolean("hasLoad", arg0);
+//                edit.apply();
             }
 
             @Override
@@ -73,11 +81,34 @@ public class MyApplication extends Application {
         };
         //x5内核初始化接口
         QbSdk.initX5Environment(getApplicationContext(), cb);
+        QbSdk.setTbsListener(new TbsListener() {
+            @Override
+            public void onDownloadFinish(int i) {
+                //tbs内核下载完成回调
+                //但是只有i等于100才算完成，否则失败
+                //此时大概率可能由于网络问题
+                //如果失败可增加网络监听器
+                Log.e("WQ", "onDownloadFinish: " + i);
+            }
+
+            @Override
+            public void onInstallFinish(int i) {
+                //内核安装完成回调，通常到这里也算安装完成，但是在
+                //极个别情况也会出现加载失败，比如笔者在公司内网下偶现，可以忽略
+                Log.e("WQ", "onInstallFinish: "+i);
+            }
+
+            @Override
+            public void onDownloadProgress(int i) {
+                //下载进度监听
+                Log.e("WQ", "onDownloadProgress: "+i );
+            }
+        });
     }
 
     /**
- * 初始化ycwebview，用于打开文档
- */
+     * 初始化ycwebview，用于打开文档
+     */
 //    private void initYCWeb() {
 //        X5WebUtils.init(this);
 //        X5LogUtils.setIsLog(true);
@@ -103,7 +134,6 @@ public class MyApplication extends Application {
 //                .setCacheType(WebCacheType.FORCE);
 //        webViewCacheDelegate.init(builder);
 //    }
-
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);

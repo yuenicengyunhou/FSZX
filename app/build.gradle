@@ -13,7 +13,8 @@ android {
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         ndk {
-            abiFilters("armeabi-v7a", "x86","armeabi")
+//            abiFilters("armeabi-v7a", "x86","armeabi")
+            abiFilters( "armeabi", "armeabi-v7a", "x86", "mips")
 //            abiFilters("arm64-v8a", "armeabi-v7a", "x86", "x86_64", "armeabi")
         }
         manifestPlaceholders = [
@@ -30,13 +31,13 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-//        debug {
-//            minifyEnabled false
-//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-//        }
+        debug {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
 
     }
     repositories {

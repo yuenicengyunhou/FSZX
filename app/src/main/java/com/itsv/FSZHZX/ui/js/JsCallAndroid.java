@@ -35,6 +35,7 @@ import com.itsv.FSZHZX.ui.activity.MtNotifyActivity;
 import com.itsv.FSZHZX.ui.activity.PdfActivity;
 import com.itsv.FSZHZX.ui.activity.WebActivity;
 import com.itsv.FSZHZX.utils.DesignUtils;
+import com.itsv.FSZHZX.utils.FileUtils;
 import com.itsv.FSZHZX.utils.ToastUtils;
 import com.just.agentweb.AgentWeb;
 import com.liulishuo.filedownloader.BaseDownloadTask;
@@ -82,15 +83,15 @@ public class JsCallAndroid {
             if (null==activity)return;
             if (msg.what == 0) {
                 if (mSinglePath.contains(".doc") || mSinglePath.contains(".docx") || mSinglePath.contains(".xls")) {
-                    Intent intent = new Intent(context, FileReadActivity.class);
-                    intent.putExtra("filePath", mSinglePath);
-                    intent.putExtra("fileType", fileType);
-                    intent.putExtra("fileName", mFileName);
-                    context.startActivity(intent);
-//                    readFile(mSinglePath);
+//                    Intent intent = new Intent(context, FileReadActivity.class);
+//                    intent.putExtra("filePath", mSinglePath);
+//                    intent.putExtra("fileType", fileType);
+//                    intent.putExtra("fileName", mFileName);
+//                    context.startActivity(intent);
+                    readFile(mSinglePath,mFileName);
                 } else {
                     Toast.makeText(context, "下载完成，即将自动打开文档", Toast.LENGTH_SHORT).show();
-                    readFile(mSinglePath);
+                    readFile(mSinglePath,mFileName);
                 }
             } else if (msg.what == 1) {
                 String fileUrl = (String) msg.obj;
@@ -258,7 +259,7 @@ public class JsCallAndroid {
 //            String fileId = fileName.substring(0, fileName.indexOf("."));
             toPDFActivity(downloadUrl, fileName);
         } else {
-            ToastUtils.showSingleToast("正在下载...");
+            ToastUtils.showSingleToast("正在加载...");
             long l = System.currentTimeMillis();
             if (TextUtils.isEmpty(fileName)) {
                 start_single(downloadUrl, MessageFormat.format("{0}.xls", l));
@@ -329,14 +330,8 @@ public class JsCallAndroid {
         singleTask.start();
     }
 
-    private void readFile(String mFilePath) {
-//        if (null != preferences) {
-//            boolean hasLoad = preferences.getBoolean("hasLoad", false);
-//            if (!hasLoad) {
-//                //非wifi情况下，主动下载x5内核
-//                initX5();
-//            }
-//        }
+    private void readFile(String mFilePath,String fileName) {
+        FileUtils.copyFileToDownloadDir(context,mSinglePath,fileName);
         HashMap<String, String> params = new HashMap<>();
         params.put("style", "0");
         params.put("local", "true");
