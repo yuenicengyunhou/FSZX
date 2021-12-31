@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">房山政协</string>
-    <string name="full_name">房山区政协学习与履职服务信息化平台</string>
-    <string name="app_name_abbrevi">房山区政协</string>
     <string name="app_name_home">学习与履职服务信息化平台</string>
     <string name="account">用户名</string>
     <string name="passWord">密码</string>
     <string name="login">登录</string>
     <string name="autoLogin">自动登录</string>
-    <string name="rememberPsd">记住密码</string>
     <string name="hint">输入搜索</string>
     <string name="address_book">云通讯录</string>
     <string name="profile">我的信息</string>
@@ -23,18 +20,12 @@
     <string name="urName">姓名</string>
     <string name="usePersonalNum">使用个人会议号</string>
     <string name="enableCam">开启摄像头</string>
-    <string name="meetingSetting">入会选项</string>
-    <string name="enableMic">开启麦克风</string>
-    <string name="enableBroad">开启扬声器</string>
     <string name="joinMeeting">加入会议</string>
     <string name="enterMeeting">进入会议</string>
-    <string name="setting">设置</string>
     <string name="cutoffAudio">断开音频</string>
     <string name="dismiss">取消</string>
     <string name="quiz">在线答题</string>
-    <string name="meetingNotifi">会议通知</string>
     <string name="loading">正在加载...</string>
-    <string name="answerIs">正确答案</string>
     <string name="noMore">已经到底了</string>
     <string name="answerExplain">答案解析</string>
     <string name="singleChoicQuiz">单选题</string>
@@ -43,10 +34,7 @@
     <string name="oldPsd">输入旧密码</string>
     <string name="newPsd">输入新密码</string>
     <string name="attachIs">附件：</string>
-    <string name="viewAttach">查看附件</string>
     <string name="newPsw">再次输入新密码</string>
-    <string name="noSpeaker">会议未指定主讲人</string>
-    <string name="handsup">举手</string>
     <string name="searchByType">搜索会议类型</string>
     <string name="push">延长会议时间</string>
     <string name="nodata">暂无数据</string>
@@ -59,9 +47,6 @@
     <string name="chat">聊天</string>
     <string name="member">成员</string>
     <string name="more">更多</string>
-    <string name="title_activity_scrolling">ScrollingActivity</string>
-    <string name="action_settings">Settings</string>
     <string name="backToList">返回列表</string>
-    <string name="sure">确定</string>
     <string name="startQuiz">开始答题</string>
 </resources>

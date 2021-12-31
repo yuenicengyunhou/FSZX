@@ -12,33 +12,37 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
 
-<!--    <LinearLayout-->
-<!--        android:id="@+id/linear"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_gravity="center_horizontal"-->
-<!--        android:layout_marginTop="@dimen/margin_xLarge"-->
-<!--        android:gravity="center_vertical">-->
-    <View
-        android:layout_width="1dp"
-        android:layout_height="1dp"
-        android:background="@android:color/transparent"
-        android:id="@+id/details_view"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/toolbar"
+    <!--    <LinearLayout-->
+    <!--        android:id="@+id/linear"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_gravity="center_horizontal"-->
+    <!--        android:layout_marginTop="@dimen/margin_xLarge"-->
+    <!--        android:gravity="center_vertical">-->
+    <!--    <View-->
+    <!--        android:id="@+id/details_view"-->
+    <!--        android:layout_width="1dp"-->
+    <!--        android:layout_height="1dp"-->
+    <!--        android:layout_below="@id/toolbar"-->
+    <!--        android:layout_centerHorizontal="true"-->
+    <!--        android:layout_marginTop="@dimen/margin_xLarge"-->
+    <!--        android:background="@android:color/transparent" />-->
+
+    <LinearLayout
+        android:id="@+id/head_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
         android:layout_marginTop="@dimen/margin_xLarge"
-        />
+        android:layout_below="@id/toolbar"
+        android:layout_centerHorizontal="true">
 
         <com.makeramen.roundedimageview.RoundedImageView
-            android:layout_marginTop="@dimen/margin_xLarge"
-            android:layout_below="@id/toolbar"
-            android:layout_toLeftOf="@id/details_view"
-            android:layout_toStartOf="@id/details_view"
-            android:layout_marginRight="@dimen/paddingS"
-            android:layout_marginEnd="@dimen/paddingS"
             android:id="@+id/detail_iv_head"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/paddingS"
+            android:layout_marginRight="@dimen/paddingS"
             android:src="@mipmap/head_grey"
             app:riv_corner_radius="30dp" />
 
@@ -46,30 +50,31 @@
             android:id="@+id/detail_tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@id/detail_iv_head"
-            android:layout_toRightOf="@id/details_view"
             android:layout_marginStart="@dimen/padding"
             android:layout_marginLeft="@dimen/padding"
             android:textColor="@color/colorTextB"
-            android:textSize="@dimen/textSize18"
-            android:layout_toEndOf="@id/details_view" />
-    <TextView
-        android:id="@+id/detail_tv_duty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/padding"
-        android:layout_marginLeft="@dimen/padding"
-        android:layout_alignBottom="@id/detail_iv_head"
-        android:layout_toRightOf="@id/details_view"
-        android:textColor="@color/grey666"
-        android:textSize="@dimen/textSizeM"
-        android:layout_toEndOf="@id/details_view" />
-<!--    </LinearLayout>-->
+            android:textSize="@dimen/textSize18" />
+    </LinearLayout>
+
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/detail_tv_duty"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:visibility="gone"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_alignBottom="@id/detail_iv_head"-->
+    <!--        android:layout_marginStart="@dimen/padding"-->
+    <!--        android:layout_marginLeft="@dimen/padding"-->
+    <!--        android:layout_toEndOf="@id/details_view"-->
+    <!--        android:layout_toRightOf="@id/details_view"-->
+    <!--        android:textColor="@color/grey666"-->
+    <!--        android:textSize="@dimen/textSizeM" />-->
+    <!--    </LinearLayout>-->
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/detail_iv_head"
+        android:layout_below="@id/head_layout"
         android:scrollbars="none">
 
         <LinearLayout
@@ -77,21 +82,22 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-           <!--
+            <!--
 
-            <include
-                layout="@layout/indicator"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="@dimen/margin_xLarge" />-->
+             <include
+                 layout="@layout/indicator"
+                 android:layout_width="match_parent"
+                 android:layout_height="1dp"
+                 android:layout_marginTop="@dimen/margin_xLarge" />-->
 
             <TextView
                 android:id="@+id/detail_tv_cell"
                 style="@style/text_details_style"
+                android:ellipsize="end"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/searchBarSize"
-                android:drawableStart="@mipmap/icon_phone"
-                android:drawableLeft="@mipmap/icon_phone" />
+                android:drawableStart="@drawable/ic_department"
+                android:drawableLeft="@drawable/ic_department" />
 
             <include
                 layout="@layout/indicator"
@@ -103,9 +109,10 @@
                 android:id="@+id/detail_tv_phone"
                 style="@style/text_details_style"
                 android:layout_width="wrap_content"
+                android:ellipsize="end"
                 android:layout_height="@dimen/searchBarSize"
-                android:drawableStart="@mipmap/icon_phone"
-                android:drawableLeft="@mipmap/icon_phone" />
+                android:drawableStart="@drawable/ic_duty"
+                android:drawableLeft="@drawable/ic_duty" />
 
             <include
                 layout="@layout/indicator"
@@ -116,22 +123,23 @@
             <TextView
                 android:id="@+id/detail_tv_mail"
                 style="@style/text_details_style"
+                android:ellipsize="end"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/searchBarSize"
-                android:drawableStart="@mipmap/icon_mail"
-                android:drawableLeft="@mipmap/icon_mail" />
+                android:drawableStart="@drawable/ic_party"
+                android:drawableLeft="@drawable/ic_party" />
 
-          <!--  <include
-                layout="@layout/indicator"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="@dimen/marginPrimary" />
+            <!--  <include
+                  layout="@layout/indicator"
+                  android:layout_width="match_parent"
+                  android:layout_height="1dp"
+                  android:layout_marginTop="@dimen/marginPrimary" />
 
-            <TextView
-                android:id="@+id/detail_tv_address"
-                style="@style/text_details_style"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/searchBarSize" />-->
+              <TextView
+                  android:id="@+id/detail_tv_address"
+                  style="@style/text_details_style"
+                  android:layout_width="wrap_content"
+                  android:layout_height="@dimen/searchBarSize" />-->
         </LinearLayout>
     </ScrollView>
 

@@ -65,7 +65,6 @@
 
     <TextView
         android:visibility="gone"
-        android:id="@+id/pop_cutoff"
         android:layout_width="match_parent"
         android:layout_height="@dimen/searchBarSize"
         android:background="?attr/selectableItemBackground"

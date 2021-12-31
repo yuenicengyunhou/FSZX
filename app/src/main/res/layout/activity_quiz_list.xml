@@ -12,7 +12,6 @@
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
-        android:id="@+id/refreshLayout"
         android:layout_height="0dp"
         app:layout_constraintVertical_weight="1"
         >

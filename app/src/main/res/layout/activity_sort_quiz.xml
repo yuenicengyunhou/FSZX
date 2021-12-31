@@ -8,13 +8,13 @@
     android:orientation="vertical"
     tools:context=".ui.activity.SortQuizActivity">
 
-    <include
-        android:id="@+id/toolbarLayout"
-        layout="@layout/toolbar" />
+    <include layout="@layout/toolbar"
+        android:id="@+id/toolbar_layout"
+        />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipe"
         android:layout_width="match_parent"
+        android:id="@+id/sortSwip"
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView

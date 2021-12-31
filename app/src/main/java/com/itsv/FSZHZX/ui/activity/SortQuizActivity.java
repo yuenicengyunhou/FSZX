@@ -58,8 +58,8 @@ public class SortQuizActivity extends BaseAppCompatActivity {
         adapter = new QuizSortAdapter(beans, this);
         adapter.setOnItemClickListener(this::toQuizActivity);
         binding.recycler.setAdapter(adapter);
-        binding.swipe.setOnRefreshListener(this::getQuestionTypes);
-        binding.swipe.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+        binding.sortSwip.setOnRefreshListener(this::getQuestionTypes);
+        binding.sortSwip.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         getQuestionTypes();
     }
 
@@ -71,7 +71,7 @@ public class SortQuizActivity extends BaseAppCompatActivity {
 
 
     private void getQuestionTypes() {
-        binding.swipe.setRefreshing(true);
+        binding.sortSwip.setRefreshing(true);
         QuestionApi api = ApiHelper.getInstance().buildRetrofit(Constant.BASEURL).createService(QuestionApi.class);
         HashMap<String, Object> map = new HashMap<>();
         map.put("token", Constant.TOKEN);
@@ -79,7 +79,7 @@ public class SortQuizActivity extends BaseAppCompatActivity {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                binding.swipe.setRefreshing(false);
+                binding.sortSwip.setRefreshing(false);
                 try {
                     String string = response.body().string();
                     Gson gson = new Gson();
@@ -95,7 +95,7 @@ public class SortQuizActivity extends BaseAppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable throwable) {
-                binding.swipe.setRefreshing(false);
+                binding.sortSwip.setRefreshing(false);
                 ToastUtils.showSingleToast("网络请求错误");
             }
         });

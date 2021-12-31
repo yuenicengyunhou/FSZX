@@ -52,15 +52,15 @@ public class WebActivity extends BaseWebActivity {
         hideShareButton(url);
         if (title != null) {
             hideShareButton(title);
-            if (!title.equals("学习材料")) {
+//            if (!title.equals("学习材料")) {
                 tvTitle.setText(title);
-            }
+//            }
         }
         return url;
     }
 
     private void hideShareButton(String string) {
-        if (string.equals("在线学习") || string.equals("学习材料") || string.equals("使用帮助") || string.contains("learning_materials") || string.contains("getTianListView")
+        if (string.equals("在线学习") || string.equals("学习资料") || string.equals("使用帮助") || string.contains("learning_materials") || string.contains("getTianListView")
                 || string.contains("getJifenByUserName") || string.contains("getDanganByUserName") || string.contains("getFileListView") || string.contains("getSqmyListView")||string.contains(Constant.TAG_CPPCC)||string.contains(Constant.TAG_NOTICE)) {
             ivShare.setVisibility(View.GONE);
             if (string.contains(Constant.TAG_CPPCC) || string.contains(Constant.TAG_NOTICE)) {

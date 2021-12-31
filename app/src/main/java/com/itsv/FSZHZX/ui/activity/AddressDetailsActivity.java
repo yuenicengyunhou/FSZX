@@ -25,8 +25,8 @@ public class AddressDetailsActivity extends BaseAppCompatActivity {
     TextView tvTitle;
     @BindView(R.id.detail_tv_name)
     TextView tvName;
-    @BindView(R.id.detail_tv_duty)
-    TextView tvDuty;
+//    @BindView(R.id.detail_tv_duty)
+//    TextView tvDuty;
     @BindView(R.id.detail_tv_cell)
     TextView tvCell;
     @BindView(R.id.detail_tv_phone)
@@ -63,13 +63,14 @@ public class AddressDetailsActivity extends BaseAppCompatActivity {
                 String avatar = bean.getAvatar();
                 String positionName = bean.getJobName();
                 String officeTel = bean.getOfficeTel();
+                String party = bean.getParty();
                 Glide.with(this).load(avatar).placeholder(headGrey).into(ivHead);
                 tvName.setText(name);
-                tvDuty.setText(positionName);
-                tvCell.setText(String.format("手机\n%s", dealNull(phone)));
-                tvMail.setText(String.format("工作单位\n%s",  dealNull(placeWork)));
-//                tvAddress.setText(String.format("地址\n%s", dealNull(address)));
-                tvPhone.setText(String.format("办公室电话\n%s", dealNull(officeTel)));
+//                tvDuty.setText(positionName);
+                tvCell.setText(String.format("工作单位\n%s", dealNull(placeWork)));
+                tvMail.setText(String.format("党派\n%s", dealNull(party)));
+//            tvAddress.setText(String.format("地址\n%s", dealNull(address)));
+                tvPhone.setText(String.format("职务\n%s", dealNull(positionName)));
             }
         } else {
             GroupListModel.DataBean.UserListBean bean = (GroupListModel.DataBean.UserListBean) intent.getSerializableExtra("bean");
@@ -81,13 +82,14 @@ public class AddressDetailsActivity extends BaseAppCompatActivity {
             String positionName = bean.getJobName();
             String avatar = bean.getAvatar();
             String officeTel = bean.getOfficeTel();
+            String party = bean.getParty();
             Glide.with(this).load(avatar).placeholder(headGrey).into(ivHead);
             tvName.setText(name);
-            tvDuty.setText(positionName);
-            tvCell.setText(String.format("手机\n%s", dealNull(phone)));
-            tvMail.setText(String.format("工作单位\n%s", dealNull(placeWork)));
+//            tvDuty.setText(positionName);
+            tvCell.setText(String.format("工作单位\n%s", dealNull(placeWork)));
+            tvMail.setText(String.format("党派\n%s", dealNull(party)));
 //            tvAddress.setText(String.format("地址\n%s", dealNull(address)));
-            tvPhone.setText(String.format("办公室电话\n%s", dealNull(officeTel)));
+            tvPhone.setText(String.format("职务\n%s", dealNull(positionName)));
         }
 
     }

@@ -35,20 +35,6 @@
         <item name="android:inputType">text</item>
     </style>
 
-    <style name="spinnerStyle">
-        <item name="android:layout_gravity">center_vertical</item>
-        <item name="android:paddingLeft">@dimen/marginM</item>
-        <item name="android:paddingRight">@dimen/marginM</item>
-        <item name="android:drawableRight">@mipmap/arrow_down</item>
-        <item name="android:drawablePadding">@dimen/marginM</item>
-        <item name="android:background">@drawable/rec_grey</item>
-        <item name="android:textColor">@color/colorTextB</item>
-        <item name="android:layout_marginRight">@dimen/marginPrimary</item>
-        <item name="android:layout_marginEnd">@dimen/marginPrimary</item>
-        <item name="android:gravity">center</item>
-        <item name="android:drawableEnd">@mipmap/arrow_down</item>
-    </style>
-
     <style name="fullViewStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">0.8dp</item>
@@ -68,12 +54,6 @@
 
     <style name="activityInOut" parent="AppTheme">
         <item name="android:windowAnimationStyle">@style/activityAnim</item>
-    </style>
-    <style name="activityInOutReverse" parent="AppTheme">
-        <item name="android:activityOpenEnterAnimation">@anim/slide_in</item>
-        <item name="android:activityOpenExitAnimation">@anim/close_out</item>
-        <item name="android:activityCloseEnterAnimation">@anim/close_in</item>
-        <item name="android:activityCloseExitAnimation">@anim/slide_out</item>
     </style>
 
     <style name="activityAnim">

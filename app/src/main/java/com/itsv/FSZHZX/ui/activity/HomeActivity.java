@@ -248,7 +248,7 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
                 case "云通讯录":
                     toAddress();
                     break;
-                case "在线学习":
+                case "学习资料":
                     Intent intent = new Intent(this, WebActivity.class);
                     intent.putExtra("title", title);
                     intent.putExtra("url", "https://www.fszxpt.cn:9530/online_learning");
@@ -309,7 +309,7 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
         homeFunctionList.add(new HomeFunction("视频会议", vidMeeting, 0));
         homeFunctionList.add(new HomeFunction("会议通知", mtNoti, 0));
         homeFunctionList.add(new HomeFunction("云通讯录", addressBook, 0));
-        homeFunctionList.add(new HomeFunction("在线学习", studyOnline, 0));
+        homeFunctionList.add(new HomeFunction("学习资料", studyOnline, 0));
         homeFunctionList.add(new HomeFunction("在线答题", quiz, 0));
         homeFunctionList.add(new HomeFunction("提案查询", proposal, 0));
         homeFunctionList.add(new HomeFunction("社情民意", drawableScores, 0));

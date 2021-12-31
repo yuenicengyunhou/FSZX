@@ -223,7 +223,6 @@ public class FileUtils {
                         fileOutputStream.write(buffer);
                     }
                     fileOutputStream.close();
-
                 }
                 bufferedInputStream.close();
                 inputStream.close();

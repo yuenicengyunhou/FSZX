@@ -82,17 +82,18 @@ public class JsCallAndroid {
             Activity activity = weakReference.get();
             if (null==activity)return;
             if (msg.what == 0) {
-                if (mSinglePath.contains(".doc") || mSinglePath.contains(".docx") || mSinglePath.contains(".xls")) {
-//                    Intent intent = new Intent(context, FileReadActivity.class);
-//                    intent.putExtra("filePath", mSinglePath);
-//                    intent.putExtra("fileType", fileType);
-//                    intent.putExtra("fileName", mFileName);
-//                    context.startActivity(intent);
-                    readFile(mSinglePath,mFileName);
-                } else {
-                    Toast.makeText(context, "下载完成，即将自动打开文档", Toast.LENGTH_SHORT).show();
-                    readFile(mSinglePath,mFileName);
-                }
+                readFile(mSinglePath,mFileName);
+//                if (mSinglePath.contains(".doc") || mSinglePath.contains(".docx") || mSinglePath.contains(".xls")) {
+////                    Intent intent = new Intent(context, FileReadActivity.class);
+////                    intent.putExtra("filePath", mSinglePath);
+////                    intent.putExtra("fileType", fileType);
+////                    intent.putExtra("fileName", mFileName);
+////                    context.startActivity(intent);
+//                    readFile(mSinglePath,mFileName);
+//                } else {
+//                    Toast.makeText(context, "下载完成，即将自动打开文档", Toast.LENGTH_SHORT).show();
+//                    readFile(mSinglePath,mFileName);
+//                }
             } else if (msg.what == 1) {
                 String fileUrl = (String) msg.obj;
                 Toast.makeText(context, "下载失败,正在尝试浏览器下载", Toast.LENGTH_SHORT).show();
@@ -333,7 +334,7 @@ public class JsCallAndroid {
     private void readFile(String mFilePath,String fileName) {
         FileUtils.copyFileToDownloadDir(context,mSinglePath,fileName);
         HashMap<String, String> params = new HashMap<>();
-        params.put("style", "0");
+        params.put("style", "1");
         params.put("local", "true");
         QbSdk.openFileReader(context, mFilePath, params, s -> {
         });

@@ -3,15 +3,18 @@ package com.itsv.FSZHZX.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 
+import com.github.barteksc.pdfviewer.util.Constants;
 import com.itsv.FSZHZX.R;
 import com.itsv.FSZHZX.base.BaseAppCompatActivity;
 import com.itsv.FSZHZX.utils.FileUtils;
+import com.itsv.FSZHZX.utils.ToastUtils;
 import com.tencent.smtt.sdk.TbsReaderView;
 
 public class FileReadActivity extends BaseAppCompatActivity {
@@ -80,11 +83,14 @@ public class FileReadActivity extends BaseAppCompatActivity {
         bundle.putString("filePath", filePath);
         //临时的路径
 //        bundle.putString("tempPath", Constants.DOCUMENT_DOWNLOAD_PATH);
+        bundle.putString("tempPath", Environment.getExternalStorageDirectory()
+                .getPath()+"/dsadsa");
         readerView = new TbsReaderView(this, (integer, o, o1) -> {
         });
         //加载文件前的初始化工作,加载支持不同格式的插件
-        boolean b = readerView.preOpen(fileType, false);
-        if (b) {
+        boolean result = readerView.preOpen(fileType, false);
+        ToastUtils.showSingleToast("result--" + result);
+        if (result) {
             readerView.openFile(bundle);
         }
         // 往容器里添加TbsReaderView控件

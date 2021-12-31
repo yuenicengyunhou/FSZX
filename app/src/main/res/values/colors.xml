@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#e32416</color>
-    <color name="colorPrimaryPale">#E16860</color>
-    <color name="colorPrimaryMin">#FFEBEE</color>
     <color name="colorPrimaryDark">#e32416</color>
 <!--    <color name="colorPrimaryDark">#e32416</color>-->
-    <color name="colorDialog">#f0f5f6</color>
     <color name="colorAccent">#F37C74</color>
-    <color name="colorLoginStatus">#00365b</color>
-    <color name="colorTheme">#e32416</color>
     <color name="colorAutoLogin">#ffd9ac</color>
     <color name="colorStatusBar">#bdbdbd</color>
     <color name="colorGrey">#e8e8e8</color>
@@ -16,9 +11,6 @@
     <color name="colorTextGray">#76797b</color>
     <color name="grey666">#666</color>
     <color name="colorTextGroup">#191919</color>
-    <color name="colorIndicator">#ccc</color>
-    <color name="actionBarGrey">#ededed</color>
-    <color name="greyPale">#F1F8E9</color>
     <color name="colorTextDark">#171a1a</color>
     <color name="colorInvalid">#e1e1e1</color>
     <color name="colorTextInvalid">#b4b4b4</color>
@@ -43,9 +35,6 @@
     <color name="colorconfirmDark">#1E88E5</color>
     <color name="colorChatStroke">#e5e5e5</color>
     <color name="colorChatmine">#ebf5ff</color>
-    <color name="colorDoing">#4CAF50</color>
-    <color name="colorDoingPress">#48AA4C</color>
-    <color name="colorDoingDark">#3A8F3E</color>
     <color name="colorDone">#FF5252</color>
     <color name="colorUndo">#FFAB00</color>
 
@@ -58,8 +47,6 @@
 
     <color name="colorQuizButton">#b89f86</color>
     <color name="colorQuizButtonDark">#AC947C</color>
-    <color name="colorBlue">#1676fb</color>
-    <color name="colorBlueDark">#156DE6</color>
 
 
 </resources>
