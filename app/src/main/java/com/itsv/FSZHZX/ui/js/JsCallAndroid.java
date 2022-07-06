@@ -56,6 +56,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.itsv.FSZHZX.base.Constant.FILE_0_LENGTH;
 
 
 public class JsCallAndroid {
@@ -96,7 +97,11 @@ public class JsCallAndroid {
 //                }
             } else if (msg.what == 1) {
                 String fileUrl = (String) msg.obj;
-                Toast.makeText(context, "下载失败,正在尝试浏览器下载", Toast.LENGTH_SHORT).show();
+                if (msg.arg1 == FILE_0_LENGTH) {
+                    Toast.makeText(context, "源文件大小为0，下载失败", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "下载失败,正在尝试浏览器下载", Toast.LENGTH_SHORT).show();
+                }
                 Intent intent = new Intent();
                 intent.setAction("android.intent.action.VIEW");
                 Uri uri = Uri.parse(fileUrl);
@@ -249,9 +254,12 @@ public class JsCallAndroid {
     @JavascriptInterface
     public void toDownload(String downloadUrl,String fileName) {
         mFileName = fileName;
-        Log.e("WQ", "---h==" + downloadUrl);
-        if (null == fileName || null == downloadUrl) {
+        if (null == downloadUrl) {
             ToastUtils.showSingleToast("未获取文件地址");
+            return;
+        }
+        if (null==fileName||(!fileName.contains("."))) {
+            ToastUtils.showSingleToast("文件名错误");
             return;
         }
         fileType = fileName.substring(fileName.indexOf("."));
@@ -281,7 +289,7 @@ public class JsCallAndroid {
                 .setListener(new FileDownloadListener() {
                     @Override
                     protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-                        Log.e("feifei", "pending:-----" + ",soFarBytes:" + soFarBytes + ",totalBytes:" + totalBytes);
+//                        Log.e("WQ", "pending:-----" + ",soFarBytes:" + soFarBytes + ",totalBytes:" + totalBytes);
 
                     }
 
@@ -291,27 +299,32 @@ public class JsCallAndroid {
 
                     @Override
                     protected void blockComplete(BaseDownloadTask task) {
-                        Log.e("feifei", "blockComplete taskId:" + task.getId() + ",filePath:" + task.getPath() + ",fileName:" + task.getFilename() + ",speed:" + task.getSpeed() + ",isReuse:" + task.reuse());
+//                        Log.e("WQ", "blockComplete taskId:" + task.getId() + ",filePath:" + task.getPath() + ",fileName:" + task.getFilename() + ",speed:" + task.getSpeed() + ",isReuse:" + task.reuse());
                         handler.sendEmptyMessage(0);
 //                        readFile(mSinglePath);
                     }
 
                     @Override
                     protected void completed(BaseDownloadTask task) {
-                        Log.e("feifei", "completed taskId:" + task.getId() + ",isReuse:" + task.reuse());
+//                        Log.e("WQ", "completed taskId:" + task.getId() + ",isReuse:" + task.reuse());
 
                     }
 
                     @Override
                     protected void paused(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-                        Log.e("feifei", "paused taskId:" + task.getId() + ",soFarBytes:" + soFarBytes + ",totalBytes:" + totalBytes + ",percent:" + soFarBytes * 1.0 / totalBytes);
+//                        Log.e("WQ", "paused taskId:" + task.getId() + ",soFarBytes:" + soFarBytes + ",totalBytes:" + totalBytes + ",percent:" + soFarBytes * 1.0 / totalBytes);
                     }
 
                     @Override
                     protected void error(BaseDownloadTask task, Throwable e) {
-                        Log.e("feifei", "error taskId:" + task.getId() + ",e:" + e.getLocalizedMessage());
+                        String localizedMessage = e.getLocalizedMessage();
+//                        Log.e("WQ", "error taskId:" + task.getId() + ",e:" + localizedMessage);
 //                        handler.sendEmptyMessage(1);
                         Message message = new Message();
+
+                        if ((null!=localizedMessage)&&localizedMessage.contains("content-length is 0")) {
+                            message.arg1 = FILE_0_LENGTH;
+                        }
                         message.what = 1;
                         message.obj = url;
                         handler.sendMessage(message);
@@ -323,7 +336,7 @@ public class JsCallAndroid {
                         message.what = 1;
                         message.obj = url;
                         handler.sendMessage(message);
-                        Log.e("feifei", "warn taskId:" + task.getId());
+//                        Log.e("WQ", "warn taskId:" + task.getId());
                     }
                 });
 

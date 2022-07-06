@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -13,6 +14,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.Editable;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
@@ -38,10 +40,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
 import com.itsv.FSZHZX.R;
+import com.itsv.FSZHZX.api.UserApi;
+import com.itsv.FSZHZX.base.ApiHelper;
 import com.itsv.FSZHZX.base.BaseAppCompatActivity;
 import com.itsv.FSZHZX.base.Constant;
 import com.itsv.FSZHZX.model.Chat;
+import com.itsv.FSZHZX.model.ProfileDetailsM;
+import com.itsv.FSZHZX.model.SimpleModel;
 import com.itsv.FSZHZX.ui.adapter.ChatAdapter;
 import com.itsv.FSZHZX.ui.adapter.PaticipantAdapter;
 import com.itsv.FSZHZX.utils.DesignUtils;
@@ -56,6 +63,7 @@ import com.manis.core.interfaces.ManisApiInterface;
 import org.greenrobot.eventbus.EventBus;
 import org.webrtc.TextureViewRenderer;
 
+import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +73,10 @@ import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RoomActivity extends BaseAppCompatActivity implements ManisApiInterface.UpdateUIEvents {
 
@@ -76,6 +88,8 @@ public class RoomActivity extends BaseAppCompatActivity implements ManisApiInter
     TextView roomBg;
     @BindView(R.id.textureViewBoss)
     TextureViewRenderer textureViewBoss;
+    @BindView(R.id.screenRelative)
+    RelativeLayout screenRelative;
     @BindView(R.id.textureViewMe)
     TextureViewRenderer textureViewMe;
     @BindView(R.id.iv_reverse)
@@ -121,7 +135,7 @@ public class RoomActivity extends BaseAppCompatActivity implements ManisApiInter
     private boolean mic = true; //麦克风状态，true静音，false非静音
     private boolean video = true; //视频状态，true打开，false关闭
     private boolean broad;
-//    private Map<String, SurfaceViewHolder> mVideoList = new HashMap<>();
+    //    private Map<String, SurfaceViewHolder> mVideoList = new HashMap<>();
     private List<Participant> mAttendeeList = new ArrayList<>();
     private List<Chat> chats = new ArrayList<>();
     private ChatAdapter chatAdapter;
@@ -134,6 +148,7 @@ public class RoomActivity extends BaseAppCompatActivity implements ManisApiInter
     private boolean toBeModerator;
     private String moderatorPsw;
     private boolean isShareScreen;
+    private String sdkRoomNum;
 
     @SuppressLint("HandlerLeak")
     private class UIHandler extends Handler {
@@ -162,12 +177,7 @@ public class RoomActivity extends BaseAppCompatActivity implements ManisApiInter
                         }
                     }
                     break;
-                case 5:
-                    if (!initFlag) {
-                        initHint();
-                        return;
-                    }
-                    // 退出会议室
+                case 5:                    // 退出会议室
                     leaveRoom(false);
                     break;
                 case 6:
@@ -228,15 +238,21 @@ public class RoomActivity extends BaseAppCompatActivity implements ManisApiInter
                 case 11:
                     //设置屏幕共享
                     if (isShareScreen) {
-                        resetTexture(combinedHolder, shareScreenHolder);
+                        initTextureScreen();
                     } else {
-                        resetTexture(shareScreenHolder,combinedHolder);
+                        initTextureBoss();
+//                        shareScreenHolder.unbundleTextureView(textureViewBossScreen);
+//                        shareScreenHolder.releaseTexture();
+                        screenRelative.removeAllViews();
                         shareScreenHolder = null;
                     }
                     break;
                 case 12://主屏画面
                     TextureView textureView = combinedHolder.initTextureView(textureViewBoss, false);
                     textureSizeAutoChange(combinedHolder, textureView);
+                    break;
+                case 13:
+                    ToastUtils.showSingleToast("初始化流失败");
                     break;
             }
         }
@@ -294,6 +310,35 @@ public class RoomActivity extends BaseAppCompatActivity implements ManisApiInter
         }
     }
 
+    boolean hasInitBoss = false;
+
+    private void initTextureBoss() {
+        textureViewBoss.setVisibility(View.VISIBLE);
+        screenRelative.setVisibility(View.GONE);
+        if (combinedHolder != null) {
+            if (!hasInitBoss) {
+                combinedHolder.initTextureView(textureViewBoss, false);
+                textureSizeAutoChange(combinedHolder, textureViewBoss);
+                hasInitBoss = true;
+            }
+        } else {
+            handler.sendEmptyMessageDelayed(11, 1000);
+        }
+    }
+
+    private void initTextureScreen() {
+        screenRelative.setVisibility(View.VISIBLE);
+        textureViewBoss.setVisibility(View.GONE);
+        if (shareScreenHolder != null) {
+            TextureView textureView = shareScreenHolder.createTextureView(this);
+            textureSizeAutoChange(shareScreenHolder, textureView);
+            screenRelative.addView(textureView);
+        } else {
+            handler.sendEmptyMessageDelayed(11, 1000);
+        }
+    }
+
+
     @Override
     protected int getLayoutID() {
         return R.layout.activity_room;
@@ -306,6 +351,7 @@ public class RoomActivity extends BaseAppCompatActivity implements ManisApiInter
         initViews();
         connectToRoom();
         startClock();
+        checkin();
     }
 
     private void startClock() {
@@ -329,6 +375,7 @@ public class RoomActivity extends BaseAppCompatActivity implements ManisApiInter
     private void initData() {
         Intent intent = getIntent();
         record = intent.getStringExtra("record");
+        sdkRoomNum = intent.getStringExtra("sdkRoomNum");
         roomNumber = intent.getStringExtra("roomNumber");
         mJid = intent.getStringExtra("jid");
         toBeModerator = intent.getBooleanExtra("isController", false);
@@ -344,7 +391,15 @@ public class RoomActivity extends BaseAppCompatActivity implements ManisApiInter
         initMemberLayout();
         initChatLayout();
         cbBroad.setChecked(broad);
-        cbBroad.setOnCheckedChangeListener((buttonView, isChecked) -> ManisApiInterface.app.speakerSwitch());
+        cbBroad.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (!initFlag) {
+                initHint();
+            } else {
+                ManisApiInterface.app.speakerSwitch();
+            }
+        });
+        TextView tvLeave = findViewById(R.id.tv_leave);
+        tvLeave.setOnClickListener(view -> showLeaveDialog());
     }
 
     private void initMemberLayout() {
@@ -403,6 +458,7 @@ public class RoomActivity extends BaseAppCompatActivity implements ManisApiInter
     }
 
     private void connectToRoom() {
+//        ToastUtils.showSingleToast("连接会议");
         ManisApiInterface.app.connectToRoom(true, //启用音频设备
                 true,            //启用视频设备
                 mic,        //音频开关
@@ -419,7 +475,7 @@ public class RoomActivity extends BaseAppCompatActivity implements ManisApiInter
                 });
     }
 
-    @OnClick({R.id.tv_member, R.id.tv_more, R.id.tv_leave, R.id.iv_reverse, R.id.member_title, R.id.chat_title, R.id.chat_send, R.id.member_mute, R.id.tv_chat})
+    @OnClick({R.id.tv_member, R.id.tv_more, R.id.iv_reverse, R.id.member_title, R.id.chat_title, R.id.chat_send, R.id.member_mute, R.id.tv_chat})
     public void onClick(View v) {
         if (!initFlag) {
             initHint();
@@ -440,9 +496,9 @@ public class RoomActivity extends BaseAppCompatActivity implements ManisApiInter
             case R.id.chat_title:
                 hidePopLayout(chatLayout);
                 break;
-            case R.id.tv_leave:
-                showLeaveDialog();
-                break;
+//            case R.id.tv_leave:
+//                showLeaveDialog();
+//                break;
             case R.id.iv_reverse:
                 ManisApiInterface.app.onCameraSwitch();//
                 break;
@@ -564,11 +620,6 @@ public class RoomActivity extends BaseAppCompatActivity implements ManisApiInter
         }
     }
 
-    private void resetTexture(SurfaceViewHolder oldHolder, SurfaceViewHolder newHolder) {
-        oldHolder.unbundleTextureView(textureViewBoss);
-        newHolder.bundleTextureView(textureViewBoss);
-    }
-
     private void initHint() {
         ToastUtils.showSingleToast("会议初始化中，请稍后尝试操作。");
     }
@@ -641,14 +692,6 @@ public class RoomActivity extends BaseAppCompatActivity implements ManisApiInter
             isShareScreen = false;
             handler.sendEmptyMessage(11);
         }
-//        else {
-//            mVideoList.remove(surfaceViewHolder.getJid());
-//            if (surfaceViewHolder.getJid().equals(STAGE_JID)) {
-//                mSurfaceViewHolder = null;
-//                modifyStage(surfaceViewHolder.getJid(), false);
-//            }
-//            handler.sendEmptyMessage(2);    //通知主线程远端流获取成功，开始初始化并渲染
-//        }
     }
 
     @Override
@@ -920,28 +963,77 @@ public class RoomActivity extends BaseAppCompatActivity implements ManisApiInter
         if (mAttendeeList.size() == 1) {
             EventBus.getDefault().post("close");
         }
-        ManisApiInterface.app.onCallHangUp((b, s) -> {
-            if (b) {
-                if (null != timer) {
-                    timer.cancel();
-                    timer = null;
+        if (initFlag) {
+            ManisApiInterface.app.onCallHangUp((b, s) -> {
+                if (b) {
+                    if (null != timer) {
+                        timer.cancel();
+                        timer = null;
+                    }
+                    if (null != timerTask) {
+                        timerTask.cancel();
+                        timerTask = null;
+                    }
+                    if (null != handler) {
+                        handler.removeMessages(12);
+                        handler.removeMessages(0);
+                        handler = null;
+                    }
+                    // 断开链接
+                    ManisApiInterface.app.disConnect();
+
                 }
-                if (null != timerTask) {
-                    timerTask.cancel();
-                    timerTask = null;
-                }
-                if (null != handler) {
-                    handler.removeMessages(12);
-                    handler.removeMessages(0);
-                    handler = null;
-                }
-                // 断开链接
-                ManisApiInterface.app.disConnect();
-                finish();
-            }
-        });
+            });
+        }
+
+//        ManisApiInterface.app.onCallHangUp((b, s) -> {
+//            if (b) {
+//                if (null != timer) {
+//                    timer.cancel();
+//                    timer = null;
+//                }
+//                if (null != timerTask) {
+//                    timerTask.cancel();
+//                    timerTask = null;
+//                }
+//                if (null != handler) {
+//                    handler.removeMessages(12);
+//                    handler.removeMessages(0);
+//                    handler = null;
+//                }
+//                // 断开链接
+//                ManisApiInterface.app.disConnect();
+//                finish();
+//            }
+//        });
         if (kikOut) {
             ToastUtils.showSingleToast("你已被管理员踢出");
         }
+        finish();
+    }
+
+
+    private void checkin() {
+        String userId = readUserInfoCache();
+        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.BASEURL)
+                .createService(UserApi.class);
+        Call<ResponseBody> call = api.autoCheckin(Constant.TOKEN, sdkRoomNum, userId);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+
+            }
+        });
+    }
+
+    private String readUserInfoCache() {
+        SharedPreferences preferences = getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
+        long userId = preferences.getLong("userId", 0);
+        return String.valueOf(userId);
     }
 }

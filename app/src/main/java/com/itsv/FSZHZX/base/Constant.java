@@ -5,7 +5,7 @@ public class Constant {
     //    public static String DEVICE_ID = "";
     public static String SP_NAME = "fszx";
     public static final String BASEURL = "https://www.fszxpt.cn:9528/api/";//正式
-    public static final String BASEURL2 = "http://fszxta.itsv.com.cn:2021/";//正式
+    public static final String BASEURL2 = "https://www.fszxpt.cn:9526/";//正式
     //    public static final String logoutURL = "https://www.fszxpt.cn:9528/api/login/";//正式
 //    public static final String UserURL = "https://www.fszxpt.cn:9528/api/User/";//正式
 //    public static final String questionURL = "https://www.fszxpt.cn:9528/api/questionBank/";//正式
@@ -23,8 +23,11 @@ public class Constant {
     public static String IMEI = "";
     public static String PDF_Link = "pdf_link";
     public static String PDF_FILE = "pdf_file";
+    public static int FILE_0_LENGTH = 555;//下载的源文件大小为0kb的标识码
     //h5的url
-    public static String BASE_H5_URL = "http://fszxta.itsv.com.cn:2021/";
+//    public static String BASE_H5_URL = "http://fszxta.itsv.com.cn:2021/";
+    public static String BASE_H5_URL = "https://www.fszxpt.cn:9526/";
+//    public static String BASE_H5_URL = "http://www.fszxpt.cn:8080/";
 
     /**
      * 提案查询

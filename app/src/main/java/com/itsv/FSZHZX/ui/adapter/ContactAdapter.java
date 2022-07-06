@@ -41,10 +41,13 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactH
     }
     public int getPositionForSection(int section) {
         for (int i = 0; i < getItemCount(); i++) {
-            String sortStr = beans.get(i).getSortLetters();
-            char firstChar = sortStr.toUpperCase().charAt(0);
-            if (firstChar == section) {
-                return i;
+            NameModel.DataBean bean = beans.get(i);
+            if (null != bean) {
+                String sortStr = bean.getSortLetters();
+                char firstChar = sortStr.toUpperCase().charAt(0);
+                if (firstChar == section) {
+                    return i;
+                }
             }
         }
         return -1;

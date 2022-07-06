@@ -1,10 +1,7 @@
 package com.itsv.FSZHZX.app;
 
-import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.util.Log;
 
 import androidx.multidex.MultiDex;
 
@@ -13,26 +10,14 @@ import com.itsv.FSZHZX.utils.AppUtils;
 import com.liulishuo.filedownloader.FileDownloader;
 import com.liulishuo.filedownloader.connection.FileDownloadUrlConnection;
 import com.manis.core.interfaces.ManisApiInterface;
-//import com.squareup.leakcanary.LeakCanary;
-//import com.squareup.leakcanary.RefWatcher;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.tencent.smtt.export.external.TbsCoreSettings;
 import com.tencent.smtt.sdk.QbSdk;
 import com.tencent.smtt.sdk.TbsListener;
-//import com.ycbjie.webviewlib.cache.WebCacheType;
-//import com.ycbjie.webviewlib.cache.WebViewCacheDelegate;
-//import com.ycbjie.webviewlib.cache.WebViewCacheWrapper;
-//import com.ycbjie.webviewlib.utils.X5LogUtils;
-//import com.ycbjie.webviewlib.utils.X5WebUtils;
-//import com.tencent.smtt.export.external.TbsCoreSettings;
-//import com.tencent.smtt.sdk.QbSdk;
-
-import java.io.File;
 import java.util.HashMap;
 
 import cn.jpush.android.api.JPushInterface;
-import cn.jpush.android.helper.Logger;
 
 
 public class MyApplication extends Application {
@@ -49,6 +34,7 @@ public class MyApplication extends Application {
         initWechatShare();
         initJPush();
         initX5();
+        CrashHandler.getInstance().init(this);
 //        initYCWeb();
 //        initTBS();
 //        watcher = LeakCanary.install(this);
@@ -67,7 +53,7 @@ public class MyApplication extends Application {
             @Override
             public void onViewInitFinished(boolean arg0) {
                 //x5內核初始化完成的回调，为true表示x5内核加载成功，否则表示x5内核加载失败，会自动切换到系统内核。
-                Log.e("WQ", "chushihua--" + arg0);
+//                Log.e("WQ", "chushihua--" + arg0);
 //                SharedPreferences preferences = getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
 //                SharedPreferences.Editor edit = preferences.edit();
 //                edit.putBoolean("hasLoad", arg0);
@@ -88,20 +74,20 @@ public class MyApplication extends Application {
                 //但是只有i等于100才算完成，否则失败
                 //此时大概率可能由于网络问题
                 //如果失败可增加网络监听器
-                Log.e("WQ", "onDownloadFinish: " + i);
+//                Log.e("WQ", "onDownloadFinish: " + i);
             }
 
             @Override
             public void onInstallFinish(int i) {
                 //内核安装完成回调，通常到这里也算安装完成，但是在
                 //极个别情况也会出现加载失败，比如笔者在公司内网下偶现，可以忽略
-                Log.e("WQ", "onInstallFinish: "+i);
+//                Log.e("WQ", "onInstallFinish: "+i);
             }
 
             @Override
             public void onDownloadProgress(int i) {
                 //下载进度监听
-                Log.e("WQ", "onDownloadProgress: "+i );
+//                Log.e("WQ", "onDownloadProgress: "+i );
             }
         });
     }
@@ -139,33 +125,6 @@ public class MyApplication extends Application {
         super.attachBaseContext(base);
         MultiDex.install(this);
     }
-
-    /**
-     * 初始化X5 tbs,文件预览功能
-     */
-    private void initTBS() {
-
-//        HashMap map = new HashMap();
-//        map.put(TbsCoreSettings.TBS_SETTINGS_USE_SPEEDY_CLASSLOADER, true);
-//        map.put(TbsCoreSettings.TBS_SETTINGS_USE_DEXLOADER_SERVICE, true);
-//        QbSdk.initTbsSettings(map);
-//
-//        QbSdk.initX5Environment(getApplicationContext(), new QbSdk.PreInitCallback() {
-//            @Override
-//            public void onCoreInitFinished() {
-//                Logger.d("","x5内核加载完成");
-//            }
-//
-//            @Override
-//            public void onViewInitFinished(boolean b) {
-//                Logger.d("","x5内核加载完成"+b);
-//            }
-//        });
-    }
-
-//    public static RefWatcher getWatcher() {
-//        return watcher;
-//    }
 
     private void initJPush() {
         JPushInterface.setDebugMode(true);

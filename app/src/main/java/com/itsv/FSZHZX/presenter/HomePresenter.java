@@ -27,6 +27,7 @@ import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadListener;
 import com.liulishuo.filedownloader.FileDownloader;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -157,11 +158,9 @@ public class HomePresenter implements MvpPresenter<HomeActivity> {
                 if (response.isSuccessful()) {
                     try {
                         String string = response.body().string();
-                        Log.e("WQ", "json--notice--" + string);
                         int count = fromJson(string);
-                        if (count > 0) {
-                            mvpView.updateNoticeCount(count);
-                        }
+                        mvpView.updateFunctionState(count, 11);
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -170,9 +169,9 @@ public class HomePresenter implements MvpPresenter<HomeActivity> {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable throwable) {
-
             }
         });
+
     }
 
     public void getUnreadCppccFileCount(String userId, String userName) {
@@ -188,11 +187,9 @@ public class HomePresenter implements MvpPresenter<HomeActivity> {
                 if (response.isSuccessful()) {
                     try {
                         String string = response.body().string();
-                        Log.e("WQ", "json--cppcc--" + string);
                         int count = fromJson(string);
-                        if (count > 0) {
-                            mvpView.updateCppccCount(count);
-                        }
+                        mvpView.updateFunctionState(count, 10);
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -201,11 +198,77 @@ public class HomePresenter implements MvpPresenter<HomeActivity> {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable throwable) {
-
             }
         });
+
     }
 
+    /**
+     * 获取未读会议通知数量
+     */
+    public void getUnreadMeetingNoticeCount(String userId, String userName) {
+        if (null == userId || null == userName) {
+            ToastUtils.showSingleToast("用户信息错误，获取未读公告失败");
+            return;
+        }
+        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.BASEURL).createService(UserApi.class);
+        Call<ResponseBody> call = api.queryMeetingNoticeUnreadCount(userName, userId, Constant.TOKEN);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    try {
+                        String string = response.body().string();
+                        int count = parseJson(string);
+                        mvpView.updateFunctionState(count, 1);
+                        mvpView.updateFunctionState(count, 0);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable throwable) {
+            }
+        });
+
+    }
+
+    /**
+     * 获取未读会议通知数量
+     */
+    public void getFileExchangeUnreadCount(String userId, String userName) {
+        if (null == userId || null == userName) {
+            ToastUtils.showSingleToast("用户信息错误，获取未读公告失败");
+            return;
+        }
+        UserApi api = ApiHelper.getInstance().buildRetrofit(Constant.BASEURL2).createService(UserApi.class);
+        Call<ResponseBody> call = api.queryFileExchangeUnreadCount(userName, userId);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    try {
+                        String string = response.body().string();
+                        int count = fromJson(string);
+                        mvpView.updateFunctionState(count, 9);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable throwable) {
+            }
+        });
+
+    }
+
+    /**
+     * 会议通知之外的未读的json解析
+     */
     private int fromJson(String json) {
         if (json.contains("unreadNum")) {
             Gson gson = new Gson();
@@ -214,6 +277,28 @@ public class HomePresenter implements MvpPresenter<HomeActivity> {
                 return model.getUnreadNum();
             }
             return 0;
+        }
+        return 0;
+    }
+
+    /**
+     * 会议通知未读的json解析
+     */
+    private int parseJson(String json) {
+        int count = 0;
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+            JSONArray data = jsonObject.getJSONArray("data");
+            for (int i = 0; i < data.length(); i++) {
+                JSONObject object = data.getJSONObject(i);
+                String isCanhui = object.getString("isCanhui");
+                if (isCanhui.equals("")) {
+                    count++;
+                }
+            }
+            return count;
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
         return 0;
     }

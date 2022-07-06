@@ -7,9 +7,9 @@
     android:background="@color/colorGreyFeizhu"
     tools:context=".ui.activity.MtNotifyActivity">
 
-    <include layout="@layout/toolbar_add"
+    <include
         android:id="@+id/toolbar_add"
-        />
+        layout="@layout/toolbar_add" />
 
     <include layout="@layout/layout_meeting_search"
         android:layout_width="match_parent"

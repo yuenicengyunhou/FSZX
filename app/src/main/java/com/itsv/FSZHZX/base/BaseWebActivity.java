@@ -1,11 +1,18 @@
 package com.itsv.FSZHZX.base;
 
+import static com.itsv.FSZHZX.base.Constant.listCPPCC;
+import static com.itsv.FSZHZX.base.Constant.listFileEXchange;
+import static com.itsv.FSZHZX.base.Constant.listNotice;
+import static com.itsv.FSZHZX.base.Constant.param_proposal;
+import static com.itsv.FSZHZX.base.Constant.param_situation;
+
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.net.http.SslError;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
+import android.webkit.DownloadListener;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -41,6 +48,7 @@ public abstract class BaseWebActivity extends BaseAppCompatActivity {
     private RelativeLayout relativeLayout;
     private WebView webView;
     protected String webTitle;
+    private int webFirstResume=1;
 
     @Override
     protected void initViewsAndEnvents() {
@@ -104,6 +112,8 @@ public abstract class BaseWebActivity extends BaseAppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);//支持同时加载https和http混合模式（有的手机图片显示不了）
         }
+        webView.setDownloadListener((url, userAgent, contentDisposition, mimetype, contentLength) -> {
+        });
         //注入对象
         JsCallAndroid jsCallAndroid = new JsCallAndroid(this, agentWeb);
         agentWeb.getJsInterfaceHolder().addJavaObject("android", jsCallAndroid);
@@ -145,6 +155,14 @@ public abstract class BaseWebActivity extends BaseAppCompatActivity {
         //这个方法会走两次，10%走一次，100%走一次
         public void onPageFinished(WebView view, String url) {
             //因为页面加载完成之前，点击右上角按钮不能与web交互而不能跳转，所以等加载完成之后再显示按钮
+            if (url.contains(listNotice) || url.contains(listCPPCC) || url.contains(listFileEXchange)
+                    || url.contains(param_situation) || url.contains(param_proposal)) {
+                webFirstResume--;
+                if (webFirstResume < 0) {
+                    agentWeb.getUrlLoader().reload();
+                    webFirstResume = 1;
+                }
+            }
             /*if (barCommmitVisible && (view != null) && (view.getProgress() == 100) && (ivShare != null)) {
                 ivShare.setVisibility(View.VISIBLE);
             }*/

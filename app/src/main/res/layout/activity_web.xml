@@ -14,5 +14,12 @@
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+<!--    <Button-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="reload"-->
+<!--        android:layout_centerInParent="true"-->
+<!--        android:id="@+id/reload_button"-->
+<!--        />-->
 
 </RelativeLayout>

@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -152,7 +153,7 @@ public class MtNotifyActivity extends MyBaseMvpActivity<MtNotifyActivity, MtNoti
                 recyclerView.setAdapter(notiAdapter);
                 initNotiOnItemClick(notiAdapter);
             } else {
-                ManisApiInterface.init(getApplication(), "https://bj189.scmeeting.com/");
+//                ManisApiInterface.init(getApplication(), "https://bj189.scmeeting.com/");
                 initEdit();
                 beans = new ArrayList<>();
                 meetingAdapter = new MeetingAdapter(beans, this);
@@ -447,7 +448,7 @@ public class MtNotifyActivity extends MyBaseMvpActivity<MtNotifyActivity, MtNoti
     private void openPDF(String fileId, String fileName) {
         String url;
         try {
-            url = "https://fs.itsv.com.cn:9528/api/open/file/previewPDF?fileId=" + fileId + "&fileName=" + URLEncoder.encode(fileName, "utf-8");
+            url = "https://www.fszxpt.cn:9528/api/open/file/previewPDF?fileId=" + fileId + "&fileName=" + URLEncoder.encode(fileName, "utf-8");
             Intent intent = new Intent(this, PdfActivity.class);
             intent.putExtra("url", url);
             intent.putExtra("fileId", fileId+".pdf");
@@ -511,11 +512,12 @@ public class MtNotifyActivity extends MyBaseMvpActivity<MtNotifyActivity, MtNoti
         tvNoData.setVisibility(View.GONE);
     }
 
-    public void joinMeetingRoom(String roomnumber, String username, String sdkCid,boolean isModerator,String psw,String mId) {
+    public void joinMeetingRoom(String sdkRoomNum, String username, String sdkCid,boolean isModerator,String psw,String mId) {
         showLoading();
         //ManisApiInterface.app.guestLogin(String roomnumber, String username, Context context,  String conferencePass, ManisApiInterface.OnGuestLoginToRoomEvents2 onGuestLoginToRoomEvents2);
         //密码固定传Aa123456
-        ManisApiInterface.app.guestLogin(roomnumber, username, this, "", (b, s, conferenceInfo, userInfo) -> {
+        Log.e("WQ", "userName==" + username);
+        ManisApiInterface.app.guestLogin(sdkRoomNum, username, this, "", (b, s, conferenceInfo, userInfo) -> {
             if (b) {
                 hideLoading();
                 Intent intent = new Intent(MtNotifyActivity.this, RoomActivity.class);
@@ -524,12 +526,14 @@ public class MtNotifyActivity extends MyBaseMvpActivity<MtNotifyActivity, MtNoti
                 String jid = userInfo.getJid();
                 String roomNumber = conferenceInfo.getRoomNumber();
                 String userName = userInfo.getmUserName();
+                Log.e("WQ", "user===" + userName);
                 intent.putExtra("record", record);
                 intent.putExtra("jid", jid);
                 intent.putExtra("isController", isModerator);
                 intent.putExtra("moderatorPsw", psw);
                 intent.putExtra("userName", userName);
                 intent.putExtra("roomNumber", roomNumber);
+                intent.putExtra("sdkRoomNum",sdkRoomNum);
                 mRoomNum = roomNumber;
                 intent.putExtra("sdkCid", sdkCid);
                 intent.putExtra("mic", false);

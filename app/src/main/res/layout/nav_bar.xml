@@ -19,11 +19,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@id/cb_broad"
-        android:layout_marginLeft="@dimen/marginPrimary"
-        android:src="@drawable/selector_reverse"
-        android:layout_toEndOf="@id/cb_broad"
         android:layout_marginStart="@dimen/marginPrimary"
+        android:layout_marginLeft="@dimen/marginPrimary"
+        android:layout_toEndOf="@id/cb_broad"
+        android:layout_toRightOf="@id/cb_broad"
+        android:src="@drawable/selector_reverse"
         tools:ignore="ContentDescription" />
 
     <CheckBox

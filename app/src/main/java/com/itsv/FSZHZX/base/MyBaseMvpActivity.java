@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -57,6 +58,7 @@ public abstract class MyBaseMvpActivity<V extends MvpView, P extends MvpPresente
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        MyApplication.getWatcher().watch(this);
+        Log.e("WQ", "--" + getClass().getSimpleName());
         appManager = BaseAppManager.getInstance();
         appManager.addActivity(this);
         if (Constant.SCREEN_DENSITY == 0) {

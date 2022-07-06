@@ -8,17 +8,28 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/workspace/FSZX/app/src/main/res/drawable/letter_toast_bg.xml" value="0.208" />
         <entry key="..\:/workspace/FSZX/app/src/main/res/drawable/red_spot.xml" value="0.21979166666666666" />
         <entry key="..\:/workspace/FSZX/app/src/main/res/drawable/sidebar_background.xml" value="0.21979166666666666" />
+        <entry key="..\:/workspace/FSZX/app/src/main/res/layout/activity_address_book.xml" value="0.45643153526970953" />
         <entry key="..\:/workspace/FSZX/app/src/main/res/layout/activity_address_details.xml" value="0.20364583333333333" />
         <entry key="..\:/workspace/FSZX/app/src/main/res/layout/activity_file_read.xml" value="0.20364583333333333" />
         <entry key="..\:/workspace/FSZX/app/src/main/res/layout/activity_login.xml" value="0.1" />
+        <entry key="..\:/workspace/FSZX/app/src/main/res/layout/activity_mt_notify.xml" value="0.5" />
         <entry key="..\:/workspace/FSZX/app/src/main/res/layout/activity_new_quiz.xml" value="0.1" />
         <entry key="..\:/workspace/FSZX/app/src/main/res/layout/activity_pdf.xml" value="0.20364583333333333" />
+        <entry key="..\:/workspace/FSZX/app/src/main/res/layout/activity_room.xml" value="0.20364583333333333" />
         <entry key="..\:/workspace/FSZX/app/src/main/res/layout/activity_sort_quiz.xml" value="0.29564411492122333" />
+        <entry key="..\:/workspace/FSZX/app/src/main/res/layout/activity_testy.xml" value="0.20364583333333333" />
+        <entry key="..\:/workspace/FSZX/app/src/main/res/layout/activity_web.xml" value="0.20364583333333333" />
         <entry key="..\:/workspace/FSZX/app/src/main/res/layout/item_home.xml" value="0.20364583333333333" />
         <entry key="..\:/workspace/FSZX/app/src/main/res/layout/item_home_2.xml" value="1.25" />
+        <entry key="..\:/workspace/FSZX/app/src/main/res/layout/item_noti.xml" value="0.33" />
+        <entry key="..\:/workspace/FSZX/app/src/main/res/layout/msg_footer.xml" value="0.20364583333333333" />
+        <entry key="..\:/workspace/FSZX/app/src/main/res/layout/nav_bar.xml" value="0.20364583333333333" />
+        <entry key="..\:/workspace/FSZX/app/src/main/res/layout/search_bar.xml" value="0.5" />
         <entry key="..\:/workspace/FSZX/app/src/main/res/layout/toolbar.xml" value="0.20364583333333333" />
+        <entry key="..\:/workspace/FSZX/app/src/main/res/layout/toolbar_add.xml" value="0.20364583333333333" />
         <entry key="..\:/workspace/FSZX/app/src/main/res/layout/toolbar_button.xml" value="0.20364583333333333" />
         <entry key="..\:/workspace/FSZX/app/src/main/res/layout/toolbar_download.xml" value="0.20364583333333333" />
         <entry key="..\:/workspace/FSZX/app/src/main/res/layout/toolbar_share.xml" value="0.20364583333333333" />

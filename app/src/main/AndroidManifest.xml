@@ -7,7 +7,8 @@
         android:name="com.itsv.FSZHZX.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"
+    <uses-permission
+        android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <uses-permission
@@ -27,6 +28,9 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
@@ -49,6 +53,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".TestyActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.activity.FileReadActivity"
             android:exported="false" />
@@ -77,12 +84,14 @@
                 <action android:name="cn.jpush.android.intent.PUSH_TIME" />
             </intent-filter>
         </service> <!-- since 3.0.9 Required SDK 核心功能 -->
-        <!--在AndroidManifest.xml中增加内核首次加载时优化Service声明。
-            该Service仅在TBS内核首次Dex加载时触发并执行dex2oat任务，任务完成后自动结束。-->
+        <!--
+在AndroidManifest.xml中增加内核首次加载时优化Service声明。
+            该Service仅在TBS内核首次Dex加载时触发并执行dex2oat任务，任务完成后自动结束。
+        -->
         <service
             android:name="com.tencent.smtt.export.external.DexClassLoaderProviderService"
             android:label="dexopt"
-            android:process=":dexopt"/>
+            android:process=":dexopt" />
 
         <provider
             android:name="cn.jpush.android.service.DataProvider"
@@ -110,7 +119,8 @@
             android:exported="true" /> <!-- Required SDK 核心功能 -->
         <receiver
             android:name="cn.jpush.android.service.PushReceiver"
-            android:enabled="true">
+            android:enabled="true"
+            android:exported="false">
             <intent-filter android:priority="1000">
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />
 
@@ -336,12 +346,7 @@
             android:screenOrientation="sensorPortrait"
             android:theme="@style/activityInOut"
             tools:ignore="LockedOrientationActivity" />
-<!--        <activity-->
-<!--            android:name=".ui.activity.NewQuizActivity"-->
-<!--            android:screenOrientation="sensorPortrait"-->
-<!--            android:theme="@style/activityInOut"-->
-<!--            tools:ignore="LockedOrientationActivity" />-->
-<!--        <activity android:name=".ui.activity.AnotherQuizActivity" />-->
+        <activity android:name=".ui.activity.TestyActivity" />
     </application>
 
 </manifest>

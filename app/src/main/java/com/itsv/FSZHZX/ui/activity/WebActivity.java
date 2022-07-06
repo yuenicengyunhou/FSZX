@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,6 +18,7 @@ import com.itsv.FSZHZX.base.BaseWebActivity;
 import com.itsv.FSZHZX.base.Constant;
 
 import com.itsv.FSZHZX.utils.WxShareUtils;
+import com.just.agentweb.WebCreator;
 import com.tencent.smtt.sdk.QbSdk;
 
 
@@ -67,6 +69,7 @@ public class WebActivity extends BaseWebActivity {
                 initX5();
             }
         }
+        
     }
 
     @Override
@@ -76,7 +79,6 @@ public class WebActivity extends BaseWebActivity {
 
     @Override
     protected void afterWebInit() {
-
     }
 
     @Override

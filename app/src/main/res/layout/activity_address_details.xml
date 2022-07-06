@@ -39,11 +39,12 @@
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/detail_iv_head"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_marginEnd="@dimen/paddingS"
-            android:layout_marginRight="@dimen/paddingS"
             android:src="@mipmap/head_grey"
+            app:riv_border_color="@android:color/darker_gray"
+            app:riv_border_width="1dp"
             app:riv_corner_radius="30dp" />
 
         <TextView

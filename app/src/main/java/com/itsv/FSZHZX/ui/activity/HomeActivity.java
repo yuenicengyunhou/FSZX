@@ -17,6 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -156,6 +157,8 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
         try {
             presenter.getUnreadNoticeCount(String.valueOf(userInfo.getId()), URLEncoder.encode(userInfo.getName(), "UTF-8"));
             presenter.getUnreadCppccFileCount(String.valueOf(userInfo.getId()), URLEncoder.encode(userInfo.getName(), "UTF-8"));
+            presenter.getUnreadMeetingNoticeCount(String.valueOf(userInfo.getId()), URLEncoder.encode(userInfo.getName(), "UTF-8"));
+            presenter.getFileExchangeUnreadCount(String.valueOf(userInfo.getId()), URLEncoder.encode(userInfo.getName(), "UTF-8"));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -267,7 +270,7 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
                 case "履职档案":
                     toWebActivityWithUrl(MessageFormat.format("{0}{1}{2}&year={3}&userName={4}&userId={5}", Constant.BASE_H5_URL, Constant.TAG_DUTY_FILE, Constant.listDutyFile, mYear, mEncodeRealName, userInfo.getId()));
                     break;
-                case "文件互传":
+                case "资料互传":
                     toWebActivityWithUrl(MessageFormat.format("{0}{1}{2}&userName={3}&userId={4}", Constant.BASE_H5_URL, Constant.TAG_FILE_EXCHANGE, Constant.listFileEXchange, mEncodeRealName, userInfo.getId()));
                     break;
                 case "政协文件":
@@ -315,7 +318,7 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
         homeFunctionList.add(new HomeFunction("社情民意", drawableScores, 0));
         homeFunctionList.add(new HomeFunction("履职积分", drawableFiles, 0));
         homeFunctionList.add(new HomeFunction("履职档案", drawableSituation, 0));
-        homeFunctionList.add(new HomeFunction("文件互传", drawableFileExchange, 0));
+        homeFunctionList.add(new HomeFunction("资料互传", drawableFileExchange, 0));
         homeFunctionList.add(new HomeFunction("政协文件", drawableCPPCC, 0));
         homeFunctionList.add(new HomeFunction("通知公告", drawableNotice, 0));
     }
@@ -359,17 +362,24 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
         }
     }
 
-    public void updateNoticeCount(int noticeCount) {
-        if (null != homeAdapter) {
-            homeFunctionList.get(homeFunctionList.size() - 1).setCount(noticeCount);
-            homeAdapter.updateList(homeFunctionList, homeFunctionList.size() - 1);
-        }
-    }
+//    public void updateNoticeCount(int noticeCount) {
+//        if (null != homeAdapter) {
+//            homeFunctionList.get(homeFunctionList.size() - 1).setCount(noticeCount);
+//            homeAdapter.updateList(homeFunctionList, homeFunctionList.size() - 1);
+//        }
+//    }
+//
+//    public void updateCppccCount(int count) {
+//        if (null != homeAdapter) {
+//            homeFunctionList.get(homeFunctionList.size() - 2).setCount(count);
+//            homeAdapter.updateList(homeFunctionList, homeFunctionList.size() - 2);
+//        }
+//    }
 
-    public void updateCppccCount(int count) {
+    public void updateFunctionState(int count,int functionPosition) {
         if (null != homeAdapter) {
-            homeFunctionList.get(homeFunctionList.size() - 2).setCount(count);
-            homeAdapter.updateList(homeFunctionList, homeFunctionList.size() - 2);
+            homeFunctionList.get(functionPosition).setCount(count);
+            homeAdapter.updateList(homeFunctionList, functionPosition);
         }
     }
 
@@ -421,10 +431,11 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.S)
     @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.MODIFY_AUDIO_SETTINGS, //扬声器权限
             Manifest.permission.CHANGE_NETWORK_STATE, // 改变网络状态权限
             Manifest.permission.ACCESS_NETWORK_STATE, // 获取网络状态权限
-            Manifest.permission.BLUETOOTH})
+            Manifest.permission.BLUETOOTH,Manifest.permission.BLUETOOTH_ADMIN,Manifest.permission.BLUETOOTH_SCAN,Manifest.permission.BLUETOOTH_CONNECT})
     void allowed() {
         makeDir();
     }
@@ -435,10 +446,11 @@ public class HomeActivity extends MyBaseMvpActivity<HomeActivity, HomePresenter>
         HomeActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.S)
     @OnPermissionDenied({Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.MODIFY_AUDIO_SETTINGS, //扬声器权限
             Manifest.permission.CHANGE_NETWORK_STATE, // 改变网络状态权限
             Manifest.permission.ACCESS_NETWORK_STATE, // 获取网络状态权限
-            Manifest.permission.BLUETOOTH})
+            Manifest.permission.BLUETOOTH,Manifest.permission.BLUETOOTH_ADMIN,Manifest.permission.BLUETOOTH_SCAN,Manifest.permission.BLUETOOTH_CONNECT})
     void denied() {
     }
 

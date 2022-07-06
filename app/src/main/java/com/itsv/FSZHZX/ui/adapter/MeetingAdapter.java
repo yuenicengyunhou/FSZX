@@ -116,25 +116,33 @@ public class MeetingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             holder.itemNotiTopic.setText(MessageFormat.format("主题内容：{0}", meetingContent));
 
             //会议类型
-            String meetingTypeName = dataBean.getMeetingTypeName();
+            String meetingTypeName = null == dataBean.getMeetingTypeName() ? "未知类型" : dataBean.getMeetingTypeName();
             int color;
-            if (meetingTypeName == null) {
-                meetingTypeName = "未知类型";
-            }
-            if ("常委会".equals(meetingTypeName)) {
-                color = holder.changweiMeeting;
-            } else if ("日常会议".equals(meetingTypeName)) {
-                color = holder.normalMeeting;
-            } else if ("表彰会议".equals(meetingTypeName)) {
-                color = holder.praiseMeeting;
-            } else if ("专门会议".equals(meetingTypeName)) {
-                color = holder.specialMeeting;
-            } else if ("长效会议".equals(meetingTypeName)) {
-                color = holder.longMeeting;
-            } else if ("临时会议".equals(meetingTypeName)) {
-                color = holder.tempMeeting;
-            } else {
-                color = holder.textColor;
+//            if (meetingTypeName == null) {
+//                meetingTypeName = "";
+//            }
+            switch (meetingTypeName) {
+                case "常委会":
+                    color = holder.changweiMeeting;
+                    break;
+                case "日常会议":
+                    color = holder.normalMeeting;
+                    break;
+                case "表彰会议":
+                    color = holder.praiseMeeting;
+                    break;
+                case "专门会议":
+                    color = holder.specialMeeting;
+                    break;
+                case "长效会议":
+                    color = holder.longMeeting;
+                    break;
+                case "临时会议":
+                    color = holder.tempMeeting;
+                    break;
+                default:
+                    color = holder.textColor;
+                    break;
             }
             holder.notiType.setText(meetingTypeName);
             holder.notiType.setTextColor(color);
@@ -210,12 +218,12 @@ public class MeetingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 if (null != itemClickListener) {
 //                    if (status.equals("2")) {
 //                        Toast.makeText(context, "此会议已结束", Toast.LENGTH_SHORT).show();
-                        if (isTimeValid(startDate)) {
-                            itemClickListener.onItemClick(position, sdkCid, "https://bj189.scmeeting.com/", sdkRoomNum,mID,meetingOwnerUserId,meetingOwnerPassword);
-                        } else {
-                            Toast.makeText(context, "请在会议前15分钟内点击进入", Toast.LENGTH_SHORT).show();
-                        }
+                    if (isTimeValid(startDate)) {
+                        itemClickListener.onItemClick(position, sdkCid, "https://bj189.scmeeting.com/", sdkRoomNum, mID, meetingOwnerUserId, meetingOwnerPassword);
+                    } else {
+                        Toast.makeText(context, "请在会议前15分钟内点击进入", Toast.LENGTH_SHORT).show();
                     }
+                }
 //                    else {
 //                        if (isTimeValid(startDate)) {
 //                            itemClickListener.onItemClick(position, sdkCid, "https://bj189.scmeeting.com/", sdkRoomNum);
@@ -414,7 +422,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     public interface ItemClickListener {
-        void onItemClick(int position, String sdkCid, String sdkConferenceUrl, String sdkRoomNum,long id,long moderatorId,String moderatorPsw);
+        void onItemClick(int position, String sdkCid, String sdkConferenceUrl, String sdkRoomNum, long id, long moderatorId, String moderatorPsw);
 
         void onViewPDF(List<MyAttachModel> fileListBeans, String[] strings);
 

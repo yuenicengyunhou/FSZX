@@ -8,12 +8,21 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface UserApi {
+    /**
+     * 根据姓名检索
+     */
     @POST("User/selectUsers")
     Call<ResponseBody> selectUsers(@Query("jieci") String jieci, @Query("name") String name, @Query("type") String type, @Query("typeValue") String typeValue);
 
+    /**
+     * 根据界别（第二个spinner姓名之外的）检索
+     */
     @POST("User/selectGroupUsers")
     Call<ResponseBody> selectGroupUsers(@Query("jieci") String jieciID, @Query("type") String type);
 
+    /**
+     * 获取界次（第一个spinner）
+     */
     @POST("User/selectGroupBase")
     Call<ResponseBody> selectGroupBase();
 
@@ -105,11 +114,24 @@ public interface UserApi {
     @POST("meetingBase/closeMeeting")
     Call<ResponseBody> closeMeeting(@Query("token") String token, @Query("roomNum") String roomNum);
 
+    //会议自动签到
+    @GET("meetingBase/autoCheckIn")
+    Call<ResponseBody> autoCheckin(@Query("token") String token, @Query("roomNumber") String roomNum, @Query("userId") String userId);
+
     //通知公告未读数量
     @GET("gg.app.do?m=getGgUnreadNum")
     Call<ResponseBody> queryNoticeUnreadCount(@Query("userName") String userName, @Query("userId") String userId);
 
-    //维度政协文件数量
+    //未读政协文件数量
     @GET("zxwj.app.do?m=getZxwjUnreadNum")
     Call<ResponseBody> queryCppccFileUnreadCount(@Query("userName") String userName, @Query("userId") String userId);
+
+    //https://www.fszxpt.cn:9528/api/meetingUser/adviceList
+
+    @GET("meetingUser/adviceList")
+    Call<ResponseBody> queryMeetingNoticeUnreadCount(@Query("userName") String userName, @Query("userId") String userId, @Query("token") String token);
+
+    @GET("file_receive.app.do?m=getFile_receiveUnreadNum")
+    Call<ResponseBody> queryFileExchangeUnreadCount(@Query("userName") String userName, @Query("userId") String userId);
+
 }

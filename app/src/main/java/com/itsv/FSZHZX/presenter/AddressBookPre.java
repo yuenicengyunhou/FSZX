@@ -1,6 +1,7 @@
 package com.itsv.FSZHZX.presenter;
 
 
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -14,6 +15,7 @@ import com.itsv.FSZHZX.model.GroupBaseModel;
 import com.itsv.FSZHZX.model.GroupListModel;
 import com.itsv.FSZHZX.model.NameModel;
 import com.itsv.FSZHZX.ui.activity.AddressBookActivity;
+import com.itsv.FSZHZX.utils.ToastUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -41,16 +43,19 @@ public class AddressBookPre implements MvpPresenter<AddressBookActivity> {
         }
     }
 
-    public void querySimpleNameList(String jieci, String name, String typeValue) {
+    /**
+     * 根据姓名检索
+     */
+    public void querySimpleNameList(String jieci, String name, String type, String typeValue) {
         mvpView.startRefreshView();
         if (null == api) {
             api = ApiHelper.getInstance().buildRetrofit(Constant.BASEURL).createService(UserApi.class);
         }
-        Call<ResponseBody> call = api.selectUsers(jieci, name, typeValue, "");
+        Call<ResponseBody> call = api.selectUsers(jieci, name, type, typeValue);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                if (null==mvpView.tvTitle) return;
+                if (null == mvpView.tvTitle) return;
                 mvpView.stopRefreshView();
                 if (response.isSuccessful()) {
                     try {
@@ -76,7 +81,7 @@ public class AddressBookPre implements MvpPresenter<AddressBookActivity> {
 
             @Override
             public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
-                if (null==mvpView.tvTitle) return;
+                if (null == mvpView.tvTitle) return;
                 mvpView.stopRefreshView();
             }
         });
@@ -91,14 +96,18 @@ public class AddressBookPre implements MvpPresenter<AddressBookActivity> {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                if (null==mvpView.tvTitle) return;
+                if (null == mvpView.tvTitle) return;
                 mvpView.stopRefreshView();
                 if (response.isSuccessful()) {
                     try {
                         String params = response.body().string();
                         Gson gson = new Gson();
                         GroupListModel model = gson.fromJson(params, GroupListModel.class);
-                        if (model != null) {
+                        if (null == model) {
+                            ToastUtils.showSingleToast("空数据异常");
+                            return;
+                        }
+                        if (model.isSuccess()) {
                             List<GroupListModel.DataBean> data = model.getData();
                             if (data.isEmpty()) {
                                 mvpView.showNoDataView();
@@ -106,6 +115,8 @@ public class AddressBookPre implements MvpPresenter<AddressBookActivity> {
                                 mvpView.hideNodataView();
                             }
                             mvpView.setGroupList(data);
+                        } else {
+                            ToastUtils.showSingleToast(model.getMsg());
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -116,13 +127,17 @@ public class AddressBookPre implements MvpPresenter<AddressBookActivity> {
 
             @Override
             public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
-                if (null==mvpView.tvTitle) return;
+                if (null == mvpView.tvTitle) return;
                 mvpView.stopRefreshView();
             }
         });
     }
 
     /*获取第一个筛选按钮内容/界次*/
+
+    /**
+     * 获取界次
+     */
     public void selectGroupBase() {
         if (null == api) {
             api = ApiHelper.getInstance().buildRetrofit(Constant.BASEURL).createService(UserApi.class);
@@ -131,9 +146,10 @@ public class AddressBookPre implements MvpPresenter<AddressBookActivity> {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                if (null==mvpView.tvTitle) return;
+                if (null == mvpView.tvTitle) return;
                 if (response.isSuccessful()) {
                     try {
+//                        GroupBaseModel.DataBean zxjgBean = null;
                         String params = response.body().string();
                         Gson gson = new Gson();
                         GroupBaseModel model = gson.fromJson(params, GroupBaseModel.class);
@@ -141,7 +157,12 @@ public class AddressBookPre implements MvpPresenter<AddressBookActivity> {
                             List<GroupBaseModel.DataBean> data = model.getData();
                             String[] array = new String[data.size()];
                             for (int i = 0; i < data.size(); i++) {
-                                array[i] = data.get(i).getParameter();
+                                GroupBaseModel.DataBean dataBean = data.get(i);
+                                String parameter = dataBean.getParameter();
+                                array[i] = parameter;
+//                                if (parameter.equals("政协机关")) {
+//                                    zxjgBean = dataBean;
+//                                }
                             }
                             mvpView.initSpinner(data, array);
                         }

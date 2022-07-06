@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/wholeView"
     android:layout_width="match_parent"
@@ -39,14 +38,29 @@
         android:layout_below="@id/navBar"
         android:layout_centerInParent="true"
         android:background="@android:color/transparent">-->
-                <org.webrtc.TextureViewRenderer
-                    android:layout_below="@id/navBar"
-                    android:layout_above="@id/tabBar"
-                    android:layout_centerInParent="true"
-                    android:id="@+id/textureViewBoss"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-<!--    </RelativeLayout>-->
+    <org.webrtc.TextureViewRenderer
+        android:id="@+id/textureViewBoss"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/tabBar"
+        android:layout_below="@id/navBar"
+        android:layout_centerInParent="true" />
+
+    <RelativeLayout
+        android:gravity="center"
+        android:id="@+id/screenRelative"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <org.webrtc.TextureViewRenderer
+        android:id="@+id/textureViewBossScreen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/tabBar"
+        android:layout_below="@id/navBar"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+    <!--    </RelativeLayout>-->
 
 
     <!--     <androidx.recyclerview.widget.RecyclerView-->
@@ -60,18 +74,17 @@
         android:layout_height="160dp"
         android:layout_above="@id/tabBar"
         android:layout_marginStart="@dimen/marginPrimary"
-        android:layout_marginLeft="@dimen/marginPrimary"
         android:layout_marginBottom="@dimen/marginPrimary" />
 
 
-       <!--<FrameLayout
-           android:id="@+id/frameLayout"
-           android:layout_width="90dp"
-           android:layout_height="160dp"
-           android:layout_above="@id/tabBar"
-           android:layout_marginStart="@dimen/marginPrimary"
-           android:layout_marginLeft="@dimen/marginPrimary"
-           android:layout_marginBottom="@dimen/marginPrimary" />-->
+    <!--<FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="90dp"
+        android:layout_height="160dp"
+        android:layout_above="@id/tabBar"
+        android:layout_marginStart="@dimen/marginPrimary"
+        android:layout_marginLeft="@dimen/marginPrimary"
+        android:layout_marginBottom="@dimen/marginPrimary" />-->
 
     <include
         layout="@layout/layout_member"
@@ -86,22 +99,22 @@
         android:layout_height="match_parent"
         android:layout_marginTop="100dp"
         android:visibility="gone" />
-<!--
-    <ScrollView
-        android:id="@+id/logScroll"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/tabBar"
-        android:layout_below="@id/navBar">
-
-        <TextView
-            android:id="@+id/logText"
+    <!--
+        <ScrollView
+            android:id="@+id/logScroll"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:textColor="@color/black"
-            android:textSize="@dimen/textSizeM" />
-    </ScrollView>-->
+            android:layout_above="@id/tabBar"
+            android:layout_below="@id/navBar">
+
+            <TextView
+                android:id="@+id/logText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textSizeM" />
+        </ScrollView>-->
 
 </RelativeLayout>

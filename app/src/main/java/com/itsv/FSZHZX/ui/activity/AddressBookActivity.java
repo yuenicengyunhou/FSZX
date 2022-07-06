@@ -3,6 +3,7 @@ package com.itsv.FSZHZX.ui.activity;
 import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -64,8 +65,12 @@ public class AddressBookActivity extends MyBaseMvpActivity<AddressBookActivity, 
     @BindColor(R.color.colorPrimary)
     int colorPrimary;
 
-    private String[] types = {"姓名", "委员会", "党派", "界别"};
-    private String[] typeCodes = {"", "COMMITTEE", "PARTY", "CIRCLES"};
+
+    private final String[] types = {"姓名", "常委", "专委会", "界别"};
+    private final String[] typeCodes = {"", "standingCommittee", "COMMITTEE", "CIRCLES"};
+//    private final String[] types = {"姓名", "委员会", "党派"};//"界别"
+//    private final String[] typeCodes = {"", "COMMITTEE", "PARTY"};//, "CIRCLES"
+
     private AddressBookPre presenter;
     private List<GroupBaseModel.DataBean> jieciList;
     private List<GroupListModel.DataBean> list;
@@ -74,6 +79,7 @@ public class AddressBookActivity extends MyBaseMvpActivity<AddressBookActivity, 
     private int typePosition;
     private ContactAdapter adapter;
     private GroupListAdapter groupListAdapter;
+//    private GroupBaseModel.DataBean mZXJG;
 
     @NonNull
     @Override
@@ -94,7 +100,7 @@ public class AddressBookActivity extends MyBaseMvpActivity<AddressBookActivity, 
         presenter.selectGroupBase();
         tvTitle.setText(addressBook);
         list = new ArrayList<>();
-        groupListAdapter = new GroupListAdapter(list,this);
+        groupListAdapter = new GroupListAdapter(list, this);
         expandableListView.setAdapter(groupListAdapter);
         initEdit();
         initSwipeRefresh();
@@ -121,7 +127,7 @@ public class AddressBookActivity extends MyBaseMvpActivity<AddressBookActivity, 
             @Override
             public void afterTextChanged(Editable editable) {
                 String editContent = getEditContent();
-                presenter.querySimpleNameList(String.valueOf(jieciList.get(numPosition).getId()), editContent, "");
+                presenter.querySimpleNameList(String.valueOf(jieciList.get(numPosition).getId()), editContent, "","");
             }
         });
     }
@@ -135,24 +141,37 @@ public class AddressBookActivity extends MyBaseMvpActivity<AddressBookActivity, 
         recycler.setLayoutManager(layoutManager);
         sideBar.setTextView(dialog);
         sideBar.setOnTouchingLetterChangedListener(s -> {
-            int position = adapter.getPositionForSection(s.charAt(0));
-            if (position != -1) {
-                layoutManager.scrollToPositionWithOffset(position, 0);
+            if (null != s) {
+                int position = adapter.getPositionForSection(s.charAt(0));
+                if (position != -1) {
+                    layoutManager.scrollToPositionWithOffset(position, 0);
+                }
             }
         });
     }
 
+    /**
+     * 政协机关只能按照姓名检索
+     */
     @Override
     public void initSpinner(List<GroupBaseModel.DataBean> list, String[] array) {
-        jieciList = list;
+        jieciList = list;//完整的界次列表
         //请求完界次之后获取姓名列表
-        presenter.querySimpleNameList(String.valueOf(list.get(numPosition).getId()), typeCodes[typePosition], "");
+        presenter.querySimpleNameList(String.valueOf(list.get(numPosition).getId()), typeCodes[typePosition], "","");
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, array);
         spinnerNumber.setAdapter(adapter);
         spinnerNumber.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (numPosition == i) return;
+                GroupBaseModel.DataBean dataBean = jieciList.get(i);
+                String id = dataBean.getId();
+                if (!id.equals("1474307696236535810")) {//非全体委员，只能按姓名检索
+                    spinnerType.setSelection(0, true);
+                    spinnerType.setEnabled(false);
+                } else {
+                    spinnerType.setEnabled(true);
+                }
                 numPosition = i;
                 queryListBySpinner();
             }
@@ -168,6 +187,18 @@ public class AddressBookActivity extends MyBaseMvpActivity<AddressBookActivity, 
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == typePosition) return;
+//                if (i != 0) {
+//                    int position = spinnerNumber.getSelectedItemPosition();
+//                    if (jieciList.get(position).getParameter().equals("政协机关")) {
+//                        jieciList.remove(position);
+//                        adapter.remove("政协机关");
+//                    }
+//                } else {
+//                    if (!jieciList.contains(zxjgBean)) {
+//                        jieciList.add(zxjgBean);
+//                        adapter.add("政协机关");
+//                    }
+//                }
                 typePosition = i;
                 queryListBySpinner();
             }
@@ -231,7 +262,9 @@ public class AddressBookActivity extends MyBaseMvpActivity<AddressBookActivity, 
     @Override
     public void queryListBySpinner() {
         if (typePosition == 0) {
-            presenter.querySimpleNameList(String.valueOf(jieciList.get(numPosition).getId()), "", "");
+            presenter.querySimpleNameList(String.valueOf(jieciList.get(numPosition).getId()), "", "","");
+        } else if (typePosition == 1) {
+            presenter.querySimpleNameList(String.valueOf(jieciList.get(numPosition).getId()), "", typeCodes[typePosition],"y");
         } else {
             presenter.queryGroupedList(String.valueOf(jieciList.get(numPosition).getId()), typeCodes[typePosition]);
         }
@@ -249,9 +282,11 @@ public class AddressBookActivity extends MyBaseMvpActivity<AddressBookActivity, 
 
     @Override
     public void onRefresh() {
+        String editContent = getEditContent();
         if (typePosition == 0) {
-            String editContent = getEditContent();
-            presenter.querySimpleNameList(String.valueOf(jieciList.get(numPosition).getId()), editContent, "");
+            presenter.querySimpleNameList(String.valueOf(jieciList.get(numPosition).getId()), editContent, "","");
+        } else if (typePosition == 1) {
+            presenter.querySimpleNameList(String.valueOf(jieciList.get(numPosition).getId()),editContent, typeCodes[typePosition], "y");
         } else {
             presenter.queryGroupedList(String.valueOf(jieciList.get(numPosition).getId()), typeCodes[typePosition]);
         }
